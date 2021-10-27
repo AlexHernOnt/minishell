@@ -6,7 +6,14 @@ CC = gcc
 
 CFLAGS = -lreadline -L /Users/ahernand/.brew/opt/readline/lib -I /Users/ahernand/.brew/opt/readline/include
 
-SRCS =	srcs/files/minishell.c
+SRCS =	srcs/files/minishell.c \
+		srcs/builtins/ft_echo.c \
+		srcs/builtins/ft_pwd.c \
+		srcs/builtins/ft_env.c \
+		srcs/builtins/ft_cd.c \
+		srcs/libft/ft_strdup.c \
+		srcs/libft/ft_strlen.c
+
 
 OBJS = $(SRCS:%.c=%.o)
 
