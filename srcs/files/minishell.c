@@ -16,14 +16,16 @@ int main(int argc, char **argv, char **envp)
 		if (aux[0] == 'e' && aux[1] == 'c')
 			ft_echo(aux, 0);
 
-		if (aux[0] == 'c' && aux[1] == 'd')
+		else if (aux[0] == 'c' && aux[1] == 'd')
 			ft_cd(aux);
 
-		if (aux[0] == 'p' && aux[1] == 'w' && aux[2] == 'd')
+		else if (aux[0] == 'p' && aux[1] == 'w' && aux[2] == 'd')
 			ft_pwd();
 
-		if (aux[0] == 'e' && aux[1] == 'n' && aux[2] == 'v')
+		else if (aux[0] == 'e' && aux[1] == 'n' && aux[2] == 'v')
 			ft_env(envp);
+		else
+			printf("Comand not found\n");
 
 		rl_on_new_line();
 	}
