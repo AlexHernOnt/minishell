@@ -4,21 +4,27 @@ all: $(NAME)
 
 CC = gcc
 
-CFLAGS = -lreadline -L /Users/ahernand/.brew/opt/readline/lib -I /Users/ahernand/.brew/opt/readline/include
+CFLAGS = 
 
-SRCS =	srcs/files/minishell.c \
-		srcs/builtins/ft_echo.c \
+CFLAGS2 = -lreadline
+
+SRCS =	srcs/builtins/ft_echo.c \
 		srcs/builtins/ft_pwd.c \
 		srcs/builtins/ft_env.c \
 		srcs/builtins/ft_cd.c \
 		srcs/libft/ft_strdup.c \
 		srcs/libft/ft_strlen.c
 
+SRCS2 = srcs/files/minishell.c
 
 OBJS = $(SRCS:%.c=%.o)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $@
+objs2: $(SRCS2)
+	echo palablk
+	$(CC) $(SRCS2) -c
+
+$(NAME): $(OBJS) objs2
+	$(CC) $(CFLAGS2) $(OBJS) ./srcs/files/minishell.o -o $@
 
 test:
 	make clean
@@ -32,7 +38,7 @@ test:
 # - - - - - - - - - - - - - - - - - #
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) minishell.o
 	rm -f minishell
 
 fclean:

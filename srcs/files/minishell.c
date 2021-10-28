@@ -25,9 +25,9 @@ int main(int argc, char **argv, char **envp)
 		if (aux[0] == 'e' && aux[1] == 'n' && aux[2] == 'v')
 			ft_env(envp);
 
-//		rl_on_new_line();
+		rl_on_new_line();
 	}
-	rl_replace_line("Bienvenido!", 1);
+	//rl_replace_line("Bienvenido!", 1);
 
 	rl_redisplay();
 
