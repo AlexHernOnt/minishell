@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorion- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/31 09:08:28 by amorion-          #+#    #+#             */
-/*   Updated: 2021/07/31 11:23:58 by amorion-         ###   ########.fr       */
+/*   Created: 2021/07/30 18:49:41 by amorion-          #+#    #+#             */
+/*   Updated: 2021/07/31 10:59:43 by amorion-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(char *str)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int	i;
+	const char	*str;
+	size_t		i;
 
 	i = 0;
-	while (str[i])
+	str = s;
+	while (i < n && str[i] != c)
 		i++;
-	return (i);
+	if (i == n)
+		return (NULL);
+	return ((void *)str + i);
 }

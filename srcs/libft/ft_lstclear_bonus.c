@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorion- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/31 09:08:28 by amorion-          #+#    #+#             */
-/*   Updated: 2021/07/31 11:23:58 by amorion-         ###   ########.fr       */
+/*   Created: 2021/08/03 14:39:18 by amorion-          #+#    #+#             */
+/*   Updated: 2021/08/03 15:43:59 by amorion-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(char *str)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	int	i;
+	t_list	*ptr;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	while (*lst)
+	{
+		ptr = *lst;
+		del(ptr->content);
+		*lst = ptr->next;
+		free(ptr);
+	}
 }

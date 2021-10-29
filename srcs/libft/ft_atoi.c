@@ -1,23 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorion- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/31 09:08:28 by amorion-          #+#    #+#             */
-/*   Updated: 2021/07/31 11:23:58 by amorion-         ###   ########.fr       */
+/*   Created: 2021/07/30 18:08:45 by amorion-          #+#    #+#             */
+/*   Updated: 2021/08/02 13:29:20 by amorion-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(char *str)
+int	ft_atoi(const char *nptr)
 {
-	int	i;
+	int	n;
+	int	s;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	n = 0;
+	s = 1;
+	while (*nptr == ' ' || *nptr == '\n' || *nptr == '\t' || *nptr == '\v'
+		|| *nptr == '\f' || *nptr == '\r')
+		nptr++;
+	if (*nptr == '+' || *nptr == '-')
+	{
+		if (*nptr == '-')
+			s = -1;
+		nptr++;
+	}
+	while (*nptr <= '9' && *nptr >= '0')
+	{
+		n = n * 10 + *nptr - '0';
+		nptr++;
+	}
+	return (n * s);
 }

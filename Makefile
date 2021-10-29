@@ -10,6 +10,7 @@ CFLAGS2 = -lreadline
 
 SRCS =	srcs/builtins/ft_echo.c \
 		srcs/builtins/ft_pwd.c \
+		srcs/builtins/ft_export.c \
 		srcs/builtins/ft_env.c \
 		srcs/builtins/ft_cd.c \
 		srcs/libft/ft_strdup.c \
@@ -19,11 +20,15 @@ SRCS2 = srcs/files/minishell.c
 
 OBJS = $(SRCS:%.c=%.o)
 
-objs2: $(SRCS2)
-	echo palablk
-	$(CC) $(SRCS2) -c
+OBJS2 = $(SRCS2:%.c=%.o)
 
-$(NAME): $(OBJS) objs2
+#objs2: $(SRCS2)
+#	echo palablk
+#	$(CC) $(SRCS2) -c
+
+
+
+$(NAME): $(OBJS) $(OBJS2)
 	$(CC) $(CFLAGS2) $(OBJS) ./srcs/files/minishell.o -o $@
 
 test:

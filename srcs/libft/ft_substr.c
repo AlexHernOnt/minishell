@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorion- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/30 19:41:41 by amorion-          #+#    #+#             */
-/*   Updated: 2021/08/03 09:49:58 by amorion-         ###   ########.fr       */
+/*   Created: 2021/07/31 10:08:30 by amorion-          #+#    #+#             */
+/*   Updated: 2021/07/31 16:35:40 by amorion-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_strlen_mod(const char *s)
+static unsigned int	ft_strlen_mod(char const *s)
 {
-	int	i;
+	unsigned int	i;
 
 	i = 0;
 	while (s[i])
@@ -22,20 +22,27 @@ static int	ft_strlen_mod(const char *s)
 	return (i);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int		i;
-	char	*dest;
+	size_t	i;
+	char	*substr;
 
-	dest = malloc(sizeof(char) * ft_strlen_mod(s) + 1);
-	if (!dest)
-		return (NULL);
-	i = 0;
-	while (s[i])
+	substr = malloc(len + 1);
+	if (!substr)
+		return (0);
+	ft_bzero(substr, len + 1);
+	if (!substr)
+		return (0);
+	if (start >= ft_strlen_mod(s))
 	{
-		dest[i] = s[i];
+		*substr = '\0';
+		return (substr);
+	}
+	i = 0;
+	while (s[start + i] && i < len)
+	{
+		substr[i] = s[start + i];
 		i++;
 	}
-	dest[i] = '\0';
-	return (dest);
+	return (substr);
 }

@@ -6,7 +6,7 @@
 /*   By:          <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 15:59:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/10/27 18:03:25 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/10/29 17:58:48 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_line
 int     ft_echo(char *line, int arg_n);
 int     ft_pwd(void);
 int     ft_env(char **envp);
+char	**ft_export(char *aux, char **envp);
 int 	ft_cd(char *dir);
 
 /*
