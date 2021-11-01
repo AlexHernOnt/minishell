@@ -1,5 +1,7 @@
 NAME = minishell
 
+LIBFT = srcs/libft/libft.a
+
 all: $(NAME)
 
 CC = gcc
@@ -11,10 +13,9 @@ CFLAGS2 = -lreadline
 SRCS =	srcs/builtins/ft_echo.c \
 		srcs/builtins/ft_pwd.c \
 		srcs/builtins/ft_export.c \
+		srcs/builtins/ft_unset.c \
 		srcs/builtins/ft_env.c \
-		srcs/builtins/ft_cd.c \
-		srcs/libft/ft_strdup.c \
-		srcs/libft/ft_strlen.c
+		srcs/builtins/ft_cd.c
 
 SRCS2 = srcs/files/minishell.c
 
@@ -26,16 +27,11 @@ OBJS2 = $(SRCS2:%.c=%.o)
 #	echo palablk
 #	$(CC) $(SRCS2) -c
 
+$(LIBFT):
+	cd srcs/libft && make 
 
-
-$(NAME): $(OBJS) $(OBJS2)
-	$(CC) $(CFLAGS2) $(OBJS) ./srcs/files/minishell.o -o $@
-
-test:
-	make clean
-	make
-	@cd tester && bash test.sh
-	make clean
+$(NAME): $(OBJS) $(OBJS2) $(LIBFT)
+	$(CC) $(CFLAGS2) $(OBJS) $(LIBFT) ./srcs/files/minishell.o -o $@
 
 
 # - - - - - - - - - - - - - - - - - #
@@ -48,5 +44,8 @@ clean:
 
 fclean:
 	make clean
+	cd srcs/libft && make fclean
+	rm -f srcs/libft/libft.a
 
-re:	fclean all
+
+re:	clean all
