@@ -6,18 +6,17 @@
 /*   By: whoasked <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 17:53:50 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/01 14:23:12 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/02 17:38:36 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		ft_env(t_mini *ms)
+int	ft_env(t_mini *ms)
 {
 	int		i;
 
 	i = 0;
-  
 	while (ms->envp[i] != NULL)
 	{
 		printf("%s\n", ms->envp[i]);

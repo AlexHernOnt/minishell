@@ -6,16 +6,18 @@
 /*   By: whoasked <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:35:57 by ahernand          #+#    #+#             */
-/*   Updated: 2021/10/27 16:39:45 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/02 17:38:48 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		ft_pwd(void)
+int	ft_pwd(void)
 {
-	printf("%s\n", getcwd(NULL, 0));
+	char	*str;
 
-
+	str = getcwd(NULL, 0);
+	printf("%s\n", str);
+	free(str);
 	return (1);
 }

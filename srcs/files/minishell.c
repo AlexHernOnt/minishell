@@ -6,13 +6,13 @@
 /*   By: whoasked <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:08:23 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/01 17:53:05 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/02 17:42:21 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_leaks()
+void	ft_leaks(void)
 {
 	system("leaks minishell");
 }
@@ -35,7 +35,7 @@ char	**ft_strdup_envp(char **envp)
 	return (new_envp);
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*aux;
 	int		exit;
@@ -65,10 +65,14 @@ int main(int argc, char **argv, char **envp)
 				printf("-minishell: %s: Comand not found\n", aux);
 
 		add_history(aux);
+		free(aux);
 		rl_on_new_line();
 	}
 	//rl_replace_line("Bienvenido!", 1);
+	rl_clear_history();
+	ft_free_ms_envp(&ms);
 
+	atexit(ft_leaks);
 	rl_redisplay();
 	return (0);
 }

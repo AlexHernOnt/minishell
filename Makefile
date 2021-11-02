@@ -8,13 +8,14 @@ CC = gcc
 
 CFLAGS = 
 
-CFLAGS2 = -lreadline
+CFLAGS2 = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
 
 SRCS =	srcs/builtins/ft_echo.c \
 		srcs/builtins/ft_pwd.c \
 		srcs/builtins/ft_export.c \
 		srcs/builtins/ft_unset.c \
 		srcs/builtins/ft_env.c \
+		srcs/builtins/ft_error.c \
 		srcs/builtins/ft_cd.c
 
 SRCS2 = srcs/files/minishell.c

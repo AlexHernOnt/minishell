@@ -6,15 +6,15 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 17:21:48 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/01 17:56:37 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/02 17:40:01 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void    ft_free_ms_envp(t_mini *ms)
+void	ft_free_ms_envp(t_mini *ms)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (ms->envp[i] != NULL)
@@ -35,7 +35,7 @@ size_t	ft_strlen_dp(char **s)
 	return (i);
 }
 
-int		ft_check_equal(char *str)
+int	ft_check_equal(char *str)
 {
 	int		i;
 
@@ -43,11 +43,12 @@ int		ft_check_equal(char *str)
 	while (str[i] != '\0' && str[i] != '=' && ft_isascii(str[i]))
 		i++;
 	if (str[i] == '=' && i != 0)
-			return (1);
+		return (1);
 	return (0);
 }
 
-//	HEY YOU!, listen, u only can pass this function individual strings, with no spaces,
+//	HEY YOU!, listen
+//	u only can pass this function individual strings, with no spaces,
 //	split them and send them first 
 //	pq "export AAA=1 BBB=2 CCC=3"
 
@@ -61,7 +62,7 @@ int	ft_export(t_mini *ms, char *aux)
 	if (!ft_check_equal(aux + 7))
 		return (-1);
 	str = ft_strdup(aux + 7);
-	new_envp = malloc(sizeof(char**) * ft_strlen_dp(ms->envp) + 2);
+	new_envp = malloc(sizeof(char **) * ft_strlen_dp(ms->envp) + 2);
 	if (!new_envp)
 		return (-1);
 	while (ms->envp[i] != NULL)
