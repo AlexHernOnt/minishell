@@ -56,6 +56,7 @@ void	ft_lineadd_back(t_line **lst, t_line *new);
 t_line	*ft_linenew(void *content, int type);
 int		ft_check_closed(char *line, char q);
 int		ft_quotes(char *line);
+void	ft_expansor(t_line *line);
 
 /*
 **		ft_error
