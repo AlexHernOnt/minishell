@@ -6,17 +6,19 @@
 /*   By: amorion- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 16:32:17 by amorion-          #+#    #+#             */
-/*   Updated: 2021/10/28 16:32:19 by amorion-         ###   ########.fr       */
+/*   Updated: 2021/11/08 17:16:27 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/* Se le pasa la posición en la que se está leyendo la línea y devuelve la 
-longitud del primer elemento a separar siguendo las reglas de parseo de la 
-shell. Y todavía sin exandir las variables, que son tratadas como caracteres 
-normales. La función ignora también comillas sin cerrar y las trata como un 
-caracter normal*/
+/*
+**	Se le pasa la posición en la que se está leyendo la línea y devuelve la 
+**	longitud del primer elemento a separar siguendo las reglas de parseo de la 
+**	shell. Y todavía sin exandir las variables, que son tratadas como caracteres 
+**	normales. La función ignora también comillas sin cerrar y las trata como un 
+**	caracter normal
+*/
 
 int	get_content_len(char *line)
 {
@@ -42,7 +44,7 @@ int	get_content_len(char *line)
 	return (i);
 }
 
-/* Devuelve el número de espacios al comienzo de line */
+//	Devuelve el número de espacios al comienzo de line
 
 int	ft_ispace(char *line)
 {
@@ -54,9 +56,15 @@ int	ft_ispace(char *line)
 	return (i);
 }
 
-/* Selecciona el tipo de un elemento de la lista dado 
-(De momento está así para poder hacer pruebas) luego habrá que decidir los
-tipos*/
+/*
+	Selecciona el tipo de un elemento de la lista dado 
+	(De momento está así para poder hacer pruebas) luego habrá que decidir los
+	tipos.
+
+	exe nuestro,
+	exe suyo,
+	
+*/
 
 int	ft_get_type(char *line)
 {
@@ -108,23 +116,25 @@ t_line	*ft_parse(char *line)
 	return (list_line);
 }
 
-/*int main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	t_line *list;
 	t_line *ptr;
 	char *str;
+
 	(void)argc;
 	(void)argv;
 	str = "Hola esto | $usdghgs tiene <<comillas simples'con espacios pipes | y un operador >>  >y variable $test dentro' y con comillas dobles\"como estas $test $test\" ";
+	printf("%s\n\n", str);
 	list = ft_parse(str);
-	while(list)
+	while (list)
 	{
-		printf("%s\n", list->content);
+		printf("Content: _%s_\t\t : Type %d\n", list->content, list->type);
 		ptr = list->next;
 		free(list->content);
 		free(list);
 		list = ptr;
 	}
-	system("leaks a.out");
+//	system("leaks a.out");
 	return(0);
-}*/
+}

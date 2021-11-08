@@ -15,7 +15,8 @@ SRCS =	srcs/builtins/ft_echo.c \
 		srcs/builtins/ft_export.c \
 		srcs/builtins/ft_unset.c \
 		srcs/builtins/ft_env.c \
-		srcs/builtins/ft_error.c \
+		srcs/files/ft_error.c \
+		srcs/files/ft_exe.c \
 		srcs/builtins/ft_cd.c
 
 SRCS2 = srcs/files/minishell.c
