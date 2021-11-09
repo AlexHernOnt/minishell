@@ -66,9 +66,63 @@ int	ft_ispace(char *line)
 	
 */
 
-int	ft_get_type(char *line)
+/* Recorre la lista asignando un tipo a cada elemento
+tipos:
+0 = infile/pwd
+1 = <
+2 = <<
+3 = comand
+4 = argument
+5 = |
+6 = >
+7 = >>
+8 Outfile*/
+int ft_is_operator(t_line *ptr)
 {
-	(void)line;
+	if (ptr->content[0] == '<' || ptr->content[0] == '>' || ptr->content[0] == '|')
+		return (1);
+	return (0);
+}
+
+int	ft_get_type(t_line *line)
+{
+	t_line *ptr;
+
+	ptr = line;
+	while(ptr)
+	{
+		//printf("content: %s\n", ptr->content);
+		if(ptr->content[0] == '<')
+		{
+			ptr->next->type = 0;
+			if (ptr->content[1] == '<')
+				ptr->type = 2;
+			else if(ptr->content[1] == 0) 
+				ptr->type = 1;
+		}
+		if (ptr->content[0] == '|')
+			ptr->type = 5;
+		if (ptr->content[0] == '>')
+		{
+			ptr->next->type = 8;
+			if (ptr->content[1] == '>')
+				ptr->type = 7;
+			else if(ptr->content[1] == 0)
+				ptr->type = 7;
+		}
+		if (ptr->type == -1)
+		{
+			ptr->type = 3;
+			ptr = ptr->next;
+			while(ptr && !ft_is_operator(ptr))
+			{
+				ptr->type = 4;
+				ptr = ptr->next;
+			}
+		}
+		else
+			ptr = ptr->next;
+	}
 	return (0);
 }
 
@@ -86,7 +140,7 @@ PENDIENTE DE SOLUCIÓN:
 	necesario
 	*Demmasiado larga, el while pasa a ser otra función ft_get_line*/
 
-t_line	*ft_parse(char *line)
+t_line *ft_parse(char *line, t_mini *ms)
 {
 	t_line	*list_line;
 	int		len;
@@ -94,7 +148,7 @@ t_line	*ft_parse(char *line)
 	char	*tmp;
 
 	if (!line)
-		return (NULL);
+		return (NULL); // El número que sea
 	list_line = NULL;
 	i = 0;
 	while (line[i])
@@ -112,7 +166,8 @@ t_line	*ft_parse(char *line)
 		else
 			break ;
 	}
-	ft_expansor(list_line);
+	ft_expansor(list_line, ms);
+	ft_get_type(list_line);
 	return (list_line);
 }
 
@@ -124,7 +179,7 @@ int main(int argc, char **argv)
 
 	(void)argc;
 	(void)argv;
-	str = "Hola esto | $usdghgs tiene <<comillas simples'con espacios pipes | y un operador >>  >y variable $test dentro' y con comillas dobles\"como estas $test $test\" ";
+	str = "Hola esto | $usdghgs tiene a<<comillas simples'con espacios pipes | y un operador >>  >y variable $test dentro' y con comillas dobles\"como estas $test $test\" ";
 	printf("%s\n\n", str);
 	list = ft_parse(str);
 	while (list)

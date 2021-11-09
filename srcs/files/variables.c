@@ -12,38 +12,6 @@
 
 #include "../minishell.h"
 
-/* Comprueba que las comillas estén cerradas devuelve 1 si es así y 0 en caso 
-contrario*/
-
-int	ft_check_closed(char *line, char q)
-{
-	int	i;
-
-	i = 1;
-	while (line[i] && line[i] != q)
-		i++;
-	if (line[i])
-		return (1);
-	return (0);
-}
-
-/* Cuando entras aquí es porque has encontrado comillas simples que se cierran, 
-La función devielve la longitud del espacio entre comillas -1 (incluyendolas) ya
-que después la función get_content_len avanza otro valor*/
-
-int	ft_quotes(char *line)
-{
-	int	i;
-
-	i = 1;
-	while (line[i] && line[i] != 39)
-		i++;
-	return (i);
-}
-
-/* Recorre content y determina si hay variabes, excluyendo los $ entre 
-comillas simples*/
-
 int	ft_is_var(char *element)
 {
 	int	i;
@@ -64,14 +32,16 @@ int	ft_is_var(char *element)
 	}
 	return (0);
 }
+
 /* Busca la primera variable ignorando '' si la encuentra divide la cadena
 La parte inicial, es lo que hay antes del $, luego la parte central en la que
 se expande la variable y el resto de la cadena. Después une las tres parte y la 
 retorna. 
 PENDIENTE:
-	acortar para norma*/
+	acortar para norma
+	coger nuestro environment en vez de getenv*/
 
-char	*ft_expand(char *content)
+char	*ft_expand(char *content, char **envp)
 {
 	int		i;
 	int		n;
@@ -102,7 +72,7 @@ char	*ft_expand(char *content)
 				n++;
 			}
 			aux[n] = 0;
-			aux2 = getenv(aux);
+			aux2 = getenv(aux) // aquiiiiiiiiiiiiiiiiiii
 			free(aux);
 			if (aux2)
 			{
@@ -120,10 +90,10 @@ char	*ft_expand(char *content)
 }
 
 /* Recorre la lista, detecta si un elemento contiene variables y al 
-encontrar un elemento con varables las expande llaando iterativamente a 
+encontrar un elemento con varables las expande llamando iterativamente a 
 ft_expand mientras queden, retorna la nueva cadena*/
 
-void	ft_expansor(t_line *line)
+void	ft_expansor(t_line *line, t_mini *ms)
 {
 	t_line	*ptr;
 
@@ -132,7 +102,7 @@ void	ft_expansor(t_line *line)
 	{
 		while (ft_is_var(ptr->content))
 		{
-			ptr->content = ft_expand(ptr->content);
+			ptr->content = ft_expand(ptr->content, ms->envp);
 		}
 		ptr = ptr->next;
 	}

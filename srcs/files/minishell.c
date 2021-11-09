@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		aux = readline("minishell$ ");
-//		ft_parse();
+//		ms.list = ft_parse(aux, &ms);
 		if (!ft_exe(aux, &ms))
 			break ;
 		add_history(aux);
