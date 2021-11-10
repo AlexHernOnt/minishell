@@ -6,7 +6,7 @@
 /*   By: amorion- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 16:32:17 by amorion-          #+#    #+#             */
-/*   Updated: 2021/11/08 17:16:27 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/10 15:40:52 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,19 @@ int	ft_ispace(char *line)
 	
 */
 
-/* Recorre la lista asignando un tipo a cada elemento
-tipos:
-0 = infile/pwd
-1 = <
-2 = <<
-3 = comand
-4 = argument
-5 = |
-6 = >
-7 = >>
-8 Outfile*/
+/*	Recorre la lista asignando un tipo a cada elemento
+	tipos:
+	0 = infile/pwd
+	1 = <
+	2 = <<
+	3 = comand
+	4 = argument
+	5 = |
+	6 = >
+	7 = >>
+	8 Outfile
+*/
+
 int ft_is_operator(t_line *ptr)
 {
 	if (ptr->content[0] == '<' || ptr->content[0] == '>' || ptr->content[0] == '|')
@@ -126,19 +128,21 @@ int	ft_get_type(t_line *line)
 	return (0);
 }
 
-/*Lee la línea y la transforma en una lista separándola por tipo
-(palabra variable operador...) primero obtiene la longitud del
-primer elemento, después copia el contenido de la línea en content
-y lo añade a la lista. Todo ello ignorando separadores seguidos. Seleccionando 
-el tipo de elemento que es.
-Finalmente se desplaza la longitud del elemento para comprobar el 
-siguiente.
-PENDIENTE DE SOLUCIÓN: 
+/*
+	Lee la línea y la transforma en una lista separándola por tipo
+	(palabra variable operador...) primero obtiene la longitud del
+	primer elemento, después copia el contenido de la línea en content
+	y lo añade a la lista. Todo ello ignorando separadores seguidos. Seleccionando 
+	el tipo de elemento que es.
+	Finalmente se desplaza la longitud del elemento para comprobar el 
+	siguiente.
+	PENDIENTE DE SOLUCIÓN: 
 	*recortar función del expansor para pasar la norma
 	*Reconocer los comandos (Esto dependerá de si debemos coger comandos de fuera)
 	de ser así se haría como en pipex posteriormente, por lo que no sería 
 	necesario
-	*Demmasiado larga, el while pasa a ser otra función ft_get_line*/
+	*Demmasiado larga, el while pasa a ser otra función ft_get_line
+*/
 
 t_line *ft_parse(char *line, t_mini *ms)
 {
@@ -171,6 +175,7 @@ t_line *ft_parse(char *line, t_mini *ms)
 	return (list_line);
 }
 
+/*
 int main(int argc, char **argv)
 {
 	t_line *list;
@@ -181,6 +186,7 @@ int main(int argc, char **argv)
 	(void)argv;
 	str = "Hola esto | $usdghgs tiene a<<comillas simples'con espacios pipes | y un operador >>  >y variable $test dentro' y con comillas dobles\"como estas $test $test\" ";
 	printf("%s\n\n", str);
+
 	list = ft_parse(str);
 	while (list)
 	{
@@ -193,3 +199,5 @@ int main(int argc, char **argv)
 //	system("leaks a.out");
 	return(0);
 }
+
+*/

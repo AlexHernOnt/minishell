@@ -10,14 +10,18 @@ CFLAGS =
 
 CFLAGS2 = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
 
-SRCS =	srcs/builtins/ft_echo.c \
-		srcs/builtins/ft_pwd.c \
-		srcs/builtins/ft_export.c \
-		srcs/builtins/ft_unset.c \
-		srcs/builtins/ft_env.c \
-		srcs/files/ft_error.c \
-		srcs/files/ft_exe.c \
-		srcs/builtins/ft_cd.c
+SRCS =	srcs/builtins/ft_echo.c			\
+		srcs/builtins/ft_pwd.c			\
+		srcs/builtins/ft_export.c		\
+		srcs/builtins/ft_unset.c		\
+		srcs/builtins/ft_env.c			\
+		srcs/builtins/ft_cd.c			\
+		srcs/files/ft_error.c			\
+		srcs/files/ft_exe.c				\
+		srcs/parse/parse.c				\
+		srcs/parse/line.c				\
+		srcs/parse/quotes.c				\
+		srcs/parse/variables.c
 
 SRCS2 = srcs/files/minishell.c
 
@@ -41,7 +45,7 @@ $(NAME): $(OBJS) $(OBJS2) $(LIBFT)
 # - - - - - - - - - - - - - - - - - #
 
 clean:
-	rm -f $(OBJS) minishell.o
+	rm -f $(OBJS) srcs/files/minishell.o
 	rm -f minishell
 
 fclean:

@@ -6,7 +6,7 @@
 /*   By: amorion- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 09:57:43 by amorion-          #+#    #+#             */
-/*   Updated: 2021/10/29 09:57:45 by amorion-         ###   ########.fr       */
+/*   Updated: 2021/11/10 18:01:08 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,24 @@ PENDIENTE:
 	acortar para norma
 	coger nuestro environment en vez de getenv*/
 
-char	*ft_expand(char *content, char **envp)
+
+char	*ft_getenv(char *aux, t_mini *ms)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	while (ms->envp[i] != NULL)
+	{
+		if (ft_memcmp(aux, ms->envp[i], ft_strlen(aux)) == 0
+				&& ms->envp[i][ft_strlen(aux)] == '=')
+			return (ft_strdup(ms->envp[i]) + ft_strlen(aux) + 1);
+		i++;
+	}
+	return (NULL);
+}
+
+char	*ft_expand(char *content, t_mini *ms)
 {
 	int		i;
 	int		n;
@@ -72,9 +89,9 @@ char	*ft_expand(char *content, char **envp)
 				n++;
 			}
 			aux[n] = 0;
-			aux2 = getenv(aux) // aquiiiiiiiiiiiiiiiiiii
+			aux2 = ft_getenv(aux, ms); 
 			free(aux);
-			if (aux2)
+			if (aux2)	//AAAAAAAAAaaAAAAAAAAAaaaaAAA LIBERAR AUX 2 HAAHAHAHHAAaAhahAhahah
 			{
 				free(new);
 				new = ft_strjoin(new, aux2);
@@ -102,7 +119,7 @@ void	ft_expansor(t_line *line, t_mini *ms)
 	{
 		while (ft_is_var(ptr->content))
 		{
-			ptr->content = ft_expand(ptr->content, ms->envp);
+			ptr->content = ft_expand(ptr->content, ms);
 		}
 		ptr = ptr->next;
 	}

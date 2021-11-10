@@ -6,7 +6,7 @@
 /*   By:          <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 15:59:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/08 17:54:02 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/10 15:42:20 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,12 @@ void	ft_free_ms_envp(t_mini *ms);
 **      LINE PARSING
 */
 
+t_line	*ft_parse(char *line, t_mini *ms);
 void	ft_lineadd_back(t_line **lst, t_line *new);
 t_line	*ft_linenew(void *content, int type);
 int		ft_check_closed(char *line, char q);
 int		ft_quotes(char *line);
-void	ft_expansor(t_line *line);
+void	ft_expansor(t_line *line, t_mini *ms);
 
 /*
 **		ft_error
