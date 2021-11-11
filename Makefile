@@ -17,6 +17,7 @@ SRCS =	srcs/builtins/ft_echo.c			\
 		srcs/builtins/ft_env.c			\
 		srcs/builtins/ft_cd.c			\
 		srcs/files/ft_error.c			\
+		srcs/files/ft_path.c			\
 		srcs/files/ft_exe.c				\
 		srcs/parse/parse.c				\
 		srcs/parse/line.c				\

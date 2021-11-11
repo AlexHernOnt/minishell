@@ -6,7 +6,7 @@
 /*   By:          <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 15:59:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/10 15:42:20 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/11 17:51:40 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ typedef struct s_line
 typedef struct s_mini
 {
 	char			**envp;
+
+	char			*cmd;
+	char			**args;
+
 	t_line			*list;
 }					t_mini;
 
@@ -37,12 +41,12 @@ typedef struct s_mini
 **		B U I L T   I N S
 */
 
-int		ft_echo(char *line, int arg_n);
+int		ft_echo(t_mini *ms);
 int		ft_pwd(void);
 int		ft_env(t_mini *ms);
 int		ft_export(t_mini *ms, char *aux);
 int		ft_unset(t_mini *ms, char *aux);
-int		ft_cd(char *dir);
+int		ft_cd(t_mini *ms);
 size_t	ft_strlen_dp(char **s);
 void	ft_leaks(void);
 
@@ -56,7 +60,13 @@ char	**ft_strdup_envp(char **envp);
 **		E X E
 */
 
-int	ft_exe(char *aux, t_mini *ms);
+int		ft_exe(t_mini *ms);
+int		ft_organizer(t_mini *ms);
+
+
+char    *ft_path(char *cmd, char **envp);
+
+
 
 //		Export
 
