@@ -6,24 +6,11 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 17:21:48 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/02 17:40:01 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/12 15:11:00 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	ft_free_ms_envp(t_mini *ms)
-{
-	int	i;
-
-	i = 0;
-	while (ms->envp[i] != NULL)
-	{
-		free(ms->envp[i]);
-		i++;
-	}
-	free(ms->envp);
-}
 
 size_t	ft_strlen_dp(char **s)
 {

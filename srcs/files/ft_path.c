@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_path.c                                    :+:      :+:    :+:   */
+/*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/07 16:54:19 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/11 18:22:28 by ahernand         ###   ########.fr       */
+/*   Created: 2021/11/12 14:08:04 by ahernand          #+#    #+#             */
+/*   Updated: 2021/11/12 18:15:27 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*ft_good_path(char **list_paths, char *cmd)
 	return (NULL);
 }
 
-char	*ft_path(char *cmd, char **envp)
+char	*ft_path(char **envp, char **a)
 {
 	int		i;
 	int		i_pos;
@@ -102,15 +102,18 @@ char	*ft_path(char *cmd, char **envp)
 	i_pos = ft_path_pos(envp);
 	list_paths = ft_split(envp[i_pos], ':');
 	list_paths[0] = ft_fix_first(list_paths);
-	if (ft_full_route(cmd) == -1)
-		new = ft_good_path(list_paths, cmd);
+	if (ft_full_route(a[0]) == -1)
+		new = ft_good_path(list_paths, a[0]);
 	else
-		new = ft_strdup(cmd);
+		new = ft_strdup(a[0]);
 	while (list_paths[i] != NULL)
 	{
 		free(list_paths[i]);
 		i++;
 	}
 	free(list_paths);
+	if (new == NULL)
+		return (a[0]);
+	free(a[0]);
 	return (new);
 }

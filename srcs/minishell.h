@@ -6,7 +6,7 @@
 /*   By:          <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 15:59:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/11 17:51:40 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/12 15:09:37 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,46 +31,31 @@ typedef struct s_mini
 {
 	char			**envp;
 
-	char			*cmd;
 	char			**args;
 
 	t_line			*list;
 }					t_mini;
 
 /*
-**		B U I L T   I N S
-*/
-
-int		ft_echo(t_mini *ms);
-int		ft_pwd(void);
-int		ft_env(t_mini *ms);
-int		ft_export(t_mini *ms, char *aux);
-int		ft_unset(t_mini *ms, char *aux);
-int		ft_cd(t_mini *ms);
-size_t	ft_strlen_dp(char **s);
-void	ft_leaks(void);
-
-/*
 **		M I N I S H E L L
 */
 
 char	**ft_strdup_envp(char **envp);
+void    ft_print_list(t_mini *ms);
 
 /*
 **		E X E
 */
 
-int		ft_exe(t_mini *ms);
+int		ft_pre_args(t_mini *ms);
 int		ft_organizer(t_mini *ms);
 
+int		ft_exe(t_mini *ms);
+int		ft_organizer(t_mini *ms);
+void    ft_cmd_no_built(t_mini *ms);
 
-char    *ft_path(char *cmd, char **envp);
+char    *ft_path(char **envp, char **a);
 
-
-
-//		Export
-
-void	ft_free_ms_envp(t_mini *ms);
 
 /*
 **      LINE PARSING
@@ -88,4 +73,21 @@ void	ft_expansor(t_line *line, t_mini *ms);
 */
 
 int		ft_error(int code, char *arg);
+void	ft_free_ms_envp(t_mini *ms);
+void    ft_free_ms(t_mini *ms);
+
+/*
+**		B U I L T   I N S
+*/
+
+int		ft_echo(t_mini *ms);
+int		ft_pwd(void);
+int		ft_env(t_mini *ms);
+int		ft_export(t_mini *ms, char *aux);
+int		ft_unset(t_mini *ms, char *aux);
+int		ft_cd(t_mini *ms);
+size_t	ft_strlen_dp(char **s);
+void	ft_leaks(void);
+
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 15:44:56 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/11 15:11:17 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/12 19:01:21 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,16 @@ int	ft_echo(t_mini *ms)
 {
 	int	i;
 
-	i = 0;
-	if (ms->args[0][0] == '-' && ms->args[0][1] == 'n' && ms->args[0][2] == '\n')
+	i = 1;
+
+	if (ms->args[1][2])
+		printf("asdasd\n");
+
+	if (ms->args[1][0] == '-' && ms->args[1][1] == 'n' && ms->args[1][2] == '\n')
+	{
 		i++;
+		printf("Flavia!\n");
+	}
 	while (ms->args[i] != NULL)
 	{
 		if (ms->args[i + 1] && ms->args[i + 1] == NULL)
@@ -27,7 +34,7 @@ int	ft_echo(t_mini *ms)
 			printf("%s ", ms->args[i]);
 		i++;
 	}
-	if (ms->args[0][0] != '-' && ms->args[0][1] != 'n' && ms->args[0][2] != '\n')
+	if (ms->args[1][0] != '-' && ms->args[1][1] != 'n' && ms->args[1][2] != '\n')
 		printf("\n");
 	return (1);
 }

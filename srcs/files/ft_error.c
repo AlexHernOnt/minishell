@@ -6,7 +6,7 @@
 /*   By: whoasked <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 17:12:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/08 17:38:17 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/12 15:10:38 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,3 +23,30 @@ int	ft_error(int code, char *arg)
 		printf("-minishell: unset: `%s': not a valid identifier\n", arg);
 	return (-1);
 }
+
+void	ft_free_ms(t_mini *ms)
+{
+	int	i;
+
+	i = 0;
+	while (ms->args[i] && ms->args[i] != NULL)
+	{
+		if (ms->args[i])
+			free(ms->args[i]);
+		i++;
+	}
+}
+
+void	ft_free_ms_envp(t_mini *ms)
+{
+	int	i;
+
+	i = 0;
+	while (ms->envp[i] != NULL)
+	{
+		free(ms->envp[i]);
+		i++;
+	}
+	free(ms->envp);
+}
+

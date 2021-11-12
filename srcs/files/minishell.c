@@ -6,39 +6,11 @@
 /*   By: whoasked <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:08:23 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/11 18:21:08 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/12 18:32:49 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	ft_free_ms(t_mini *ms)
-{
-	int	i;
-
-	i = 0;
-	if (ms->cmd)
-		free(ms->cmd);
-	while (ms->args[i] != NULL)
-	{
-		if (ms->args[i])
-			free(ms->args[i]);
-		i++;
-	}
-}
-
-void	ft_print_list(t_mini *ms)
-{
-	t_line  *ptr;
-
-	ptr = ms->list;
-	while (ptr != NULL)
-	{
-		printf("Content: _%s_\t\t : Type %d\n", ptr->content, ptr->type);
-		ptr = ptr->next;
-	}
-	printf("\n");
-}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -49,12 +21,19 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		aux = readline("minishell$ ");
-		ms.list = ft_parse(aux, &ms);
-//		ft_print_list(&ms);
-
-		ft_organizer(&ms);
-		ft_free_ms(&ms);
-		add_history(aux);
+		if (aux[0] != '\0')
+		{
+			ms.list = ft_parse(aux, &ms);
+		//	ft_print_list(&ms);
+			if (!ft_organizer(&ms))
+			{
+				ft_free_ms(&ms);
+				add_history(aux);
+				return(0);
+			}
+			ft_free_ms(&ms);
+			add_history(aux);
+		}
 		free(aux);
 	}
 	rl_clear_history();
@@ -84,6 +63,22 @@ char	**ft_strdup_envp(char **envp)
 	new_envp[i] = NULL;
 	return (new_envp);
 }
-//	atexit(ft_leaks);
-//	rl_on_new_line();
-//	rl_replace_line("Bienvenido!", 1);
+
+/*
+**	atexit(ft_leaks);
+**	rl_on_new_line();
+**	rl_replace_line("Bienvenido!", 1);
+*/
+
+void	ft_print_list(t_mini *ms)
+{
+	t_line  *ptr;
+
+	ptr = ms->list;
+	while (ptr != NULL)
+	{
+		printf("Content: _%s_\t\t : Type %d\n", ptr->content, ptr->type);
+		ptr = ptr->next;
+	}
+	printf("\n");
+}
