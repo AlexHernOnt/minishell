@@ -6,7 +6,7 @@
 /*   By:          <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 15:59:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/12 15:09:37 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/15 18:56:07 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <signal.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "./libft/libft.h"
@@ -31,7 +32,14 @@ typedef struct s_mini
 {
 	char			**envp;
 
+	int				o_stdin;
+
 	char			**args;
+	int				red_out;
+	int				aph_out;
+
+	char			*out_file;
+	int				fd_file_out;
 
 	t_line			*list;
 }					t_mini;
@@ -41,6 +49,7 @@ typedef struct s_mini
 */
 
 char	**ft_strdup_envp(char **envp);
+void	ft_init(t_mini *ms, char **envp);
 void    ft_print_list(t_mini *ms);
 
 /*
@@ -53,6 +62,8 @@ int		ft_organizer(t_mini *ms);
 int		ft_exe(t_mini *ms);
 int		ft_organizer(t_mini *ms);
 void    ft_cmd_no_built(t_mini *ms);
+
+int		ft_directions(t_mini *ms);
 
 char    *ft_path(char **envp, char **a);
 

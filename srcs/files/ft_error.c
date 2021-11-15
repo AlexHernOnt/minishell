@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whoasked <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 17:12:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/12 15:10:38 by ahernand         ###   ########.fr       */
+/*   Created: 2021/11/15 14:30:24 by ahernand          #+#    #+#             */
+/*   Updated: 2021/11/15 18:58:15 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ void	ft_free_ms(t_mini *ms)
 		if (ms->args[i])
 			free(ms->args[i]);
 		i++;
+	}
+	ms->red_out = 0;
+	if (ms->out_file)
+	{
+		free(ms->out_file);
+		ms->out_file = NULL;
 	}
 }
 

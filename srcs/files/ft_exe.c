@@ -30,9 +30,14 @@ int	ft_organizer(t_mini *ms)
 			ms->args[i++] = ft_strdup(ptr->content);
 		if (ptr->type == 4)
 			ms->args[i++] = ft_strdup(ptr->content);
+		if (ptr->type == 7)
+			ms->red_out = 1;
+		if (ptr->type == 8)
+			ms->out_file = ft_strdup(ptr->content);
 		ptr = ptr->next;
 	}
-	if (ms->args[0]	&& !ft_exe(ms))
+	ft_directions(ms);
+	if (ms->args[0] && !ft_exe(ms))
 		return (0);
 	return (1);
 }
@@ -54,6 +59,22 @@ int	ft_pre_args(t_mini *ms)
 	if (ms->args == NULL)
 		return (-1);
 	ms->args[i + 1] = NULL;
+	return (1);
+}
+
+/*
+**		F T _ D I R E C T I O N S 
+*/
+
+int	ft_directions(t_mini *ms)
+{
+	if (ms->red_out == 1)
+	{
+		ms->fd_file_out = open(ms->out_file, O_CREAT | O_TRUNC | O_RDWR, 0644);
+		if (ms->fd_file_out < 0)
+			return (-1);
+		dup2(ms->fd_file_out, 1);
+	}
 	return (1);
 }
 
@@ -91,10 +112,6 @@ void	ft_cmd_no_built(t_mini *ms)
 	if (id == 0)
 	{
 		ms->args[0] = ft_path(ms->envp, ms->args);
-
-		for	(int i = 0; ms->args[i] != NULL; i++)
-			printf("%s\n", ms->args[i]);
-
 		output = execve(ms->args[0], ms->args, ms->envp);
 		//free shit!
 		if (output == -1)
@@ -103,5 +120,11 @@ void	ft_cmd_no_built(t_mini *ms)
 	else if (id != 0)
 	{
 		wait(NULL);
+		if (ms->red_out == 1)
+		{
+			close(ms->fd_file_out);
+			dup2(ms->o_stdin, 1);
+			ms->red_out = 0;
+		}
 	}
 }

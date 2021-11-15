@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whoasked <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/01 15:08:23 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/12 18:32:49 by ahernand         ###   ########.fr       */
+/*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
+/*   Updated: 2021/11/15 18:56:59 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ int	main(int argc, char **argv, char **envp)
 	char	*aux;
 	t_mini	ms;
 
-	ms.envp = ft_strdup_envp(envp);
+	ft_init(&ms, envp);
 	while (1)
 	{
 		aux = readline("minishell$ ");
 		if (aux[0] != '\0')
 		{
 			ms.list = ft_parse(aux, &ms);
-		//	ft_print_list(&ms);
+//			ft_print_list(&ms);
 			if (!ft_organizer(&ms))
 			{
 				ft_free_ms(&ms);
@@ -42,9 +42,16 @@ int	main(int argc, char **argv, char **envp)
 }
 
 /*
-**	E N V
-**	_ _ _
+**	I N I T
+**	_ _ _ _
 */
+
+void	ft_init(t_mini *ms, char **envp)
+{
+	ms->envp = ft_strdup_envp(envp);
+	ms->red_out = 0;
+	ms->o_stdin = dup(1);
+}
 
 char	**ft_strdup_envp(char **envp)
 {
