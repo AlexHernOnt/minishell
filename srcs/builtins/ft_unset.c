@@ -6,7 +6,7 @@
 /*   By: whoasked <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 16:56:27 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/02 17:18:58 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/16 16:20:26 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,30 +67,26 @@ int	ft_pos_equal(char *str)
 	return (i);
 }
 
-int	ft_unset(t_mini *ms, char *aux)
+int	ft_unset(t_mini *ms)
 {
 	int		i;
-	char	*str;
 	char	*cut;
-	char	**new_envp;
 
 	i = -1;
-	str = ft_strdup(aux + 6);
-	if (ft_alpha_arr(str) == -1)
-		return (ft_error(101, str));
+	if (ft_alpha_arr(ms->args[1]) == -1)
+		return (ft_error(101, ms->args[1]));
 	while (ms->envp[++i] != NULL)
 	{
 		cut = ft_strdup(ms->envp[i]);
 		cut[ft_pos_equal(ms->envp[i])] = '\0';
-		if (ft_memcmp(cut, str, ft_strlen(str)) >= 0)
+		if (ft_memcmp(cut, ms->args[1], ft_strlen(ms->args[1])) == 0)// && cut[ft_strlen(ms->args[1])] == '\0')
 		{
-			ft_delete(ms, str, i);
-			free(str);
+			ft_delete(ms, ms->args[1], i);
 			free(cut);
 			return (1);
 		}
+
 		free(cut);
 	}
-	free(str);
 	return (0);
 }

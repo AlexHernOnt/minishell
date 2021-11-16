@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By:          <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/27 15:59:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/15 18:56:07 by ahernand         ###   ########.fr       */
+/*   Created: 2021/11/16 13:35:00 by ahernand          #+#    #+#             */
+/*   Updated: 2021/11/16 18:00:03 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,21 @@ typedef struct s_mini
 	char			**envp;
 
 	int				o_stdin;
+	int				o_stdout;
 
 	char			**args;
+
+	int				red_in;
+	char			*in_file;
+	int				fd_file_in;
+
 	int				red_out;
 	int				aph_out;
-
 	char			*out_file;
 	int				fd_file_out;
+
+	int				pipe;
+	int     		pipe_fd[2];
 
 	t_line			*list;
 }					t_mini;
@@ -66,7 +74,7 @@ void    ft_cmd_no_built(t_mini *ms);
 int		ft_directions(t_mini *ms);
 
 char    *ft_path(char **envp, char **a);
-
+void 	ft_fd_clean(t_mini *ms);
 
 /*
 **      LINE PARSING
@@ -94,8 +102,8 @@ void    ft_free_ms(t_mini *ms);
 int		ft_echo(t_mini *ms);
 int		ft_pwd(void);
 int		ft_env(t_mini *ms);
-int		ft_export(t_mini *ms, char *aux);
-int		ft_unset(t_mini *ms, char *aux);
+int		ft_export(t_mini *ms);
+int		ft_unset(t_mini *ms);
 int		ft_cd(t_mini *ms);
 size_t	ft_strlen_dp(char **s);
 void	ft_leaks(void);

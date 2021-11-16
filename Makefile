@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ahernand <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/11/16 13:35:22 by ahernand          #+#    #+#              #
+#    Updated: 2021/11/16 13:40:53 by ahernand         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell
 
 LIBFT = srcs/libft/libft.a
@@ -44,6 +56,13 @@ $(NAME): $(OBJS) $(OBJS2) $(LIBFT)
 # - - - - - - - - - - - - - - - - - #
 # - - - - C L E A N I N G - - - - - #
 # - - - - - - - - - - - - - - - - - #
+
+test:
+	make clean
+	make
+	@cd tester_cac && bash test.sh
+	make clean
+
 
 clean:
 	rm -f $(OBJS) srcs/files/minishell.o

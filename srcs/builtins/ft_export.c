@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 17:21:48 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/12 15:11:00 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/16 16:03:18 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,17 @@ int	ft_check_equal(char *str)
 
 //	HEY YOU!, listen
 //	u only can pass this function individual strings, with no spaces,
-//	split them and send them first 
+//	split them and send them 1 by 1
 //	pq "export AAA=1 BBB=2 CCC=3"
 
-int	ft_export(t_mini *ms, char *aux)
+int	ft_export(t_mini *ms)
 {
 	int		i;
-	char	*str;
 	char	**new_envp;
 
 	i = 0;
-	if (!ft_check_equal(aux + 7))
+	if (!ft_check_equal(ms->args[1]))
 		return (-1);
-	str = ft_strdup(aux + 7);
 	new_envp = malloc(sizeof(char **) * ft_strlen_dp(ms->envp) + 2);
 	if (!new_envp)
 		return (-1);
@@ -58,7 +56,7 @@ int	ft_export(t_mini *ms, char *aux)
 		i++;
 	}
 	ft_free_ms_envp(ms);
-	new_envp[i] = str;
+	new_envp[i] = ft_strdup(ms->args[1]);
 	new_envp[i + 1] = NULL;
 	ms->envp = new_envp;
 	return (1);

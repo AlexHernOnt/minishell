@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/15 18:56:59 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/16 17:45:02 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ int	main(int argc, char **argv, char **envp)
 		if (aux[0] != '\0')
 		{
 			ms.list = ft_parse(aux, &ms);
-//			ft_print_list(&ms);
+			ft_print_list(&ms);
 			if (!ft_organizer(&ms))
 			{
-				ft_free_ms(&ms);
+				//maybe later?	ft_free_ms(&ms);
 				add_history(aux);
 				return(0);
 			}
-			ft_free_ms(&ms);
+			//maybe later?	ft_free_ms(&ms);
 			add_history(aux);
 		}
 		free(aux);
@@ -42,15 +42,18 @@ int	main(int argc, char **argv, char **envp)
 }
 
 /*
-**	I N I T
-**	_ _ _ _
+**	Functions that initialize the structs
+**	_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 */
 
 void	ft_init(t_mini *ms, char **envp)
 {
 	ms->envp = ft_strdup_envp(envp);
+	ms->red_in = 0;
 	ms->red_out = 0;
+	ms->pipe = 0;
 	ms->o_stdin = dup(1);
+	ms->o_stdout = dup(0);
 }
 
 char	**ft_strdup_envp(char **envp)

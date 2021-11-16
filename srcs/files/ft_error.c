@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:30:24 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/15 18:58:15 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/16 18:04:01 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ int	ft_error(int code, char *arg)
 {
 	if (code == 101)
 		printf("-minishell: unset: `%s': not a valid identifier\n", arg);
+	if (code == 105)
+		printf("Pipe failed\n");
+	if (code == 201)
+		printf("-minishell: %s: No such file or directory\n", arg);
 	return (-1);
 }
 
@@ -32,13 +36,21 @@ void	ft_free_ms(t_mini *ms)
 	while (ms->args[i] && ms->args[i] != NULL)
 	{
 		if (ms->args[i])
+		{
 			free(ms->args[i]);
+		}
 		i++;
 	}
-	ms->red_out = 0;
-	if (ms->out_file)
+	if (ms->red_out == 1)
 	{
+		ms->red_out = 0;
 		free(ms->out_file);
+		ms->out_file = NULL;
+	}
+	if (ms->red_in == 1)
+	{
+		ms->red_in = 0;
+		free(ms->in_file);
 		ms->out_file = NULL;
 	}
 }
