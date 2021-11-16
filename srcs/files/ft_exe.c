@@ -42,7 +42,7 @@ int	ft_organizer(t_mini *ms)
 	return (1);
 }
 
-int	ft_pre_args(t_mini *ms)
+int	ft_pre_args(t_mini *ms) 
 {
 	t_line	*ptr;
 	int		i;
@@ -51,14 +51,14 @@ int	ft_pre_args(t_mini *ms)
 	ptr = ms->list;
 	while (ptr != NULL)
 	{
-		if (ptr->type == 4)
+		if (ptr->type == 4 || ptr->type == 3)
 			i++;
 		ptr = ptr->next;
 	}
-	ms->args = malloc(sizeof(char *) * (i + 2));
+	ms->args = malloc(sizeof(char *) * (i + 1)); // Antes +2
 	if (ms->args == NULL)
 		return (-1);
-	ms->args[i + 1] = NULL;
+	ms->args[i] = NULL; // Cambios he quuitado el +1
 	return (1);
 }
 
