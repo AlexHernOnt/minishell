@@ -28,12 +28,13 @@ int	get_content_len(char *line)
 	while (line[i] && line[i] != ' ' && line[i] != '\t')
 	{
 		if (line[i] == '\'' && ft_check_closed(&line[i], '\''))
-			i += ft_quotes(&line[i]);
+			i += ft_quotes(&line[i], '\'');
 		if (line[i] == '\"' && ft_check_closed(&line[i], '\"'))
-			i += ft_quotes(&line[i]);
+			i += ft_quotes(&line[i], '\"');
+		
 		if (i > 0 && (line[i] == '<' || line[i] == '>' || line[i] == '|'))
 			return (i);
-		else if (line[i] == '<' || line[i] == '>')
+		if (line[i] == '<' || line[i] == '>')
 		{
 			if (line[i + 1] == line[i])
 				return (2);
@@ -93,10 +94,10 @@ int	ft_get_type(t_line *line)
 	ptr = line;
 	while(ptr)
 	{
-		//printf("content: %s\n", ptr->content);
 		if(ptr->content[0] == '<')
 		{
-			ptr->next->type = 0;
+			if (ptr->next)
+				ptr->next->type = 0;
 			if (ptr->content[1] == '<')
 				ptr->type = 2;
 			else if(ptr->content[1] == 0) 
@@ -106,11 +107,12 @@ int	ft_get_type(t_line *line)
 			ptr->type = 5;
 		if (ptr->content[0] == '>')
 		{
-			ptr->next->type = 8;
+			if (ptr->next)
+				ptr->next->type = 8;
 			if (ptr->content[1] == '>')
 				ptr->type = 7;
 			else if(ptr->content[1] == 0)
-				ptr->type = 7;
+				ptr->type = 6;
 		}
 		if (ptr->type == -1)
 		{
@@ -152,7 +154,7 @@ t_line *ft_parse(char *line, t_mini *ms)
 	char	*tmp;
 
 	if (!line)
-		return (NULL); // El número que sea
+		return (NULL);
 	list_line = NULL;
 	i = 0;
 	while (line[i])

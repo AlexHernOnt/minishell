@@ -18,12 +18,12 @@ int	ft_check_closed(char *line, char q)
 La función devielve la longitud del espacio entre comillas -1 (incluyendolas) ya
 que después la función get_content_len avanza otro valor*/
 
-int	ft_quotes(char *line)
+int	ft_quotes(char *line, char c)
 {
 	int	i;
 
 	i = 1;
-	while (line[i] && line[i] != 39)
+	while (line[i] && line[i] != c)
 		i++;
 	return (i);
 }

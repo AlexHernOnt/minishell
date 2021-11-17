@@ -84,7 +84,7 @@ t_line	*ft_parse(char *line, t_mini *ms);
 void	ft_lineadd_back(t_line **lst, t_line *new);
 t_line	*ft_linenew(void *content, int type);
 int		ft_check_closed(char *line, char q);
-int		ft_quotes(char *line);
+int		ft_quotes(char *line, char c);
 void	ft_expansor(t_line *line, t_mini *ms);
 
 /*
