@@ -6,7 +6,7 @@
 #    By: ahernand <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 13:35:22 by ahernand          #+#    #+#              #
-#    Updated: 2021/11/16 13:40:53 by ahernand         ###   ########.fr        #
+#    Updated: 2021/11/17 13:14:22 by ahernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS =	srcs/builtins/ft_echo.c			\
 		srcs/files/ft_error.c			\
 		srcs/files/ft_path.c			\
 		srcs/files/ft_exe.c				\
+		srcs/files/ft_organizer.c		\
 		srcs/parse/parse.c				\
 		srcs/parse/line.c				\
 		srcs/parse/quotes.c				\
