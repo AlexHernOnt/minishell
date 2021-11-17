@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:35:00 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/16 18:00:03 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:02:24 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_mini
 
 	int				pipe;
 	int     		pipe_fd[2];
+	
+	t_line			*pos_list;
 
 	t_line			*list;
 }					t_mini;

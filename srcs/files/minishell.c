@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/16 17:45:02 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:02:18 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **envp)
 		if (aux[0] != '\0')
 		{
 			ms.list = ft_parse(aux, &ms);
-			ft_print_list(&ms);
+//			ft_print_list(&ms);
 			if (!ft_organizer(&ms))
 			{
 				//maybe later?	ft_free_ms(&ms);
@@ -49,6 +49,7 @@ int	main(int argc, char **argv, char **envp)
 void	ft_init(t_mini *ms, char **envp)
 {
 	ms->envp = ft_strdup_envp(envp);
+	ms->pos_list = NULL;
 	ms->red_in = 0;
 	ms->red_out = 0;
 	ms->pipe = 0;

@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:30:24 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/16 18:04:01 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/17 17:35:35 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,17 @@ void	ft_free_ms(t_mini *ms)
 	int	i;
 
 	i = 0;
-	while (ms->args[i] && ms->args[i] != NULL)
+	while (ms->args[i] != NULL)
 	{
 		if (ms->args[i])
 		{
 			free(ms->args[i]);
+			ms->args[i] = NULL;
 		}
 		i++;
 	}
+	free(ms->args);
+	ms->args = NULL;
 	if (ms->red_out == 1)
 	{
 		ms->red_out = 0;
@@ -52,6 +55,13 @@ void	ft_free_ms(t_mini *ms)
 		ms->red_in = 0;
 		free(ms->in_file);
 		ms->out_file = NULL;
+	}
+	if (ms->pipe == 1)
+	{
+		dup2(ms->pipe_fd[0], 0);
+		close(ms->pipe_fd[1]);
+		dup2(ms->o_stdin, 1);
+		ms->pipe = 0;
 	}
 }
 

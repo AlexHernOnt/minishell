@@ -6,7 +6,7 @@
 /*   By: amorion- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 19:17:01 by amorion-          #+#    #+#             */
-/*   Updated: 2021/11/11 18:18:10 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/17 13:38:20 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	**ft_split(char const *s, char c)
 	char	*s2;
 
 	s2 = (char *)s;
-	printf("BBBB\n");
+	//printf("BBBB\n");
 	tab = malloc(sizeof (char *) * (ft_nword(s, c) + 1));
 	if (!tab)
 		return (0);
