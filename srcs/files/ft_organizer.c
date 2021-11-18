@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 13:13:07 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/17 18:11:21 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/18 19:10:17 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,17 @@ int	ft_organizer(t_mini *ms)
 			return (-1);
 		while (ms->pipe == 0 && ptr != NULL)
 		{
-			printf("Content: _%s_\t\t : Type %d\n", ptr->content, ptr->type);
+	//		printf("Content: _%s_\t\t : Type %d, i = %d\n\n", ptr->content, ptr->type, i);
 			//free ptr->content_out
 			if (ptr->type == 0)
 				ms->in_file = ft_strdup(ptr->content);
 			if (ptr->type == 1)
 				ms->red_in = 1;
 			if (ptr->type == 3 || ptr->type == 4)
-				ms->args[i++] = ft_strdup(ptr->content);
+			{
+				ms->args[i] = ft_strdup(ptr->content);
+				i++;
+			}
 			if (ptr->type == 5)
 				ms->pipe = 1;
 			if (ptr->type == 6)
@@ -45,15 +48,14 @@ int	ft_organizer(t_mini *ms)
 				ms->out_file = ft_strdup(ptr->content);
 			ptr = ptr->next;
 		}
-		for (int a = 0; ms->args[a] != NULL;a++)
-			printf("PENIS:   %s\n", ms->args[a]);
-		usleep(2*1000*1000);
+		i = 0;
 		if (!ft_directions(ms))
 			return (0);
 		if (ms->args[0] && !ft_exe(ms))
 			return (0);
 		ft_free_ms(ms);
 	}
+	ms->where_was_i = 0;
 	return (1);
 }
 
@@ -64,19 +66,18 @@ int	ft_pre_args(t_mini *ms)
 
 	i = 0;
 	ptr = ms->list;
-	if (ms->pos_list != NULL)
-		ptr = ms->pos_list;
+	i = ms->where_was_i;
 	while (ptr != NULL && ptr->type != 5) 
 	{
 		if (ptr->type == 4 || ptr->type == 3)
 			i++;
 		ptr = ptr->next;
 	}
-	if (ptr->type == 5)
-		ms->pos_list = ptr->next;
+	ms->where_was_i = i;
 	ms->args = malloc(sizeof(char *) * (i + 1));
 	if (ms->args == NULL)
 		return (-1);
+	printf("Penis! %d\n", i);
 	ms->args[i] = NULL;
 	return (1);
 }

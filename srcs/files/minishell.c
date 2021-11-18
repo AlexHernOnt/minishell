@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/17 18:02:18 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/18 19:06:56 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,20 @@
 int	main(int argc, char **argv, char **envp)
 {
 	char	*aux;
+	int		lock;
 	t_mini	ms;
 
+	lock = 0;
 	ft_init(&ms, envp);
-	while (1)
+	while (!lock)
 	{
 		aux = readline("minishell$ ");
 		if (aux[0] != '\0')
 		{
 			ms.list = ft_parse(aux, &ms);
-//			ft_print_list(&ms);
+	//		ft_print_list(&ms);
 			if (!ft_organizer(&ms))
-			{
-				//maybe later?	ft_free_ms(&ms);
-				add_history(aux);
-				return(0);
-			}
+				lock = 1;
 			//maybe later?	ft_free_ms(&ms);
 			add_history(aux);
 		}
@@ -49,12 +47,13 @@ int	main(int argc, char **argv, char **envp)
 void	ft_init(t_mini *ms, char **envp)
 {
 	ms->envp = ft_strdup_envp(envp);
-	ms->pos_list = NULL;
+	ms->where_was_i = 0;
 	ms->red_in = 0;
 	ms->red_out = 0;
 	ms->pipe = 0;
-	ms->o_stdin = dup(1);
-	ms->o_stdout = dup(0);
+	ms->pipe_influence = 0;
+	ms->o_stdin = dup(0);
+	ms->o_stdout = dup(1);
 }
 
 char	**ft_strdup_envp(char **envp)

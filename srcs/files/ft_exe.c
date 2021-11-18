@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:29:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/17 17:34:07 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/18 19:00:34 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 
 int	ft_exe(t_mini *ms)
 {
-	if (ms->args[0][0] == 'w' && ms->args[0][1] == 'c')
-		system("pwd > Catty");
-
 	if (ft_memcmp(ms->args[0], "echo", 4) == 0 && ms->args[0][4] == '\0')
 		ft_echo(ms);
 	else if (ft_memcmp(ms->args[0], "cd", 2) == 0 && ms->args[0][2] == '\0')
@@ -50,6 +47,10 @@ void	ft_cmd_no_built(t_mini *ms)
 	if (id == 0)
 	{
 		ms->args[0] = ft_path(ms->envp, ms->args);
+
+		for (int j = 0; ms->args[j] != NULL ;j++)
+			printf("_Period: _%s_ && %d\n", ms->args[j], j);
+
 		output = execve(ms->args[0], ms->args, ms->envp);
 		//free ms vars
 		if (output == -1)
@@ -64,12 +65,17 @@ void ft_fd_clean(t_mini *ms)
 	if (ms->red_out == 1)
 	{
 		close(ms->fd_file_out);
-		dup2(ms->o_stdin, 1);
+		dup2(ms->o_stdout, 1);
 	}
 	if (ms->red_in == 1)
 	{
 		close(ms->fd_file_in);
-		dup2(ms->o_stdout, 0);
+		dup2(ms->o_stdin, 0);
 	}
-//	if (ms->pipe_influence == 1)
+	if (ms->pipe_influence == 1)
+	{
+		dup2(ms->o_stdin, 0);
+		close(ms->pipe_fd[0]);
+		ms->pipe_influence = 0;
+	}
 }

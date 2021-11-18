@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:30:24 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/17 17:35:35 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/18 18:43:10 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@ void	ft_free_ms(t_mini *ms)
 	{
 		dup2(ms->pipe_fd[0], 0);
 		close(ms->pipe_fd[1]);
-		dup2(ms->o_stdin, 1);
+		dup2(ms->o_stdout, 1);
 		ms->pipe = 0;
+		ms->pipe_influence = 1;
 	}
 }
 
