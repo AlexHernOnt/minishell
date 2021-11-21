@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/18 19:06:56 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:58:35 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ void	ft_init(t_mini *ms, char **envp)
 	ms->where_was_i = 0;
 	ms->red_in = 0;
 	ms->red_out = 0;
+	ms->p_using = 'a';
 	ms->pipe = 0;
-	ms->pipe_influence = 0;
+	ms->p_first = 1;
+	ms->p_last = 0;
+	ms->p_done = 0;
 	ms->o_stdin = dup(0);
 	ms->o_stdout = dup(1);
 }

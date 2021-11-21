@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:29:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/18 19:00:34 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/21 18:18:49 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	ft_cmd_no_built(t_mini *ms)
 	{
 		ms->args[0] = ft_path(ms->envp, ms->args);
 
-		for (int j = 0; ms->args[j] != NULL ;j++)
-			printf("_Period: _%s_ && %d\n", ms->args[j], j);
+//		for (int j = 0; ms->args[j] != NULL ;j++)
+//			printf("_Period: _%s_ && %d\n", ms->args[j], j);
 
 		output = execve(ms->args[0], ms->args, ms->envp);
 		//free ms vars
@@ -65,17 +65,24 @@ void ft_fd_clean(t_mini *ms)
 	if (ms->red_out == 1)
 	{
 		close(ms->fd_file_out);
+		free(ms->out_file);
+		ms->out_file = NULL;
 		dup2(ms->o_stdout, 1);
+		ms->red_out = 0;
 	}
 	if (ms->red_in == 1)
 	{
 		close(ms->fd_file_in);
+		free(ms->in_file);
+		ms->out_file = NULL;
 		dup2(ms->o_stdin, 0);
+		ms->red_in = 0;
 	}
-	if (ms->pipe_influence == 1)
+	else if (ms->p_done == 1)
 	{
 		dup2(ms->o_stdin, 0);
-		close(ms->pipe_fd[0]);
-		ms->pipe_influence = 0;
+		close(ms->pipe_fd_b[0]);
+		ms->p_first = 1;
+		ms->p_done = 0;
 	}
 }

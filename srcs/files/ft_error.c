@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:30:24 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/18 18:43:10 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/21 15:05:47 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,26 +44,6 @@ void	ft_free_ms(t_mini *ms)
 	}
 	free(ms->args);
 	ms->args = NULL;
-	if (ms->red_out == 1)
-	{
-		ms->red_out = 0;
-		free(ms->out_file);
-		ms->out_file = NULL;
-	}
-	if (ms->red_in == 1)
-	{
-		ms->red_in = 0;
-		free(ms->in_file);
-		ms->out_file = NULL;
-	}
-	if (ms->pipe == 1)
-	{
-		dup2(ms->pipe_fd[0], 0);
-		close(ms->pipe_fd[1]);
-		dup2(ms->o_stdout, 1);
-		ms->pipe = 0;
-		ms->pipe_influence = 1;
-	}
 }
 
 void	ft_free_ms_envp(t_mini *ms)

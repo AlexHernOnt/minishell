@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:35:00 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/18 19:06:45 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:58:17 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,15 @@ typedef struct s_mini
 	char			*out_file;
 	int				fd_file_out;
 
+
 	int				pipe;
-	int				pipe_influence;
-	int     		pipe_fd[2];
+	int				p_first;
+	int				p_last;
+	int				p_done;
+
+	char			p_using;
+	int     		pipe_fd_a[2];
+	int     		pipe_fd_b[2];
 	
 
 	int				where_was_i;
@@ -78,6 +84,8 @@ int		ft_directions(t_mini *ms);
 
 char    *ft_path(char **envp, char **a);
 void 	ft_fd_clean(t_mini *ms);
+
+int		ft_pipes(t_mini *ms);
 
 /*
 **      LINE PARSING

@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 13:13:07 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/18 19:10:17 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/21 18:21:17 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ int	ft_organizer(t_mini *ms)
 			return (-1);
 		while (ms->pipe == 0 && ptr != NULL)
 		{
-	//		printf("Content: _%s_\t\t : Type %d, i = %d\n\n", ptr->content, ptr->type, i);
-			//free ptr->content_out
+//			printf("Content: _%s_\t\t : Type %d, i = %d\n\n", ptr->content, ptr->type, i);
 			if (ptr->type == 0)
 				ms->in_file = ft_strdup(ptr->content);
 			if (ptr->type == 1)
@@ -64,21 +63,26 @@ int	ft_pre_args(t_mini *ms)
 	t_line	*ptr;
 	int		i;
 
-	i = 0;
 	ptr = ms->list;
 	i = ms->where_was_i;
+	while (i != 0 && ptr != NULL)
+	{
+		ptr = ptr->next;
+		if (ptr->type == 4 || ptr->type == 3)
+			i--;
+	}
+	i = 0;
 	while (ptr != NULL && ptr->type != 5) 
 	{
 		if (ptr->type == 4 || ptr->type == 3)
 			i++;
 		ptr = ptr->next;
 	}
-	ms->where_was_i = i;
 	ms->args = malloc(sizeof(char *) * (i + 1));
 	if (ms->args == NULL)
 		return (-1);
-	printf("Penis! %d\n", i);
 	ms->args[i] = NULL;
+	ms->where_was_i += i;
 	return (1);
 }
 
@@ -102,11 +106,52 @@ int	ft_directions(t_mini *ms)
 			return (ft_error(201, ms->in_file));
 		dup2(ms->fd_file_in, 0);
 	}
-	if (ms->pipe == 1 && ms->red_out == 0)
+	ft_pipes(ms);
+	ms->pipe = 0;
+	return (1);
+}
+
+int	ft_pipes(t_mini *ms)
+{
+	if (ms->pipe == 1 && ms->red_out == 0 && ms->p_first == 1)
 	{
-		if (pipe(ms->pipe_fd) < 0)
+		if (pipe(ms->pipe_fd_a) < 0)
 			return (ft_error(150, NULL));
-		dup2(ms->pipe_fd[1], 1);
+		dup2(ms->pipe_fd_a[1], 1);
+		ms->p_last = 1;	
+		ms->p_first = 0;
+	}
+	else if (ms->p_last == 1 && ms->pipe == 1)
+	{
+		if (pipe(ms->pipe_fd_b) < 0)
+			return (ft_error(150, NULL));
+
+		if (ms->p_using == 'a')
+		{
+			close(ms->pipe_fd_a[1]);
+			dup2(ms->pipe_fd_a[0], 0);
+			dup2(ms->pipe_fd_b[1], 1);
+			ms->p_using = 'b';
+		}
+	}
+	else if (ms->p_last == 1)
+	{
+		system("pwd > die_idiot");
+
+		if (ms->p_using == 'b')
+		{
+			dup2(ms->pipe_fd_a[0], 0);
+			close(ms->pipe_fd_a[1]);
+		}
+		if (ms->p_using == 'b')
+		{
+			close(ms->pipe_fd_a[0]);
+			close(ms->pipe_fd_b[1]);
+			dup2(ms->pipe_fd_b[0], 0);
+		}
+		dup2(ms->o_stdout, 1);
+		ms->p_done = 1;
+		ms->p_last = 0;
 	}
 	return (1);
 }
