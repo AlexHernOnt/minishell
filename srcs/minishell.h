@@ -20,6 +20,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "./libft/libft.h"
+#include <sys/wait.h>
 
 typedef struct s_line
 {
@@ -118,6 +119,9 @@ int		ft_unset(t_mini *ms);
 int		ft_cd(t_mini *ms);
 size_t	ft_strlen_dp(char **s);
 void	ft_leaks(void);
-
-
+ /*
+ ** 	C T R L		C
+ */
+void 	ft_sighandler(int sig);
+int		ft_ctrld(char *aux, t_mini *ms);
 #endif
