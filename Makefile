@@ -32,10 +32,11 @@ SRCS =	srcs/builtins/ft_echo.c			\
 		srcs/files/ft_path.c			\
 		srcs/files/ft_exe.c				\
 		srcs/files/ft_organizer.c		\
+		srcs/files/control.c			\
 		srcs/parse/parse.c				\
 		srcs/parse/line.c				\
 		srcs/parse/quotes.c				\
-		srcs/parse/variables.c
+		srcs/parse/variables.c			\
 
 SRCS2 = srcs/files/minishell.c
 

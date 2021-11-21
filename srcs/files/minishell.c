@@ -17,24 +17,27 @@ int	main(int argc, char **argv, char **envp)
 	char	*aux;
 	int		lock;
 	t_mini	ms;
-
+	
 	lock = 0;
 	ft_init(&ms, envp);
+	//signal(SIGINT, ft_sighandler);
 	while (!lock)
 	{
-		aux = readline("minishell$ ");
+		aux = readline("minishell$");
+		if (ft_ctrld(aux, &ms))
+			break;
 		if (aux[0] != '\0')
 		{
 			ms.list = ft_parse(aux, &ms);
-	//		ft_print_list(&ms);
+	//			ft_print_list(&ms);
 			if (!ft_organizer(&ms))
 				lock = 1;
-			//maybe later?	ft_free_ms(&ms);
+	//		ft_free_ms(&ms);
 			add_history(aux);
 		}
 		free(aux);
 	}
-	rl_clear_history();
+	//rl_clear_history();
 	ft_free_ms_envp(&ms);
 	return (0);
 }
