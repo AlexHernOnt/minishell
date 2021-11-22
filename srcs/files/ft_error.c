@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:30:24 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/21 15:05:47 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/22 18:19:26 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	ft_error(int code, char *arg)
 {
 	if (code == 101)
 		printf("-minishell: unset: `%s': not a valid identifier\n", arg);
+	if (code == 102)
+		printf("-minishell: export: `%s': not a valid identifier\n", arg);
 	if (code == 105)
 		printf("Pipe failed\n");
 	if (code == 201)
@@ -53,9 +55,12 @@ void	ft_free_ms_envp(t_mini *ms)
 	i = 0;
 	while (ms->envp[i] != NULL)
 	{
+		printf("_%s_\n", ms->envp[i]);
 		free(ms->envp[i]);
+		ms->envp[i] = NULL;
 		i++;
 	}
 	free(ms->envp);
+	ms->envp = NULL;
 }
 

@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 17:21:48 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/16 16:03:18 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/22 18:12:21 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	ft_check_equal(char *str)
 	int		i;
 
 	i = 0;
+	if (ft_isalpha(str[0]) == 0 && str[0] != '_')
+		return (0);
 	while (str[i] != '\0' && str[i] != '=' && ft_isascii(str[i]))
 		i++;
 	if (str[i] == '=' && i != 0)
@@ -45,8 +47,8 @@ int	ft_export(t_mini *ms)
 	char	**new_envp;
 
 	i = 0;
-	if (!ft_check_equal(ms->args[1]))
-		return (-1);
+	if (ft_check_equal(ms->args[1]) == 0)
+		return (ft_error(102, ms->args[1]));
 	new_envp = malloc(sizeof(char **) * ft_strlen_dp(ms->envp) + 2);
 	if (!new_envp)
 		return (-1);
@@ -55,9 +57,9 @@ int	ft_export(t_mini *ms)
 		new_envp[i] = ft_strdup(ms->envp[i]);
 		i++;
 	}
-	ft_free_ms_envp(ms);
 	new_envp[i] = ft_strdup(ms->args[1]);
 	new_envp[i + 1] = NULL;
+	ft_free_ms_envp(ms);
 	ms->envp = new_envp;
 	return (1);
 }

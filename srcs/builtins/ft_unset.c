@@ -6,7 +6,7 @@
 /*   By: whoasked <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 16:56:27 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/16 16:20:26 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/22 18:18:27 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_alpha_arr(char *str)
 	return (1);
 }
 
-void	ft_delete(t_mini *ms, char *aux, int here)
+void	ft_delete(t_mini *ms, int here)
 {
 	char	**new_envp;
 	int		i;
@@ -52,7 +52,9 @@ void	ft_delete(t_mini *ms, char *aux, int here)
 			i++;
 		}
 		new_envp[i] = NULL;
+		printf("Hola\n");
 		ft_free_ms_envp(ms);
+		printf("Adios\n");
 		ms->envp = new_envp;
 	}
 }
@@ -81,11 +83,10 @@ int	ft_unset(t_mini *ms)
 		cut[ft_pos_equal(ms->envp[i])] = '\0';
 		if (ft_memcmp(cut, ms->args[1], ft_strlen(ms->args[1])) == 0)// && cut[ft_strlen(ms->args[1])] == '\0')
 		{
-			ft_delete(ms, ms->args[1], i);
+			ft_delete(ms, i);
 			free(cut);
 			return (1);
 		}
-
 		free(cut);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:29:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/21 18:18:49 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/22 15:08:32 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,10 @@ void ft_fd_clean(t_mini *ms)
 	else if (ms->p_done == 1)
 	{
 		dup2(ms->o_stdin, 0);
-		close(ms->pipe_fd_b[0]);
+		if (ms->p_using == 'a')
+			close(ms->pipe_fd_a[0]);
+		else if (ms->p_using == 'b')
+			close(ms->pipe_fd_b[0]);
 		ms->p_first = 1;
 		ms->p_done = 0;
 	}

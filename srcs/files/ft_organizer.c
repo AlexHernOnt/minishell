@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 13:13:07 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/21 18:21:17 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/22 18:04:43 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	ft_organizer(t_mini *ms)
 		ft_free_ms(ms);
 	}
 	ms->where_was_i = 0;
+	ms->p_using = 'a';
+	ms->p_b_exists = 0;
 	return (1);
 }
 
@@ -123,33 +125,51 @@ int	ft_pipes(t_mini *ms)
 	}
 	else if (ms->p_last == 1 && ms->pipe == 1)
 	{
-		if (pipe(ms->pipe_fd_b) < 0)
-			return (ft_error(150, NULL));
-
 		if (ms->p_using == 'a')
 		{
 			close(ms->pipe_fd_a[1]);
 			dup2(ms->pipe_fd_a[0], 0);
+
+			if (pipe(ms->pipe_fd_b) < 0)
+				return (ft_error(150, NULL));
+			ms->p_b_exists = 1;
+
 			dup2(ms->pipe_fd_b[1], 1);
 			ms->p_using = 'b';
+		}
+		else if (ms->p_using == 'b')
+		{
+			close(ms->pipe_fd_b[1]);
+			close(ms->pipe_fd_a[0]);
+			dup2(ms->pipe_fd_b[0], 0);
+
+			if (pipe(ms->pipe_fd_a) < 0)
+				return (ft_error(150, NULL));
+
+			dup2(ms->pipe_fd_a[1], 1);
+			ms->p_using = 'a';
 		}
 	}
 	else if (ms->p_last == 1)
 	{
-		system("pwd > die_idiot");
-
-		if (ms->p_using == 'b')
+		if (ms->p_using == 'a')
 		{
-			dup2(ms->pipe_fd_a[0], 0);
 			close(ms->pipe_fd_a[1]);
+			if (ms->p_b_exists == 1)
+				close(ms->pipe_fd_b[0]);
+
+			dup2(ms->pipe_fd_a[0], 0);
+			dup2(ms->o_stdout, 1);
 		}
-		if (ms->p_using == 'b')
+		else if (ms->p_using == 'b')
 		{
 			close(ms->pipe_fd_a[0]);
-			close(ms->pipe_fd_b[1]);
+			if (ms->p_b_exists == 1)
+				close(ms->pipe_fd_b[1]);
+
 			dup2(ms->pipe_fd_b[0], 0);
+			dup2(ms->o_stdout, 1);
 		}
-		dup2(ms->o_stdout, 1);
 		ms->p_done = 1;
 		ms->p_last = 0;
 	}

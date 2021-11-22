@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:35:00 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/21 17:58:17 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/22 14:54:04 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "./libft/libft.h"
-#include <sys/wait.h>
+# include <sys/wait.h>
 
 typedef struct s_line
 {
@@ -52,6 +52,8 @@ typedef struct s_mini
 	int				p_first;
 	int				p_last;
 	int				p_done;
+
+	int				p_b_exists;
 
 	char			p_using;
 	int     		pipe_fd_a[2];

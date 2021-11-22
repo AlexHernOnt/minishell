@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 15:44:56 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/16 14:13:53 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/22 16:11:57 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	ft_echo(t_mini *ms)
 	i = 1;
 	if (ms->args[1][0] == '-' && ms->args[1][1] == 'n' && ms->args[1][2] == '\0')
 	{
-		printf("Hello\n");
 		i++;
 	}
 	while (ms->args[i] != NULL)

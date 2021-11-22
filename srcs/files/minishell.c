@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/21 17:58:35 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/22 16:00:15 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	//signal(SIGINT, ft_sighandler);
 	while (!lock)
 	{
-		aux = readline("minishell$");
+		aux = readline("minishell$ ");
 		if (ft_ctrld(aux, &ms))
 			break;
 		if (aux[0] != '\0')
@@ -58,6 +58,7 @@ void	ft_init(t_mini *ms, char **envp)
 	ms->p_first = 1;
 	ms->p_last = 0;
 	ms->p_done = 0;
+	ms->p_b_exists = 0;
 	ms->o_stdin = dup(0);
 	ms->o_stdout = dup(1);
 }
