@@ -21,18 +21,17 @@ int	main(int argc, char **argv, char **envp)
 	lock = 0;
 //	atexit(ft_leaks);
 	ft_init(&ms, envp);
-	//signal(SIGINT, ft_sighandler);
 	while (!lock)
 	{
-		aux = readline("minishell$ ");
-//		if (ft_ctrld(aux, &ms))
-//			break;
+		aux = readline("minishell$");
+		if (ft_ctrld(aux, &ms))
+			break;
 		if (aux[0] != '\0')
 		{
 			ms.list = ft_parse(aux, &ms);
 //			ft_print_list(&ms);
 			if (!ft_organizer(&ms))
-				lock = 1;
+			lock = 1;
 			add_history(aux);
 		}
 		free(aux);
@@ -42,7 +41,6 @@ int	main(int argc, char **argv, char **envp)
 	ft_free_ms_envp(&ms);
 	return (0);
 }
-
 /*
 **	Functions that initialize the structs
 **	_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
