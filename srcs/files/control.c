@@ -25,4 +25,13 @@ int ft_ctrld(char *aux, t_mini *ms)
 
 void ft_sighandler(int sig)
 {
+    printf("\n");
+    exit(0);
+}
+void ft_sigempty(int sig)
+{
+    //printf("Cosas\n");
+    rl_on_new_line();
+    rl_replace_line("minishell$", 0);
+    rl_redisplay();
 }

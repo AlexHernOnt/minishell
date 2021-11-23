@@ -65,6 +65,13 @@ typedef struct s_mini
 }					t_mini;
 
 /*
+*	Readline.h
+*/
+extern void rl_replace_line(const char *, int);
+extern void rl_clear_history(void);
+
+
+/*
 **		M I N I S H E L L
 */
 
@@ -125,5 +132,6 @@ void	ft_leaks(void);
  ** 	C T R L		C
  */
 void 	ft_sighandler(int sig);
+void	ft_sigempty(int sig);
 int		ft_ctrld(char *aux, t_mini *ms);
 #endif

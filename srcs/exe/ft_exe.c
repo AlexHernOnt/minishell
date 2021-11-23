@@ -46,6 +46,7 @@ void	ft_cmd_no_built(t_mini *ms)
 	id = fork();
 	if (id == 0)
 	{
+		signal(SIGINT, ft_sighandler);
 		ms->args[0] = ft_path(ms->envp, ms->args);
 
 //		for (int j = 0; ms->args[j] != NULL ;j++)
