@@ -6,12 +6,12 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 13:13:07 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/23 13:37:14 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/23 19:01:54 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <sys/time.h>
+
 /*
 **		F T _ O R G A N I Z E R
 */
@@ -57,6 +57,8 @@ int	ft_organizer(t_mini *ms)
 	ms->where_was_i = 0;
 	ms->p_using = 'a';
 	ms->p_b_exists = 0;
+	dup2(ms->o_stdin, 0);
+	dup2(ms->o_stdout, 1);
 	return (1);
 }
 

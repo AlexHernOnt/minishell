@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:29:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/22 15:08:32 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:13:40 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	ft_cmd_no_built(t_mini *ms)
 	int		id;
 	int		output;
 
+	ms->ret = 0;
 	id = fork();
 	if (id == 0)
 	{
@@ -54,7 +55,10 @@ void	ft_cmd_no_built(t_mini *ms)
 		output = execve(ms->args[0], ms->args, ms->envp);
 		//free ms vars
 		if (output == -1)
+		{
+			ms->ret = 1;
 			printf("-minishell: %s: Comand not found\n", ms->args[0]);
+		}
 	}
 	else if (id != 0)
 		wait(NULL);

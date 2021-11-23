@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:35:00 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/22 14:54:04 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:59:27 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_line
 
 typedef struct s_mini
 {
+	int				ret;
+
 	char			**envp;
 
 	int				o_stdin;
@@ -67,6 +69,9 @@ typedef struct s_mini
 /*
 **		M I N I S H E L L
 */
+
+extern void rl_clear_history(void);
+
 
 char	**ft_strdup_envp(char **envp);
 void	ft_init(t_mini *ms, char **envp);

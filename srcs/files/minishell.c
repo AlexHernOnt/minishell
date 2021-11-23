@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/23 15:12:27 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/23 18:45:36 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	main(int argc, char **argv, char **envp)
 void	ft_init(t_mini *ms, char **envp)
 {
 	ms->envp = ft_strdup_envp(envp);
+	ms->ret = 0;
 	ms->where_was_i = 0;
 	ms->red_in = 0;
 	ms->red_out = 0;
