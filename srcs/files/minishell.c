@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/22 16:00:15 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/23 15:12:27 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,26 @@ int	main(int argc, char **argv, char **envp)
 	t_mini	ms;
 	
 	lock = 0;
+//	atexit(ft_leaks);
 	ft_init(&ms, envp);
 	//signal(SIGINT, ft_sighandler);
 	while (!lock)
 	{
 		aux = readline("minishell$ ");
-		if (ft_ctrld(aux, &ms))
-			break;
+//		if (ft_ctrld(aux, &ms))
+//			break;
 		if (aux[0] != '\0')
 		{
 			ms.list = ft_parse(aux, &ms);
-	//			ft_print_list(&ms);
+//			ft_print_list(&ms);
 			if (!ft_organizer(&ms))
 				lock = 1;
-	//		ft_free_ms(&ms);
 			add_history(aux);
 		}
 		free(aux);
 	}
-	//rl_clear_history();
+//	free list
+	rl_clear_history();
 	ft_free_ms_envp(&ms);
 	return (0);
 }
@@ -69,7 +70,7 @@ char	**ft_strdup_envp(char **envp)
 	int		i;
 
 	i = 0;
-	new_envp = malloc(sizeof(char *) * ft_strlen_dp(envp) + 1);
+	new_envp = malloc(sizeof(char *) * (ft_strlen_dp(envp) + 1));
 	if (new_envp == NULL)
 		return (NULL);
 	while (envp[i] != NULL)
@@ -82,7 +83,6 @@ char	**ft_strdup_envp(char **envp)
 }
 
 /*
-**	atexit(ft_leaks);
 **	rl_on_new_line();
 **	rl_replace_line("Bienvenido!", 1);
 */

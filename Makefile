@@ -6,7 +6,7 @@
 #    By: ahernand <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 13:35:22 by ahernand          #+#    #+#              #
-#    Updated: 2021/11/17 13:14:22 by ahernand         ###   ########.fr        #
+#    Updated: 2021/11/23 13:14:20 by ahernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,10 @@ SRCS =	srcs/builtins/ft_echo.c			\
 		srcs/builtins/ft_unset.c		\
 		srcs/builtins/ft_env.c			\
 		srcs/builtins/ft_cd.c			\
+		srcs/exe/ft_path.c				\
+		srcs/exe/ft_exe.c				\
+		srcs/exe/ft_organizer.c			\
 		srcs/files/ft_error.c			\
-		srcs/files/ft_path.c			\
-		srcs/files/ft_exe.c				\
-		srcs/files/ft_organizer.c		\
 		srcs/files/control.c			\
 		srcs/parse/parse.c				\
 		srcs/parse/line.c				\

@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 17:21:48 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/22 18:12:21 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:08:33 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_export(t_mini *ms)
 	i = 0;
 	if (ft_check_equal(ms->args[1]) == 0)
 		return (ft_error(102, ms->args[1]));
-	new_envp = malloc(sizeof(char **) * ft_strlen_dp(ms->envp) + 2);
+	new_envp = malloc(sizeof(char **) * (ft_strlen_dp(ms->envp) + 2));
 	if (!new_envp)
 		return (-1);
 	while (ms->envp[i] != NULL)

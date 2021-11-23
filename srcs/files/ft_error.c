@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:30:24 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/22 18:19:26 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:05:29 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_free_ms_envp(t_mini *ms)
 	i = 0;
 	while (ms->envp[i] != NULL)
 	{
-		printf("_%s_\n", ms->envp[i]);
+//		printf("_%s_\n", ms->envp[i]);
 		free(ms->envp[i]);
 		ms->envp[i] = NULL;
 		i++;

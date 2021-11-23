@@ -6,7 +6,7 @@
 /*   By: whoasked <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 16:56:27 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/22 18:18:27 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:15:14 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_delete(t_mini *ms, int here)
 	int		i;
 
 	i = 0;
-	new_envp = malloc(sizeof(char *) * ft_strlen_dp(ms->envp) - 1);
+	new_envp = malloc(sizeof(char *) * (ft_strlen_dp(ms->envp) - 1));
 	if (new_envp != NULL)
 	{
 		while (i != here)
@@ -52,9 +52,7 @@ void	ft_delete(t_mini *ms, int here)
 			i++;
 		}
 		new_envp[i] = NULL;
-		printf("Hola\n");
 		ft_free_ms_envp(ms);
-		printf("Adios\n");
 		ms->envp = new_envp;
 	}
 }
