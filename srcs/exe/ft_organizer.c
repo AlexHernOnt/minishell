@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 13:13:07 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/23 19:01:54 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/24 18:49:55 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,27 +66,31 @@ int	ft_pre_args(t_mini *ms)
 {
 	t_line	*ptr;
 	int		i;
+	int		n_p;
 
-	ptr = ms->list;
-	i = ms->where_was_i;
-	while (i != 0 && ptr != NULL)
-	{
-		ptr = ptr->next;
-		if (ptr->type == 4 || ptr->type == 3)
-			i--;
-	}
 	i = 0;
+	n_p = 0;
+	ptr = ms->list;
+
+	while (ptr != NULL && n_p != ms->where_was_i)
+	{
+ 		if (ptr->type == 5)
+			n_p++;
+		ptr = ptr->next;
+	}
+
+	ms->where_was_i++;
 	while (ptr != NULL && ptr->type != 5) 
 	{
 		if (ptr->type == 4 || ptr->type == 3)
 			i++;
 		ptr = ptr->next;
 	}
+
 	ms->args = malloc(sizeof(char *) * (i + 1));
 	if (ms->args == NULL)
 		return (-1);
 	ms->args[i] = NULL;
-	ms->where_was_i += i;
 	return (1);
 }
 
@@ -115,13 +119,15 @@ int	ft_directions(t_mini *ms)
 	return (1);
 }
 
+
 int	ft_pipes(t_mini *ms)
 {
-	if (ms->pipe == 1 && ms->red_out == 0 && ms->p_first == 1)
+	if (ms->pipe == 1 && ms->p_first == 1)
 	{
 		if (pipe(ms->pipe_fd_a) < 0)
 			return (ft_error(150, NULL));
-		dup2(ms->pipe_fd_a[1], 1);
+		if (ms->red_out != 1)
+			dup2(ms->pipe_fd_a[1], 1);
 		ms->p_last = 1;	
 		ms->p_first = 0;
 	}

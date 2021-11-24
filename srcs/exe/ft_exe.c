@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:29:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/23 17:13:40 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/24 14:31:31 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	ft_cmd_no_built(t_mini *ms)
 		if (output == -1)
 		{
 			ms->ret = 1;
+			dup2(2, 1);
 			printf("-minishell: %s: Comand not found\n", ms->args[0]);
 		}
 	}

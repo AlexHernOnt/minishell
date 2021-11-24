@@ -6,15 +6,13 @@
 /*   By: whoasked <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 16:56:27 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/23 13:15:14 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/24 13:59:03 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//	HEY YOU!, listen, u only can pass this function 
-//	individual strings, with no spaces, split them and send them first
-//	pq "unset AAA BBB CCC"
+int ft_doer_unset(t_mini *ms, int j);
 
 int	ft_alpha_arr(char *str)
 {
@@ -24,9 +22,7 @@ int	ft_alpha_arr(char *str)
 	while (str[i] != '\0')
 	{
 		if (ft_isalpha(str[i]) == 0)
-		{
 			return (-1);
-		}
 		i++;
 	}
 	return (1);
@@ -69,18 +65,33 @@ int	ft_pos_equal(char *str)
 
 int	ft_unset(t_mini *ms)
 {
+	int	j;
+
+	j = 1;
+	while (ms->args[j])
+	{
+		if (ft_doer_unset(ms, j) <= 0)
+			return (-1);
+		j++;
+	}
+	return (1);
+}
+
+int ft_doer_unset(t_mini *ms, int j)
+{
 	int		i;
 	char	*cut;
 
 	i = -1;
-	if (ft_alpha_arr(ms->args[1]) == -1)
-		return (ft_error(101, ms->args[1]));
+	if (ft_alpha_arr(ms->args[j]) == -1)
+		return (ft_error(101, ms->args[j]));
 	while (ms->envp[++i] != NULL)
 	{
 		cut = ft_strdup(ms->envp[i]);
 		cut[ft_pos_equal(ms->envp[i])] = '\0';
-		if (ft_memcmp(cut, ms->args[1], ft_strlen(ms->args[1])) == 0)// && cut[ft_strlen(ms->args[1])] == '\0')
+		if (ft_memcmp(cut, ms->args[j], ft_strlen(ms->args[j])) == 0)// && cut[ft_strlen(ms->args[1])] == '\0')
 		{
+//			printf("_%s_\n", cut);
 			ft_delete(ms, i);
 			free(cut);
 			return (1);

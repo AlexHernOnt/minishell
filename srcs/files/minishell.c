@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/23 18:45:36 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/24 18:47:37 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_init(&ms, envp);
 	while (!lock)
 	{
-		aux = readline("minishell$");
+		aux = readline("minishell$ ");
 		if (ft_ctrld(aux, &ms))
 			break;
 		if (aux[0] != '\0')
