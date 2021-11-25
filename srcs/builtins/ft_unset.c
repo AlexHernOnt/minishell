@@ -6,13 +6,11 @@
 /*   By: whoasked <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 16:56:27 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/24 13:59:03 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/25 19:14:06 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int ft_doer_unset(t_mini *ms, int j);
 
 int	ft_alpha_arr(char *str)
 {
@@ -34,7 +32,7 @@ void	ft_delete(t_mini *ms, int here)
 	int		i;
 
 	i = 0;
-	new_envp = malloc(sizeof(char *) * (ft_strlen_dp(ms->envp) - 1));
+	new_envp = malloc(sizeof(char *) * (ft_strlen_dp(ms->envp)));
 	if (new_envp != NULL)
 	{
 		while (i != here)
@@ -91,7 +89,6 @@ int ft_doer_unset(t_mini *ms, int j)
 		cut[ft_pos_equal(ms->envp[i])] = '\0';
 		if (ft_memcmp(cut, ms->args[j], ft_strlen(ms->args[j])) == 0)// && cut[ft_strlen(ms->args[1])] == '\0')
 		{
-//			printf("_%s_\n", cut);
 			ft_delete(ms, i);
 			free(cut);
 			return (1);

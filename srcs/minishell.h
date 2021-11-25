@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:35:00 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/23 17:59:27 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/25 17:02:27 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_mini
 	int				ret;
 
 	char			**envp;
+	int				export_pos;
 
 	int				o_stdin;
 	int				o_stdout;
@@ -128,8 +129,25 @@ void    ft_free_ms(t_mini *ms);
 int		ft_echo(t_mini *ms);
 int		ft_pwd(void);
 int		ft_env(t_mini *ms);
-int		ft_export(t_mini *ms);
+
+int 	ft_doer_unset(t_mini *ms, int j);
 int		ft_unset(t_mini *ms);
+int		ft_pos_equal(char *str);
+void	ft_delete(t_mini *ms, int here);
+
+
+/*
+**		Ft_export
+*/
+
+int		ft_export(t_mini *ms);
+int		ft_doer_export(t_mini *ms, int j);
+int		ft_check_equal(char *str);
+int		ft_alredy_exists(t_mini *ms, int j);
+size_t	ft_strlen_dp(char **s);
+
+
+
 int		ft_cd(t_mini *ms);
 size_t	ft_strlen_dp(char **s);
 void	ft_leaks(void);
