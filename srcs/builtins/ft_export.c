@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 17:21:48 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/25 19:13:23 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/26 14:54:33 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	ft_check_equal(char *str)
 	i = 0;
 	if (ft_isalpha(str[0]) == 0 && str[0] != '_')
 		return (0);
-	while (str[i] != '\0' && str[i] != '=' && ft_isascii(str[i]))
+	while (str[i] != '\0' && str[i] != '=' && (ft_isalnum(str[i]) || str[i] == '_'))
 		i++;
 	if (str[i] == '=' && i != 0)
 		return (1);

@@ -6,24 +6,20 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/25 17:12:33 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/26 17:49:35 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int		ft_only_spaces(char *aux);
+//	atexit(ft_leaks);
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	*aux;
-	int		lock;
 	t_mini	ms;
 	
-	lock = 0;
-//	atexit(ft_leaks);
 	ft_init(&ms, envp);
-	while (!lock)
+	while (!ms.exit)
 	{
 		aux = readline("minishell$ ");
 		if (ft_ctrld(aux, &ms))
@@ -32,8 +28,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			ms.list = ft_parse(aux, &ms);
 //			ft_print_list(&ms);
-			if (!ft_organizer(&ms))
-				lock = 1;
+			ft_organizer(&ms);
 			add_history(aux);
 		}
 		free(aux);
@@ -52,9 +47,13 @@ void	ft_init(t_mini *ms, char **envp)
 {
 	ms->envp = ft_strdup_envp(envp);
 	ms->ret = 0;
+	ms->exit = 0;
 	ms->where_was_i = 0;
 	ms->red_in = 0;
 	ms->red_out = 0;
+	ms->append = 0;
+	ms->in_file = NULL;
+	ms->out_file = NULL;
 	ms->p_using = 'a';
 	ms->pipe = 0;
 	ms->p_first = 1;

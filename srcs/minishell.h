@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:35:00 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/25 17:02:27 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/26 17:07:30 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct s_mini
 
 	char			**args;
 
+	int				append;
+
 	int				red_in;
 	char			*in_file;
 	int				fd_file_in;
@@ -61,7 +63,8 @@ typedef struct s_mini
 	char			p_using;
 	int     		pipe_fd_a[2];
 	int     		pipe_fd_b[2];
-	
+
+	int				exit;
 
 	int				where_was_i;
 	t_line			*list;
@@ -84,6 +87,7 @@ extern void rl_clear_history(void);
 char	**ft_strdup_envp(char **envp);
 void	ft_init(t_mini *ms, char **envp);
 void    ft_print_list(t_mini *ms);
+int		ft_only_spaces(char *aux);
 
 /*
 **		E X E

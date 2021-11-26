@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:29:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/24 14:31:31 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/26 16:59:12 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ int	ft_exe(t_mini *ms)
 	else if (ft_memcmp(ms->args[0], "unset", 5) == 0 && ms->args[0][5] == '\0')
 		ft_unset(ms);
 	else if (ft_memcmp(ms->args[0], "exit", 4) == 0 && ms->args[0][4] == '\0')
+	{
+		ms->exit = 1;
 		return (0);
+	}
 	else
 		ft_cmd_no_built(ms);
-	ft_fd_clean(ms);
 	return (1);
 }
 
@@ -50,14 +52,12 @@ void	ft_cmd_no_built(t_mini *ms)
 		signal(SIGINT, ft_sighandler);
 		ms->args[0] = ft_path(ms->envp, ms->args);
 
-//		for (int j = 0; ms->args[j] != NULL ;j++)
-//			printf("_Period: _%s_ && %d\n", ms->args[j], j);
-
 		output = execve(ms->args[0], ms->args, ms->envp);
 		//free ms vars
 		if (output == -1)
 		{
 			ms->ret = 1;
+			dup2(ms->o_stdout, 1);
 			dup2(2, 1);
 			printf("-minishell: %s: Comand not found\n", ms->args[0]);
 		}

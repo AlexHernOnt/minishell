@@ -6,7 +6,7 @@
 /*   By: whoasked <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 16:56:27 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/25 19:14:06 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/26 15:44:00 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ int	ft_alpha_arr(char *str)
 	int		i;
 
 	i = 0;
+	if (ft_isalpha(str[0]) == 0 && str[0] != '_')
+		return (-1);
 	while (str[i] != '\0')
 	{
-		if (ft_isalpha(str[i]) == 0)
+		if (!(ft_isalnum(str[i]) || str[i] == '_'))
 			return (-1);
 		i++;
 	}
