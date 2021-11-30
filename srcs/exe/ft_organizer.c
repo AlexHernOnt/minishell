@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 13:13:07 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/26 18:03:19 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/29 13:54:58 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,9 @@ int	ft_directions(t_mini *ms)
 	{
 		ms->fd_file_in = open(ms->in_file, O_RDWR, 0777);
 		if (ms->fd_file_in < 0)
-			return (ft_error(201, ms->in_file));
+		{
+			return (ft_error(ms, 201, ms->in_file));
+		}
 		dup2(ms->fd_file_in, 0);
 	}
 	return (1);
@@ -133,7 +135,7 @@ int	ft_pipes(t_mini *ms)
 	if (ms->pipe == 1 && ms->p_first == 1)
 	{
 		if (pipe(ms->pipe_fd_a) < 0)
-			return (ft_error(150, NULL));
+			return (ft_error(ms, 150, NULL));
 		dup2(ms->pipe_fd_a[1], 1);
 		ms->p_last = 1;	
 		ms->p_first = 0;
@@ -146,7 +148,7 @@ int	ft_pipes(t_mini *ms)
 			dup2(ms->pipe_fd_a[0], 0);
 
 			if (pipe(ms->pipe_fd_b) < 0)
-				return (ft_error(150, NULL));
+				return (ft_error(ms, 150, NULL));
 			ms->p_b_exists = 1;
 
 			dup2(ms->pipe_fd_b[1], 1);
@@ -159,7 +161,7 @@ int	ft_pipes(t_mini *ms)
 			dup2(ms->pipe_fd_b[0], 0);
 
 			if (pipe(ms->pipe_fd_a) < 0)
-				return (ft_error(150, NULL));
+				return (ft_error(ms, 150, NULL));
 
 			dup2(ms->pipe_fd_a[1], 1);
 			ms->p_using = 'a';

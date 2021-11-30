@@ -6,7 +6,7 @@
 /*   By: amorion- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 09:25:17 by amorion-          #+#    #+#             */
-/*   Updated: 2021/11/21 09:25:20 by amorion-         ###   ########.fr       */
+/*   Updated: 2021/11/30 15:00:28 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ void ft_sigempty(int sig)
 {
     //printf("Cosas\n");
     rl_on_new_line();
-    rl_replace_line("minishell$", 0);
+    rl_replace_line("minishell$ ", 0);
     rl_redisplay();
 }

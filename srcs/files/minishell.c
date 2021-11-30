@@ -6,18 +6,18 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/26 17:49:35 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/30 15:40:25 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-//	atexit(ft_leaks);
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	*aux;
 	t_mini	ms;
 	
+//	atexit(ft_leaks);
 	ft_init(&ms, envp);
 	while (!ms.exit)
 	{
@@ -27,13 +27,13 @@ int	main(int argc, char **argv, char **envp)
 		if (aux[0] != '\0' && !ft_only_spaces(aux))
 		{
 			ms.list = ft_parse(aux, &ms);
-//			ft_print_list(&ms);
+			ft_print_list(&ms);
 			ft_organizer(&ms);
+			ft_free_list(&ms);
 			add_history(aux);
 		}
 		free(aux);
 	}
-//	free list
 	rl_clear_history();
 	ft_free_ms_envp(&ms);
 	return (0);

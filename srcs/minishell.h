@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:35:00 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/26 17:07:30 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/30 15:26:34 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_line
 
 typedef struct s_mini
 {
-	int				ret;
+	int				ret;		//variable retorno $?
 
 	char			**envp;
 	int				export_pos;
@@ -88,6 +88,7 @@ char	**ft_strdup_envp(char **envp);
 void	ft_init(t_mini *ms, char **envp);
 void    ft_print_list(t_mini *ms);
 int		ft_only_spaces(char *aux);
+void	ft_free_list(t_mini *ms);
 
 /*
 **		E X E
@@ -122,7 +123,7 @@ void	ft_expansor(t_line *line, t_mini *ms);
 **		ft_error
 */
 
-int		ft_error(int code, char *arg);
+int		ft_error(t_mini *ms, int code, char *arg);
 void	ft_free_ms_envp(t_mini *ms);
 void    ft_free_ms(t_mini *ms);
 

@@ -6,7 +6,7 @@
 /*   By: whoasked <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 16:56:27 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/26 15:44:00 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/29 13:54:22 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int ft_doer_unset(t_mini *ms, int j)
 
 	i = -1;
 	if (ft_alpha_arr(ms->args[j]) == -1)
-		return (ft_error(101, ms->args[j]));
+		return (ft_error(ms, 101, ms->args[j]));
 	while (ms->envp[++i] != NULL)
 	{
 		cut = ft_strdup(ms->envp[i]);

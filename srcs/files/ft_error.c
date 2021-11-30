@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:30:24 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/23 13:05:29 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/29 13:53:02 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 void	ft_leaks(void)
 {
-	system("leaks minishell");
+	system("leaks minishell | grep bytes");
 }
 
-int	ft_error(int code, char *arg)
+int	ft_error(t_mini *ms, int code, char *arg)
 {
+	dup2(2, 1);
 	if (code == 101)
 		printf("-minishell: unset: `%s': not a valid identifier\n", arg);
 	if (code == 102)
@@ -27,6 +28,7 @@ int	ft_error(int code, char *arg)
 		printf("Pipe failed\n");
 	if (code == 201)
 		printf("-minishell: %s: No such file or directory\n", arg);
+	dup2(ms->o_stdout, 1);
 	return (-1);
 }
 
@@ -64,3 +66,17 @@ void	ft_free_ms_envp(t_mini *ms)
 	ms->envp = NULL;
 }
 
+void	ft_free_list(t_mini *ms)
+{
+	t_line		*ptr;
+	t_line		*aux;
+
+	ptr = ms->list;
+	while (ptr != NULL)
+	{
+		aux = ptr->next;
+		free(ptr->content);
+		free(ptr);
+		ptr = aux;
+	}
+}
