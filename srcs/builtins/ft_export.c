@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 17:21:48 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/29 13:54:04 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/30 18:16:13 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	ft_export(t_mini *ms)
 {
 	int		j;
-	int		pos;
 
 	j = 1;
 	while (ms->args[j])
@@ -59,7 +58,6 @@ int	ft_doer_export(t_mini *ms, int j)
 int	ft_alredy_exists(t_mini *ms, int j)
 {
 	int		i;
-	char	*new;
 	
 	i = 0;
 	while (ms->envp[i] != '\0')

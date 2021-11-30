@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:35:00 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/30 15:26:34 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/30 18:55:12 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int		ft_organizer(t_mini *ms);
 
 int		ft_exe(t_mini *ms);
 int		ft_organizer(t_mini *ms);
-void    ft_cmd_no_built(t_mini *ms);
+int		ft_cmd_no_built(t_mini *ms);
 
 int		ft_directions(t_mini *ms);
 

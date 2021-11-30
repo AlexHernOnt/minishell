@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:29:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/26 16:59:12 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/30 18:56:12 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,14 @@ int	ft_exe(t_mini *ms)
 		return (0);
 	}
 	else
-		ft_cmd_no_built(ms);
+	{
+		if (ft_cmd_no_built(ms) == -1)
+			return (0);
+	}
 	return (1);
 }
 
-void	ft_cmd_no_built(t_mini *ms)
+int	ft_cmd_no_built(t_mini *ms)
 {
 	int		id;
 	int		output;
@@ -52,18 +55,24 @@ void	ft_cmd_no_built(t_mini *ms)
 		signal(SIGINT, ft_sighandler);
 		ms->args[0] = ft_path(ms->envp, ms->args);
 
+
+		if (ms->args[0][0] && ms->args[0][0] != '.' &&
+			ms->args[0][0] != '/')
+			return (ft_error(ms, 23, ms->args[0]));
 		output = execve(ms->args[0], ms->args, ms->envp);
-		//free ms vars
 		if (output == -1)
 		{
 			ms->ret = 1;
-			dup2(ms->o_stdout, 1);
 			dup2(2, 1);
 			printf("-minishell: %s: Comand not found\n", ms->args[0]);
+			dup2(ms->o_stdout, 1);
+			exit(1);
 		}
 	}
 	else if (id != 0)
 		wait(NULL);
+	dup2(ms->o_stdout, 1);
+	return (1);
 }
 
 void ft_fd_clean(t_mini *ms)

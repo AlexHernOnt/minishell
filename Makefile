@@ -6,7 +6,7 @@
 #    By: ahernand <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 13:35:22 by ahernand          #+#    #+#              #
-#    Updated: 2021/11/30 14:56:24 by ahernand         ###   ########.fr        #
+#    Updated: 2021/11/30 18:16:51 by ahernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ all: $(NAME)
 
 CC = gcc
 
-CFLAGS = 
+CFLAGS =
 
 CFLAGS2 = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
 

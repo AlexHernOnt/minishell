@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/30 15:40:25 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/30 19:09:39 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	main(int argc, char **argv, char **envp)
 	char	*aux;
 	t_mini	ms;
 	
-//	atexit(ft_leaks);
+	atexit(ft_leaks);
 	ft_init(&ms, envp);
-	while (!ms.exit)
+	while (ms.exit == 0)
 	{
 		aux = readline("minishell$ ");
 		if (ft_ctrld(aux, &ms))
@@ -33,6 +33,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(aux);
 		}
 		free(aux);
+		aux = NULL;
 	}
 	rl_clear_history();
 	ft_free_ms_envp(&ms);

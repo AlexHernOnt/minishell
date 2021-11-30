@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 13:13:07 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/29 13:54:58 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/30 19:19:29 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 /*
 **		F T _ O R G A N I Z E R
 */
+
+int 	ft_newfile(char *ptr, int append)
+{
+	int		fd;
+
+	if (append == 1)
+		fd = open(ptr, O_CREAT | O_APPEND | O_RDWR, 0644);
+	else
+		fd = open(ptr, O_CREAT | O_TRUNC | O_RDWR, 0644);
+	close(fd);
+	return (0);
+}
 
 int	ft_organizer(t_mini *ms)
 {
@@ -33,7 +45,12 @@ int	ft_organizer(t_mini *ms)
 		{
 //			printf("Content: _%s_\t\t : Type %d, i = %d\n\n", ptr->content, ptr->type, i);
 			if (ptr->type == 0)
-				ms->in_file = ft_strdup(ptr->content);
+			{
+				if (ms->in_file != NULL)
+					ft_newfile(ptr->content);
+				else
+					ms->in_file = ft_strdup(ptr->content);
+			}
 			if (ptr->type == 1)
 				ms->red_in = 1;
 			if (ptr->type == 7)
@@ -48,7 +65,15 @@ int	ft_organizer(t_mini *ms)
 			if (ptr->type == 6 || ptr->type == 7)
 				ms->red_out = 1;
 			if (ptr->type == 8)
-				ms->out_file = ft_strdup(ptr->content);
+			{
+				if (ms->out_file != NULL)
+				{
+					if (ft_newfile(ptr->content, 0))
+						return (-1);
+				}
+				else
+					ms->out_file = ft_strdup(ptr->content);
+			}
 			ptr = ptr->next;
 		}
 		i = 0;

@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:30:24 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/29 13:53:02 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/11/30 18:56:33 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	ft_error(t_mini *ms, int code, char *arg)
 		printf("Pipe failed\n");
 	if (code == 201)
 		printf("-minishell: %s: No such file or directory\n", arg);
+	if (code == 23)
+		printf("-minishell: %s: Command not found\n", arg);
 	dup2(ms->o_stdout, 1);
 	return (-1);
 }
