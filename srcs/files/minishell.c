@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/30 19:09:39 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/01 18:09:56 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv, char **envp)
 		if (aux[0] != '\0' && !ft_only_spaces(aux))
 		{
 			ms.list = ft_parse(aux, &ms);
-			ft_print_list(&ms);
+//			ft_print_list(&ms);
 			ft_organizer(&ms);
 			ft_free_list(&ms);
 			add_history(aux);
@@ -39,6 +39,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_free_ms_envp(&ms);
 	return (0);
 }
+
 /*
 **	Functions that initialize the structs
 **	_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
@@ -57,6 +58,10 @@ void	ft_init(t_mini *ms, char **envp)
 	ms->out_file = NULL;
 	ms->p_using = 'a';
 	ms->pipe = 0;
+	ms->n_out_max = 0;
+	ms->n_out_cur = 0;
+	ms->n_in_max = 0;
+	ms->n_in_cur = 0;
 	ms->p_first = 1;
 	ms->p_last = 0;
 	ms->p_done = 0;

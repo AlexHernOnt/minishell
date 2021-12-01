@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:30:24 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/30 18:56:33 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/01 16:26:04 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_leaks(void)
 {
-	system("leaks minishell | grep bytes");
+	system("leaks minishell");// | grep bytes");
 }
 
 int	ft_error(t_mini *ms, int code, char *arg)

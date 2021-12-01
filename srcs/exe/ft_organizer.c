@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 13:13:07 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/30 19:19:29 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/01 18:16:44 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,6 @@
 /*
 **		F T _ O R G A N I Z E R
 */
-
-int 	ft_newfile(char *ptr, int append)
-{
-	int		fd;
-
-	if (append == 1)
-		fd = open(ptr, O_CREAT | O_APPEND | O_RDWR, 0644);
-	else
-		fd = open(ptr, O_CREAT | O_TRUNC | O_RDWR, 0644);
-	close(fd);
-	return (0);
-}
 
 int	ft_organizer(t_mini *ms)
 {
@@ -39,16 +27,14 @@ int	ft_organizer(t_mini *ms)
 	ptr = ms->list;
 	while (ptr != NULL && !lock)
 	{
-		if (!ft_pre_args(ms))
+		if (!ft_pre_args(ms) || file_in(ms) <= 0 || !file_out(ms))
 			return (-1);
 		while (ms->pipe == 0 && ptr != NULL)
 		{
-//			printf("Content: _%s_\t\t : Type %d, i = %d\n\n", ptr->content, ptr->type, i);
 			if (ptr->type == 0)
 			{
-				if (ms->in_file != NULL)
-					ft_newfile(ptr->content);
-				else
+				ms->n_in_cur++;
+				if (ms->n_in_cur == ms->n_in_max)
 					ms->in_file = ft_strdup(ptr->content);
 			}
 			if (ptr->type == 1)
@@ -66,12 +52,8 @@ int	ft_organizer(t_mini *ms)
 				ms->red_out = 1;
 			if (ptr->type == 8)
 			{
-				if (ms->out_file != NULL)
-				{
-					if (ft_newfile(ptr->content, 0))
-						return (-1);
-				}
-				else
+				ms->n_out_cur++;
+				if (ms->n_out_cur == ms->n_out_max)
 					ms->out_file = ft_strdup(ptr->content);
 			}
 			ptr = ptr->next;
@@ -83,6 +65,10 @@ int	ft_organizer(t_mini *ms)
 			lock = 1;
 		ft_free_ms(ms);
 		ft_fd_clean(ms);
+		ms->n_out_max = 0;
+		ms->n_out_cur = 0;
+		ms->n_in_max = 0;
+		ms->n_in_cur = 0;
 	}
 	ms->p_first = 1;
 	ms->where_was_i = 0;
@@ -90,6 +76,7 @@ int	ft_organizer(t_mini *ms)
 	ms->p_b_exists = 0;
 	dup2(ms->o_stdin, 0);
 	dup2(ms->o_stdout, 1);
+
 	ms->pipe = 0;
 	return (1);
 }

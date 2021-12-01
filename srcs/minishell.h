@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:35:00 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/30 18:55:12 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/01 18:10:39 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,16 @@ typedef struct s_mini
 
 	int				append;
 
+	int				n_in_max;
+	int				n_in_cur;
+
 	int				red_in;
 	char			*in_file;
 	int				fd_file_in;
+
+
+	int				n_out_max;
+	int				n_out_cur;
 
 	int				red_out;
 	int				aph_out;
@@ -107,6 +114,10 @@ char    *ft_path(char **envp, char **a);
 void 	ft_fd_clean(t_mini *ms);
 
 int		ft_pipes(t_mini *ms);
+
+
+int		file_in(t_mini *ms);
+int		file_out(t_mini *ms);
 
 /*
 **      LINE PARSING

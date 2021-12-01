@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:29:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/30 18:56:12 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/01 17:56:58 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,12 @@ int	ft_cmd_no_built(t_mini *ms)
 		signal(SIGINT, ft_sighandler);
 		ms->args[0] = ft_path(ms->envp, ms->args);
 
-
 		if (ms->args[0][0] && ms->args[0][0] != '.' &&
 			ms->args[0][0] != '/')
+		{
+			ms->exit = 1;
 			return (ft_error(ms, 23, ms->args[0]));
+		}
 		output = execve(ms->args[0], ms->args, ms->envp);
 		if (output == -1)
 		{
@@ -66,12 +68,12 @@ int	ft_cmd_no_built(t_mini *ms)
 			dup2(2, 1);
 			printf("-minishell: %s: Comand not found\n", ms->args[0]);
 			dup2(ms->o_stdout, 1);
-			exit(1);
+			ms->exit = 1;
 		}
 	}
 	else if (id != 0)
-		wait(NULL);
-	dup2(ms->o_stdout, 1);
+		wait(NULL);	
+
 	return (1);
 }
 
