@@ -72,8 +72,8 @@ int	ft_cmd_no_built(t_mini *ms)
 		}
 	}
 	else if (id != 0)
-		wait(NULL);	
-
+		wait(NULL);
+		signal(SIGINT, SIG_IGN);
 	return (1);
 }
 

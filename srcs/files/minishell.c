@@ -11,35 +11,63 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+/* prueba*/
+void	ft_get_input(char **aux)
+{
+	pid_t pid;
+	int status;
+
+	pid = fork();
+	if(!pid)
+	{
+		signal(SIGINT, ft_ctrlc);
+		*aux = readline("minishell$ ");
+		return;
+	}
+	else if (pid > 0)
+	{
+		waitpid(-1, &status, 0);
+		if(WEXITSTATUS(status) == EXIT_FAILURE)
+		{
+			*aux = calloc(1, 2);
+			*aux[0] = ' ';
+		}
+		return;
+	}
+	return;
+}
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*aux;
 	t_mini	ms;
-	
-	atexit(ft_leaks);
+	char *aux;
+	//atexit(ft_leaks);
 	ft_init(&ms, envp);
+	signal(SIGINT,SIG_IGN);
 	while (ms.exit == 0)
 	{
+		//ft_get_input(&aux);
 		aux = readline("minishell$ ");
+		printf("aux: %s\n", aux);
 		if (ft_ctrld(aux, &ms))
+		{
+			printf("por aquí\n");
 			break;
+		}
 		if (aux[0] != '\0' && !ft_only_spaces(aux))
 		{
 			ms.list = ft_parse(aux, &ms);
-//			ft_print_list(&ms);
+			//ft_print_list(&ms);
 			ft_organizer(&ms);
 			ft_free_list(&ms);
 			add_history(aux);
 		}
 		free(aux);
-		aux = NULL;
 	}
 	rl_clear_history();
 	ft_free_ms_envp(&ms);
 	return (0);
 }
-
 /*
 **	Functions that initialize the structs
 **	_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _

@@ -77,6 +77,7 @@ typedef struct s_mini
 	t_line			*list;
 }					t_mini;
 
+char *aux;
 /*
 *	Readline.h
 */
@@ -126,9 +127,12 @@ int		file_out(t_mini *ms);
 t_line	*ft_parse(char *line, t_mini *ms);
 void	ft_lineadd_back(t_line **lst, t_line *new);
 t_line	*ft_linenew(void *content, int type);
+t_line	*ft_linelast(t_line *lst);
 int		ft_check_closed(char *line, char q);
 int		ft_quotes(char *line, char c);
+void	ft_remove_quotes(t_line *line);
 void	ft_expansor(t_line *line, t_mini *ms);
+void	ft_remove_last_space(t_line *line);
 
 /*
 **		ft_error
@@ -171,6 +175,6 @@ void	ft_leaks(void);
  ** 	C T R L		C
  */
 void 	ft_sighandler(int sig);
-void	ft_sigempty(int sig);
+void	ft_ctrlc(int sig);
 int		ft_ctrld(char *aux, t_mini *ms);
 #endif

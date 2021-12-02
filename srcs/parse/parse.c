@@ -172,6 +172,8 @@ t_line *ft_parse(char *line, t_mini *ms)
 		else
 			break ;
 	}
+	ft_remove_last_space(list_line);
+	ft_remove_quotes(list_line);
 	ft_expansor(list_line, ms);
 	ft_get_type(list_line);
 	return (list_line);

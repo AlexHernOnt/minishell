@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quotes.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amorion- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/02 15:12:13 by amorion-          #+#    #+#             */
+/*   Updated: 2021/12/02 15:12:16 by amorion-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
 
 /* Comprueba que las comillas estén cerradas devuelve 1 si es así y 0 en caso 
 contrario*/
@@ -27,3 +40,55 @@ int	ft_quotes(char *line, char c)
 		i++;
 	return (i);
 }
+
+void	ft_remove_last_space(t_line *line)
+{
+	t_line *ptr;
+	t_line *last;
+	ptr = line;
+	last = ft_linelast(line);
+	if(!*(last->content) || *(last->content) == ' ')
+	{
+		while(ptr->next != last)
+		{
+			ptr = ptr->next;
+		}
+		ptr->next = NULL;
+	}
+}
+char	*ft_new_content(char *old)
+{
+	char *new;
+	char *aux;
+	char *ret;
+	int i;
+	
+	i = 0;
+	aux = old;
+	aux++;
+	while(aux[i] != old[0])
+		i++;
+	aux[i] = 0;
+	new = ft_strdup(aux);
+	aux = &old[i+2];
+	ret = ft_strjoin(new, aux);
+	free(new);
+	return(ret);
+}
+void	ft_remove_quotes(t_line *line)
+{
+	t_line *ptr;
+	char *new;
+	ptr = line;
+	while(ptr)
+	{
+		if(*(ptr->content) == '\"' || *(ptr->content) == '\'')
+		{
+			new = ft_new_content(ptr->content);
+			free(ptr->content);
+			ptr->content = new;
+		}
+		ptr =ptr->next; 
+	}
+}
+

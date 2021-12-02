@@ -39,3 +39,15 @@ t_line	*ft_linenew(void *content, int type)
 	nl->next = NULL;
 	return (nl);
 }
+
+t_line	*ft_linelast(t_line *lst)
+{
+	t_line	*ptr;
+
+	ptr = lst;
+	if (!ptr)
+		return (NULL);
+	while (ptr->next != NULL)
+		ptr = ptr->next;
+	return (ptr);
+}
