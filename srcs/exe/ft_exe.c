@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:29:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/01 17:56:58 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/06 16:19:37 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,12 @@ void ft_fd_clean(t_mini *ms)
 			close(ms->pipe_fd_b[0]);
 		ms->p_first = 1;
 		ms->p_done = 0;
+	}
+	if (ms->in_cs)
+	{
+		close(ms->pipe_cs[0]);	
+		free(ms->in_file);
+		ms->in_file = NULL;
+		ms->in_cs = 0;
 	}
 }

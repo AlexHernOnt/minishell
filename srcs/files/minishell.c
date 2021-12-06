@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/01 18:09:56 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/06 17:06:16 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_mini	ms;
 	char *aux;
-	//atexit(ft_leaks);
+	atexit(ft_leaks);
 	ft_init(&ms, envp);
 	signal(SIGINT,SIG_IGN);
 	while (ms.exit == 0)
 	{
 		//ft_get_input(&aux);
 		aux = readline("minishell$ ");
-		printf("aux: %s\n", aux);
+//		printf("aux: %s\n", aux);
 		if (ft_ctrld(aux, &ms))
 		{
 			printf("por aquí\n");
@@ -57,7 +57,7 @@ int	main(int argc, char **argv, char **envp)
 		if (aux[0] != '\0' && !ft_only_spaces(aux))
 		{
 			ms.list = ft_parse(aux, &ms);
-			//ft_print_list(&ms);
+//			ft_print_list(&ms);
 			ft_organizer(&ms);
 			ft_free_list(&ms);
 			add_history(aux);
@@ -82,6 +82,7 @@ void	ft_init(t_mini *ms, char **envp)
 	ms->red_in = 0;
 	ms->red_out = 0;
 	ms->append = 0;
+	ms->in_cs = 0;
 	ms->in_file = NULL;
 	ms->out_file = NULL;
 	ms->p_using = 'a';

@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:35:00 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/01 18:10:39 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/06 14:04:04 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ typedef struct s_mini
 	char			**args;
 
 	int				append;
+
+
+	int				in_cs;
+	int     		pipe_cs[2];
+
 
 	int				n_in_max;
 	int				n_in_cur;

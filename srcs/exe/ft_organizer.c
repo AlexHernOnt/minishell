@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 13:13:07 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/01 18:16:44 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/06 16:49:52 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,40 @@
 /*
 **		F T _ O R G A N I Z E R
 */
+
+int			abs_memcmp(char *arr1, char *arr2)
+{
+	int		i;
+
+	i = 0;
+	if (!arr1 || !arr2)
+		return (-1);
+	while (arr1[i] != '\0' && arr2[i] != '\0' && arr1[i] == arr2[i] && i < 10)
+		i++;
+	if (arr1[i] == '\0' && arr2[i] == '\0')
+		return (1);
+	return (0);
+}
+
+int	ft_cs(t_mini *ms)
+{
+	char	*aux;
+
+	while (abs_memcmp(aux, ms->in_file) != 1)
+	{
+		aux = readline("> ");
+		if (abs_memcmp(aux, ms->in_file) == 1)
+		{
+			free(aux);	
+			return (0);
+		}
+		write(ms->pipe_cs[1], aux, ft_strlen(aux));
+		write(ms->pipe_cs[1], "\0", 1);
+		write(ms->pipe_cs[1], "\n", 1);
+		free(aux);
+	}
+	return (0);
+}
 
 int	ft_organizer(t_mini *ms)
 {
@@ -39,6 +73,12 @@ int	ft_organizer(t_mini *ms)
 			}
 			if (ptr->type == 1)
 				ms->red_in = 1;
+			if (ptr->type == 2)
+			{
+				ms->in_cs = 1;
+				if (pipe(ms->pipe_cs) < 0)
+					return (ft_error(ms, 150, NULL));
+			}
 			if (ptr->type == 7)
 				ms->append = 1;
 			if (ptr->type == 3 || ptr->type == 4)
@@ -117,6 +157,12 @@ int	ft_pre_args(t_mini *ms)
 
 int	ft_directions(t_mini *ms)
 {
+	if (ms->in_cs)
+	{
+		ft_cs(ms);
+		close(ms->pipe_cs[1]);
+		dup2(ms->pipe_cs[0], 0);
+	}
 	ft_pipes(ms);
 	ms->pipe = 0;
 	if (ms->red_out == 1 && ms->out_file != NULL)
