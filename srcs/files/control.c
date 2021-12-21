@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-/* Si hay ctl-d libera aux y retorna 1 para salir del bucle después*/
+/* If ctl-d frees aux and return 1 to exit the loop*/
 int ft_ctrld(char *aux, t_mini *ms)
 {
     if (!aux)
@@ -22,15 +22,17 @@ int ft_ctrld(char *aux, t_mini *ms)
     }
     return (0);
 }
-
-void ft_sighandler(int sig)
-{
-    exit(0);
-}
+/* If g_id = -1 at the begining: replaces the line by 0 and carries on. 
+** Otherwhise g_pid is a blocked process which is terminated*/
 void ft_ctrlc(int sig)
 {
     printf("\n");
-    rl_replace_line(0,0);
-    rl_on_new_line();
-    exit(EXIT_FAILURE);
+    if (g_id == -1)
+    {
+	    rl_on_new_line();
+	    rl_replace_line("", 0);
+	    rl_redisplay();
+    }
+    else
+        kill(g_id, SIGTERM);
 }

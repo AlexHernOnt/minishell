@@ -82,7 +82,7 @@ typedef struct s_mini
 	t_line			*list;
 }					t_mini;
 
-char *aux;
+int g_id;
 /*
 *	Readline.h
 */
@@ -179,7 +179,7 @@ void	ft_leaks(void);
  /*
  ** 	C T R L		C
  */
-void 	ft_sighandler(int sig);
+void 	ft_blocking(int sig);
 void	ft_ctrlc(int sig);
 int		ft_ctrld(char *aux, t_mini *ms);
 #endif

@@ -45,14 +45,12 @@ int	ft_exe(t_mini *ms)
 
 int	ft_cmd_no_built(t_mini *ms)
 {
-	int		id;
 	int		output;
 
 	ms->ret = 0;
-	id = fork();
-	if (id == 0)
+	g_id = fork();
+	if (g_id == 0)
 	{
-		signal(SIGINT, ft_sighandler);
 		ms->args[0] = ft_path(ms->envp, ms->args);
 
 		if (ms->args[0][0] && ms->args[0][0] != '.' &&
@@ -71,9 +69,8 @@ int	ft_cmd_no_built(t_mini *ms)
 			ms->exit = 1;
 		}
 	}
-	else if (id != 0)
+	else if (g_id != 0)
 		wait(NULL);
-		signal(SIGINT, SIG_IGN);
 	return (1);
 }
 
