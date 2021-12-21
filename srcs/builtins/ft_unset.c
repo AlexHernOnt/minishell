@@ -71,10 +71,10 @@ int	ft_unset(t_mini *ms)
 	while (ms->args[j])
 	{
 		if (ft_doer_unset(ms, j) <= 0)
-			return (-1);
+			return (1);
 		j++;
 	}
-	return (1);
+	return (0);
 }
 
 int ft_doer_unset(t_mini *ms, int j)

@@ -82,24 +82,36 @@ char	*ft_expand(char *content, t_mini *ms)
 			aux[i] = 0;
 			new = ft_strdup(aux);
 			i++;
-			while (content[i + n] && content[i + n] != ' '
-				&& content[i + n] != '\"' && content[i + n] != '\'')
-			{
-				aux[n] = content[i + n];
-				n++;
-			}
-			aux[n] = 0;
-			aux2 = ft_getenv(aux, ms); 
-			free(aux);
-			if (aux2)	//AAAAAAAAAaaAAAAAAAAAaaaaAAA LIBERAR AUX 2 HAAHAHAHHAAaAhahAhahah
+			if (content[i] == '?') //Valor de retorno comprobar por qué lo imprime dos veces
 			{
 				free(new);
-				new = ft_strjoin(new, aux2);
+				new = ft_strjoin(new, ft_itoa(ms->exit_status));
+				free(new);
+				new = ft_strjoin(new, &aux[i+1]);
+				free(aux);
+				return(new);
 			}
-			free(new);
-			new = ft_strjoin(new, &content[i + n]);
-			free(content);
-			return (new);
+			else
+			{
+				while (content[i + n] && content[i + n] != ' '
+				&& content[i + n] != '\"' && content[i + n] != '\'')
+				{
+					aux[n] = content[i + n];
+					n++;
+				}
+				aux[n] = 0;
+				aux2 = ft_getenv(aux, ms); 
+				free(aux);
+				if (aux2)
+				{
+					free(new);
+					new = ft_strjoin(new, aux2);
+				}
+				free(new);
+				new = ft_strjoin(new, &content[i + n]);
+				free(content);
+				return (new);
+			}
 		}
 		i++;
 	}

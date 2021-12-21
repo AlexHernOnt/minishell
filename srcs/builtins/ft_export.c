@@ -22,10 +22,10 @@ int	ft_export(t_mini *ms)
 		if (ft_alredy_exists(ms, j))
 			ft_delete(ms, ms->export_pos);
 		if (ft_doer_export(ms, j) <= 0)
-			return (-1);
+			return (1);
 		j++;
 	}
-	return (1);
+	return (0);
 }
 
 int	ft_doer_export(t_mini *ms, int j)

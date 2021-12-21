@@ -22,5 +22,5 @@ int	ft_env(t_mini *ms)
 		printf("%s\n", ms->envp[i]);
 		i++;
 	}
-	return (1);
+	return (0);
 }

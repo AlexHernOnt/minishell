@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-
+// Devuelve el mismo retorno que el echo original (0 success/>0failure)
 int	ft_echo(t_mini *ms)
 {
 	int	i;
@@ -21,7 +21,7 @@ int	ft_echo(t_mini *ms)
 	i = 1;
 	si = 0;
 	if (!ms->args[1])
-		return (-1);
+		return (0);
 	while (ms->args[i] && ms->args[i][0] == '-' && ms->args[i][1] == 'n' && ms->args[i][2] == '\0')
 	{
 		si = 1;
@@ -37,5 +37,5 @@ int	ft_echo(t_mini *ms)
 	}
 	if (!si)
 		printf("\n");
-	return (1);
+	return (0);
 }

@@ -19,5 +19,5 @@ int	ft_pwd(void)
 	str = getcwd(NULL, 0);
 	printf("%s\n", str);
 	free(str);
-	return (1);
+	return (0);
 }

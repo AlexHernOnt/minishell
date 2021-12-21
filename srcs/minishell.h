@@ -80,6 +80,7 @@ typedef struct s_mini
 
 	int				where_was_i;
 	t_line			*list;
+	int				exit_status;
 }					t_mini;
 
 int g_id;

@@ -19,17 +19,17 @@
 int	ft_exe(t_mini *ms)
 {
 	if (ft_memcmp(ms->args[0], "echo", 4) == 0 && ms->args[0][4] == '\0')
-		ft_echo(ms);
+		ms->exit_status = ft_echo(ms);
 	else if (ft_memcmp(ms->args[0], "cd", 2) == 0 && ms->args[0][2] == '\0')
-		ft_cd(ms);
+		ms->exit_status = ft_cd(ms);
 	else if (ft_memcmp(ms->args[0], "pwd", 3) == 0 && ms->args[0][3] == '\0')
-		ft_pwd();
+		ms->exit_status = ft_pwd();
 	else if (ft_memcmp(ms->args[0], "env", 3) == 0 && ms->args[0][3] == '\0')
-		ft_env(ms);
+		ms->exit_status = ft_env(ms);
 	else if (ft_memcmp(ms->args[0], "export", 6) == 0 && ms->args[0][6] == '\0')
-		ft_export(ms);
+		ms->exit_status = ft_export(ms);
 	else if (ft_memcmp(ms->args[0], "unset", 5) == 0 && ms->args[0][5] == '\0')
-		ft_unset(ms);
+		ms->exit_status = ft_unset(ms);
 	else if (ft_memcmp(ms->args[0], "exit", 4) == 0 && ms->args[0][4] == '\0')
 	{
 		ms->exit = 1;
@@ -37,7 +37,9 @@ int	ft_exe(t_mini *ms)
 	}
 	else
 	{
-		if (ft_cmd_no_built(ms) == -1)
+		ms->exit_status = ft_cmd_no_built(ms); // Hay que obtener el status del 
+		//comando y no de execve, no sé cómo hacer esto
+		if (ms->exit_status == 127)
 			return (0);
 	}
 	return (1);
@@ -46,7 +48,7 @@ int	ft_exe(t_mini *ms)
 int	ft_cmd_no_built(t_mini *ms)
 {
 	int		output;
-
+	
 	ms->ret = 0;
 	g_id = fork();
 	if (g_id == 0)
@@ -57,7 +59,8 @@ int	ft_cmd_no_built(t_mini *ms)
 			ms->args[0][0] != '/')
 		{
 			ms->exit = 1;
-			return (ft_error(ms, 23, ms->args[0]));
+			ft_error(ms, 23, ms->args[0]);
+			return (127);
 		}
 		output = execve(ms->args[0], ms->args, ms->envp);
 		if (output == -1)
@@ -71,7 +74,7 @@ int	ft_cmd_no_built(t_mini *ms)
 	}
 	else if (g_id != 0)
 		wait(NULL);
-	return (1);
+	return (0);
 }
 
 void ft_fd_clean(t_mini *ms)

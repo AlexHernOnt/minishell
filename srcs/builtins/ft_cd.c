@@ -30,5 +30,5 @@ int	ft_cd(t_mini *ms)
 		}
 	}
 	chdir(ms->args[1]);
-	return (1);
+	return (0);
 }
