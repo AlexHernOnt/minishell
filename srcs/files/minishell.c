@@ -15,9 +15,13 @@
 int	main(int argc, char **argv, char **envp)
 {
 	char *aux;
+<<<<<<< HEAD
 	t_mini	ms;
 	atexit(ft_leaks);
 
+=======
+	atexit(ft_leaks);
+>>>>>>> 4c52d846ce824434ca9575a5f7fcbd6942d16db0
 	ft_init(&ms, envp);
 	while (ms.exit == 0)
 	{
@@ -29,8 +33,13 @@ int	main(int argc, char **argv, char **envp)
 		if (aux[0] != '\0' && !ft_only_spaces(aux))
 		{
 			ms.list = ft_parse(aux, &ms);
+<<<<<<< HEAD
 		//	ft_print_list(&ms);
 			if (ft_organizer(&ms) < 0)
+=======
+//			ft_print_list(&ms);
+			if(ft_organizer(&ms) < 0)
+>>>>>>> 4c52d846ce824434ca9575a5f7fcbd6942d16db0
 				ms.exit_status = 127;
 			ft_free_list(&ms);
 			add_history(aux);

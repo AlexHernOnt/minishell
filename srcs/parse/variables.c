@@ -52,7 +52,8 @@ char	*ft_getenv(char *aux, t_mini *ms)
 	{
 		if (ft_memcmp(aux, ms->envp[i], ft_strlen(aux)) == 0
 				&& ms->envp[i][ft_strlen(aux)] == '=')
-			return (ft_strdup(ms->envp[i]) + ft_strlen(aux) + 1);
+			return (ft_strdup(&(ms->envp[i][ft_strlen(aux) + 1])));
+			//return (ft_strdup(ms->envp[i]) + ft_strlen(aux) + 1);
 		i++;
 	}
 	return (NULL);
@@ -82,13 +83,19 @@ char	*ft_expand(char *content, t_mini *ms)
 			aux[i] = 0;
 			new = ft_strdup(aux);
 			i++;
+			printf("%d\n", content[i] == '?');
 			if (content[i] == '?') //Valor de retorno comprobar por qué lo imprime dos veces
 			{
+				aux2 = ft_itoa(ms->exit_status);
+				printf("aux %s\t\taux2: %s\n", aux, aux2);
 				free(new);
-				new = ft_strjoin(new, ft_itoa(ms->exit_status));
+				new = ft_strjoin(aux, aux2);
+				free(aux2);
 				free(new);
 				new = ft_strjoin(new, &aux[i+1]);
+				printf("new3: %s\n", new);
 				free(aux);
+				free(content);
 				return(new);
 			}
 			else
@@ -106,6 +113,7 @@ char	*ft_expand(char *content, t_mini *ms)
 				{
 					free(new);
 					new = ft_strjoin(new, aux2);
+					free(aux2);
 				}
 				free(new);
 				new = ft_strjoin(new, &content[i + n]);

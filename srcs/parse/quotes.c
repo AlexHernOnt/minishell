@@ -54,6 +54,8 @@ void	ft_remove_last_space(t_line *line)
 		{
 			ptr = ptr->next;
 		}
+		free(ptr->next->content);
+		free(ptr->next);
 		ptr->next = NULL;
 	}
 }
