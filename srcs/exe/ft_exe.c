@@ -73,7 +73,10 @@ int	ft_cmd_no_built(t_mini *ms)
 		}
 	}
 	else if (g_id != 0)
-		wait(NULL);
+	{
+		waitpid(-1, &(ms->exit_status), 0);
+		ms->exit_status = WEXITSTATUS(ms->exit_status);
+	}
 	return (0);
 }
 

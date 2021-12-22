@@ -16,7 +16,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_mini	ms;
 	char *aux;
-	//atexit(ft_leaks);
+	atexit(ft_leaks);
 	ft_init(&ms, envp);
 	while (ms.exit == 0)
 	{
@@ -31,7 +31,7 @@ int	main(int argc, char **argv, char **envp)
 		if (aux[0] != '\0' && !ft_only_spaces(aux))
 		{
 			ms.list = ft_parse(aux, &ms);
-			ft_print_list(&ms);
+//			ft_print_list(&ms);
 			if(ft_organizer(&ms) < 0)
 				ms.exit_status = 127;
 			ft_free_list(&ms);
