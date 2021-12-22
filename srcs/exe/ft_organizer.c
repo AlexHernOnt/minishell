@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 13:13:07 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/06 16:49:52 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/22 16:53:48 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	ft_cs(t_mini *ms)
 {
 	char	*aux;
 
+	aux = NULL;
 	while (abs_memcmp(aux, ms->in_file) != 1)
 	{
 		aux = readline("> ");

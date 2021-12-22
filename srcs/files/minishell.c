@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/06 17:06:16 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/22 17:10:54 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,23 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_mini	ms;
 	char *aux;
-	//atexit(ft_leaks);
+	t_mini	ms;
+	atexit(ft_leaks);
+
 	ft_init(&ms, envp);
 	while (ms.exit == 0)
 	{
 		g_id = -1;
 		signal(SIGINT,ft_ctrlc);
 		aux = readline("minishell$ ");
-//		printf("----------leaks readline-------\n");
-//		ft_leaks();
-//		printf("-----------------\n");
 		if (ft_ctrld(aux, &ms))
 			break;
 		if (aux[0] != '\0' && !ft_only_spaces(aux))
 		{
 			ms.list = ft_parse(aux, &ms);
-			ft_print_list(&ms);
-			if(ft_organizer(&ms) < 0)
+		//	ft_print_list(&ms);
+			if (ft_organizer(&ms) < 0)
 				ms.exit_status = 127;
 			ft_free_list(&ms);
 			add_history(aux);
@@ -41,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	rl_clear_history();
 	ft_free_ms_envp(&ms);
-	return (0);
+	return (ms.ret);
 }
 /*
 **	Functions that initialize the structs
