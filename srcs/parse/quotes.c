@@ -6,7 +6,7 @@
 /*   By: amorion- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 15:12:13 by amorion-          #+#    #+#             */
-/*   Updated: 2021/12/02 15:12:16 by amorion-         ###   ########.fr       */
+/*   Updated: 2021/12/22 17:09:24 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,10 @@ void	ft_remove_last_space(t_line *line)
 {
 	t_line *ptr;
 	t_line *last;
+
 	ptr = line;
 	last = ft_linelast(line);
-	if(!*(last->content) || *(last->content) == ' ')
+	if (!*(last->content) || *(last->content) == ' ')
 	{
 		while(ptr->next != last)
 		{

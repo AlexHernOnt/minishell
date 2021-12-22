@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:29:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/06 16:19:37 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/22 18:09:58 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ int	ft_exe(t_mini *ms)
 		ms->exit_status = ft_unset(ms);
 	else if (ft_memcmp(ms->args[0], "exit", 4) == 0 && ms->args[0][4] == '\0')
 	{
+		printf("exit\n");
 		ms->exit = 1;
+		ms->exit_status = 0;
 		return (0);
 	}
 	else
@@ -49,7 +51,6 @@ int	ft_cmd_no_built(t_mini *ms)
 {
 	int		output;
 	
-	ms->ret = 0;
 	g_id = fork();
 	if (g_id == 0)
 	{
@@ -65,7 +66,6 @@ int	ft_cmd_no_built(t_mini *ms)
 		output = execve(ms->args[0], ms->args, ms->envp);
 		if (output == -1)
 		{
-			ms->ret = 1;
 			dup2(2, 1);
 			printf("-minishell: %s: Comand not found\n", ms->args[0]);
 			dup2(ms->o_stdout, 1);

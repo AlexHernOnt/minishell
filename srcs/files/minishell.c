@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/06 17:06:16 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/22 18:38:33 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_mini	ms;
 	char *aux;
+<<<<<<< HEAD
 	//atexit(ft_leaks);
+=======
+	t_mini	ms;
+
+//	atexit(ft_leaks);
+>>>>>>> 4af86b46f428b6bad3cf6a6e71bd996f8a18e6c8
 	ft_init(&ms, envp);
 	while (ms.exit == 0)
 	{
@@ -28,6 +33,7 @@ int	main(int argc, char **argv, char **envp)
 		if (aux[0] != '\0' && !ft_only_spaces(aux))
 		{
 			ms.list = ft_parse(aux, &ms);
+<<<<<<< HEAD
 //			ft_print_list(&ms);
 			if (ms.list)
 			{
@@ -35,13 +41,19 @@ int	main(int argc, char **argv, char **envp)
 					ms.exit_status = 127;
 				ft_free_list(&ms);
 			}
+=======
+			//ft_print_list(&ms);
+			if (ft_organizer(&ms) < 0)
+				ms.exit_status = 127;
+			ft_free_list(&ms);
+>>>>>>> 4af86b46f428b6bad3cf6a6e71bd996f8a18e6c8
 			add_history(aux);
 		}
 		free(aux);
 	}
 	rl_clear_history();
 	ft_free_ms_envp(&ms);
-	return (0);
+	return (ms.exit_status);
 }
 /*
 **	Functions that initialize the structs
