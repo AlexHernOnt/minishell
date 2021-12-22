@@ -82,12 +82,13 @@ int	ft_ispace(char *line)
 
 int ft_is_operator(t_line *ptr)
 {
-	if (ptr->content[0] == '<' || ptr->content[0] == '>' || ptr->content[0] == '|')
+	if (ptr->content[0] == '<' || ptr->content[0] == '>'
+		|| ptr->content[0] == '|')
 		return (1);
 	return (0);
 }
 
-int	ft_get_type(t_line *line)
+t_line	*ft_get_type(t_line *line)
 {
 	t_line *ptr;
 
@@ -102,6 +103,9 @@ int	ft_get_type(t_line *line)
 				ptr->type = 2;
 			else if(ptr->content[1] == 0) 
 				ptr->type = 1;
+			if(*ptr->next->content == '<' 
+				|| *ptr->next->content == '>' || *ptr->next->content == '|')
+				return(ptr->next);
 		}
 		if (ptr->content[0] == '|')
 			ptr->type = 5;
@@ -113,6 +117,9 @@ int	ft_get_type(t_line *line)
 				ptr->type = 7;
 			else if(ptr->content[1] == 0)
 				ptr->type = 6;
+			if(*ptr->next->content == '<' 
+				|| *ptr->next->content == '>' || *ptr->next->content == '|')
+				return(ptr->next);
 		}
 		if (ptr->type == -1)
 		{
@@ -127,7 +134,7 @@ int	ft_get_type(t_line *line)
 		else
 			ptr = ptr->next;
 	}
-	return (0);
+	return (NULL);
 }
 
 /*
@@ -145,6 +152,18 @@ int	ft_get_type(t_line *line)
 	necesario
 	*Demmasiado larga, el while pasa a ser otra función ft_get_line
 */
+
+void	ft_free_line(t_line **line)
+{
+	t_line *ptr;
+	while(*line)
+	{
+		ptr = *line;
+		free(ptr->content);
+		*line = ptr->next;
+		free(ptr);
+	}
+}
 
 t_line *ft_parse(char *line, t_mini *ms)
 {
@@ -173,9 +192,15 @@ t_line *ft_parse(char *line, t_mini *ms)
 			break ;
 	}
 	ft_remove_last_space(list_line);
-	ft_remove_quotes(list_line);
 	ft_expansor(list_line, ms);
-	ft_get_type(list_line);
+	ft_remove_quotes(list_line);
+	if (ft_get_type(list_line))
+	{
+		ft_error(ms, 258, ft_get_type(list_line)->content);
+		ft_free_line(&list_line);
+		ms->exit_status = 258;
+		return(NULL);
+	}
 	return (list_line);
 }
 

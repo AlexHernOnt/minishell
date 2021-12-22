@@ -73,6 +73,7 @@ char	*ft_expand(char *content, t_mini *ms)
 	{
 		if (content[i] == '\'' && ft_check_closed(&content[i], '\''))
 		{
+			printf("He entrado aquí\n");
 			i++;
 			while (content[i] != '\'')
 				i++;
@@ -83,25 +84,22 @@ char	*ft_expand(char *content, t_mini *ms)
 			aux[i] = 0;
 			new = ft_strdup(aux);
 			i++;
-			printf("%d\n", content[i] == '?');
 			if (content[i] == '?') //Valor de retorno comprobar por qué lo imprime dos veces
 			{
 				aux2 = ft_itoa(ms->exit_status);
-				printf("aux %s\t\taux2: %s\n", aux, aux2);
 				free(new);
 				new = ft_strjoin(aux, aux2);
 				free(aux2);
 				free(new);
 				new = ft_strjoin(new, &aux[i+1]);
-				printf("new3: %s\n", new);
 				free(aux);
 				free(content);
 				return(new);
 			}
 			else
 			{
-				while (content[i + n] && content[i + n] != ' '
-				&& content[i + n] != '\"' && content[i + n] != '\'')
+				while (content[i + n] && content[i + n] !=' ' 
+				&& content[i + n] != '\"' && content[i + n] != '\'' && content[i + n] != '/')
 				{
 					aux[n] = content[i + n];
 					n++;

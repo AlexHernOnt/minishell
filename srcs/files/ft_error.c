@@ -30,6 +30,8 @@ int	ft_error(t_mini *ms, int code, char *arg)
 		printf("-minishell: %s: No such file or directory\n", arg);
 	if (code == 23)
 		printf("-minishell: %s: Command not found\n", arg);
+	if (code == 258)
+		printf("minishell: syntax error near unexpected token `%s\'\n", arg);
 	dup2(ms->o_stdout, 1);
 	return (-1);
 }
