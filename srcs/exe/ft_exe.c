@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:29:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/22 16:05:06 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/22 18:09:58 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	ft_exe(t_mini *ms)
 		ms->exit_status = ft_unset(ms);
 	else if (ft_memcmp(ms->args[0], "exit", 4) == 0 && ms->args[0][4] == '\0')
 	{
+		printf("exit\n");
 		ms->exit = 1;
 		ms->exit_status = 0;
 		return (0);

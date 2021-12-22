@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/22 17:10:54 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/22 18:38:33 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,9 @@
 int	main(int argc, char **argv, char **envp)
 {
 	char *aux;
-<<<<<<< HEAD
 	t_mini	ms;
-	atexit(ft_leaks);
 
-=======
-	atexit(ft_leaks);
->>>>>>> 4c52d846ce824434ca9575a5f7fcbd6942d16db0
+//	atexit(ft_leaks);
 	ft_init(&ms, envp);
 	while (ms.exit == 0)
 	{
@@ -33,13 +29,8 @@ int	main(int argc, char **argv, char **envp)
 		if (aux[0] != '\0' && !ft_only_spaces(aux))
 		{
 			ms.list = ft_parse(aux, &ms);
-<<<<<<< HEAD
-		//	ft_print_list(&ms);
+			//ft_print_list(&ms);
 			if (ft_organizer(&ms) < 0)
-=======
-//			ft_print_list(&ms);
-			if(ft_organizer(&ms) < 0)
->>>>>>> 4c52d846ce824434ca9575a5f7fcbd6942d16db0
 				ms.exit_status = 127;
 			ft_free_list(&ms);
 			add_history(aux);
@@ -48,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	rl_clear_history();
 	ft_free_ms_envp(&ms);
-	return (ms.ret);
+	return (ms.exit_status);
 }
 /*
 **	Functions that initialize the structs
