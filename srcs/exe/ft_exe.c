@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:29:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/22 18:09:58 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/23 15:31:23 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	ft_exe(t_mini *ms)
 		if (ms->exit_status == 127)
 			return (0);
 	}
+	ft_fd_clean(ms);
 	return (1);
 }
 
@@ -75,9 +76,9 @@ int	ft_cmd_no_built(t_mini *ms)
 	else if (g_id != 0)
 	{
 		waitpid(-1, &(ms->exit_status), 0);
-		ms->exit_status = WEXITSTATUS(ms->exit_status); 
+		ms->exit_status = WEXITSTATUS(ms->exit_status);
 	}
-	return (ms->exit_status);
+	return (0);
 }
 
 void ft_fd_clean(t_mini *ms)

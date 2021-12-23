@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 13:13:07 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/22 18:09:00 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/23 14:44:37 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ int	ft_pre_args(t_mini *ms)
 	i = 0;
 	n_p = 0;
 	ptr = ms->list;
-
 	while (ptr != NULL && n_p != ms->where_was_i)
 	{
  		if (ptr->type == 5)
@@ -193,6 +192,7 @@ int	ft_pipes(t_mini *ms)
 {
 	if (ms->pipe == 1 && ms->p_first == 1)
 	{
+		system("ls > ur_disgusting");
 		if (pipe(ms->pipe_fd_a) < 0)
 			return (ft_error(ms, 150, NULL));
 		dup2(ms->pipe_fd_a[1], 1);
