@@ -139,6 +139,9 @@ int		ft_quotes(char *line, char c);
 void	ft_remove_quotes(t_line *line);
 void	ft_expansor(t_line *line, t_mini *ms);
 void	ft_remove_last_space(t_line *line);
+int		ft_ispace(char *line);
+int		ft_is_operator(t_line *ptr);
+int		ft_is_var(char *element);
 
 /*
 **		ft_error
@@ -147,6 +150,7 @@ void	ft_remove_last_space(t_line *line);
 int		ft_error(t_mini *ms, int code, char *arg);
 void	ft_free_ms_envp(t_mini *ms);
 void    ft_free_ms(t_mini *ms);
+void	ft_free_line(t_line **line);
 
 /*
 **		B U I L T   I N S
@@ -163,7 +167,7 @@ void	ft_delete(t_mini *ms, int here);
 
 
 /*
-**		Ft_export
+**		FT_EXPORT
 */
 
 int		ft_export(t_mini *ms);
@@ -177,10 +181,12 @@ size_t	ft_strlen_dp(char **s);
 int		ft_cd(t_mini *ms);
 size_t	ft_strlen_dp(char **s);
 void	ft_leaks(void);
- /*
- ** 	C T R L		C
- */
+ 
+/*
+** 	CTRL C	& CTRL \
+*/
+
 void 	ft_blocking(int sig);
-void	ft_ctrlc(int sig);
+void	ft_ctrl(int sig);
 int		ft_ctrld(char *aux, t_mini *ms);
 #endif

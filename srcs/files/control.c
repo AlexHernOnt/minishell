@@ -12,27 +12,32 @@
 
 #include "../minishell.h"
 /* If ctl-d frees aux and return 1 to exit the loop*/
-int ft_ctrld(char *aux, t_mini *ms)
+int	ft_ctrld(char *aux, t_mini *ms)
 {
-    if (!aux)
-    {
-        printf("\n");
-        free(aux);
-        return (1);
-    }
-    return (0);
+	if (!aux)
+	{
+		printf("\n");
+		free(aux);
+		return (1);
+	}
+	return (0);
 }
 /* If g_id = -1 at the begining: replaces the line by 0 and carries on. 
 ** Otherwhise g_pid is a blocked process which is terminated*/
-void ft_ctrlc(int sig)
+void ft_ctrl(int sig)
 {
-    printf("\n");
-    if (g_id == -1)
-    {
-	    rl_on_new_line();
-	    rl_replace_line("", 0);
-	    rl_redisplay();
-    }
-    else
-        kill(g_id, SIGTERM);
+	printf("\n");
+	if (sig == 2)
+	{
+		if (g_id == -1)
+		{
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			rl_redisplay();
+		}
+	}
+	else
+		kill(g_id, SIGINT);
+	if (sig == 3 && g_id != -1)
+		kill(g_id, SIGQUIT);
 }

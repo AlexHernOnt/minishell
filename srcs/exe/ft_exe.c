@@ -39,7 +39,7 @@ int	ft_exe(t_mini *ms)
 	}
 	else
 	{
-		ms->exit_status = ft_cmd_no_built(ms); // Hay que obtener el status del 
+		ft_cmd_no_built(ms); // Hay que obtener el status del 
 		//comando y no de execve, no sé cómo hacer esto
 		if (ms->exit_status == 127)
 			return (0);
@@ -51,10 +51,11 @@ int	ft_exe(t_mini *ms)
 int	ft_cmd_no_built(t_mini *ms)
 {
 	int		output;
-	
+
 	g_id = fork();
 	if (g_id == 0)
 	{
+		signal(SIGQUIT, ft_ctrl);
 		ms->args[0] = ft_path(ms->envp, ms->args);
 
 		if (ms->args[0][0] && ms->args[0][0] != '.' &&
@@ -75,8 +76,16 @@ int	ft_cmd_no_built(t_mini *ms)
 	}
 	else if (g_id != 0)
 	{
-		waitpid(-1, &(ms->exit_status), 0);
-		ms->exit_status = WEXITSTATUS(ms->exit_status);
+		waitpid(-1, &output, 0);
+		if (WIFSIGNALED(output) && WTERMSIG(output)  == 2)
+			ms->exit_status = 130;
+		else if (WIFSIGNALED(output) && WTERMSIG(output) == 3)
+		{
+			ms->exit_status = 131;
+			printf("Quit: 3\n");
+		}
+		else
+			ms->exit_status = WEXITSTATUS(output);
 	}
 	return (0);
 }

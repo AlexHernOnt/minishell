@@ -17,12 +17,13 @@ int	main(int argc, char **argv, char **envp)
 	char *aux;
 	t_mini	ms;
 
-//	atexit(ft_leaks);
+	atexit(ft_leaks);
 	ft_init(&ms, envp);
 	while (ms.exit == 0)
 	{
 		g_id = -1;
-		signal(SIGINT,ft_ctrlc);
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT,ft_ctrl);
 		aux = readline("minishell$ ");
 		if (ft_ctrld(aux, &ms))
 			break;

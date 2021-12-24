@@ -31,7 +31,6 @@ int	get_content_len(char *line)
 			i += ft_quotes(&line[i], '\'');
 		if (line[i] == '\"' && ft_check_closed(&line[i], '\"'))
 			i += ft_quotes(&line[i], '\"');
-		
 		if (i > 0 && (line[i] == '<' || line[i] == '>' || line[i] == '|'))
 			return (i);
 		if (line[i] == '<' || line[i] == '>')
@@ -45,30 +44,35 @@ int	get_content_len(char *line)
 	return (i);
 }
 
-//	Devuelve el número de espacios al comienzo de line
+/* Obtains the type of operators < > and simmilar */
 
-int	ft_ispace(char *line)
+t_line	*ft_more_and_less(t_line *ptr)
 {
-	int	i;
-
-	i = 0;
-	while (line[i] && (line[i] == ' ' || line[i] == '\t' ))
-		i++;
-	return (i);
+	if (ptr->content[0] == '<')
+	{
+		if (ptr->next)
+			ptr->next->type = 0;
+		if (ptr->content[1] == '<')
+			ptr->type = 2;
+		else if (ptr->content[1] == 0)
+			ptr->type = 1;
+	}
+	if (ptr->content[0] == '>')
+	{
+		if (ptr->next)
+			ptr->next->type = 8;
+		if (ptr->content[1] == '>')
+			ptr->type = 7;
+		else if (ptr->content[1] == 0)
+			ptr->type = 6;
+	}
+	if (*ptr->next->content == '<'
+		|| *ptr->next->content == '>' || *ptr->next->content == '|')
+		return (ptr->next);
+	return (NULL);
 }
 
-/*
-	Selecciona el tipo de un elemento de la lista dado 
-	(De momento está así para poder hacer pruebas) luego habrá que decidir los
-	tipos.
-
-	exe nuestro,
-	exe suyo,
-	
-*/
-
-/*	Recorre la lista asignando un tipo a cada elemento
-	tipos:
+/*	Asigns a type to each element of the line
 	0 = infile/pwd
 	1 = <
 	2 = <<
@@ -80,52 +84,22 @@ int	ft_ispace(char *line)
 	8 Outfile
 */
 
-int ft_is_operator(t_line *ptr)
-{
-	if (ptr->content[0] == '<' || ptr->content[0] == '>'
-		|| ptr->content[0] == '|')
-		return (1);
-	return (0);
-}
-
 t_line	*ft_get_type(t_line *line)
 {
-	t_line *ptr;
+	t_line	*ptr;
 
 	ptr = line;
-	while(ptr)
+	while (ptr)
 	{
-		if(ptr->content[0] == '<')
-		{
-			if (ptr->next)
-				ptr->next->type = 0;
-			if (ptr->content[1] == '<')
-				ptr->type = 2;
-			else if(ptr->content[1] == 0) 
-				ptr->type = 1;
-			if(*ptr->next->content == '<' 
-				|| *ptr->next->content == '>' || *ptr->next->content == '|')
-				return(ptr->next);
-		}
+		if (ptr->content[0] == '<' || ptr->content[0] == '>')
+			if (ft_more_and_less(ptr))
+				return (ft_more_and_less(ptr));
 		if (ptr->content[0] == '|')
 			ptr->type = 5;
-		if (ptr->content[0] == '>')
-		{
-			if (ptr->next)
-				ptr->next->type = 8;
-			if (ptr->content[1] == '>')
-				ptr->type = 7;
-			else if(ptr->content[1] == 0)
-				ptr->type = 6;
-			if(*ptr->next->content == '<' 
-				|| *ptr->next->content == '>' || *ptr->next->content == '|')
-				return(ptr->next);
-		}
 		if (ptr->type == -1)
 		{
 			ptr->type = 3;
-			ptr = ptr->next;
-			while(ptr && !ft_is_operator(ptr))
+			while (ptr->next && !ft_is_operator(ptr))
 			{
 				ptr->type = 4;
 				ptr = ptr->next;
@@ -137,45 +111,18 @@ t_line	*ft_get_type(t_line *line)
 	return (NULL);
 }
 
-/*
-	Lee la línea y la transforma en una lista separándola por tipo
-	(palabra variable operador...) primero obtiene la longitud del
-	primer elemento, después copia el contenido de la línea en content
-	y lo añade a la lista. Todo ello ignorando separadores seguidos. Seleccionando 
-	el tipo de elemento que es.
-	Finalmente se desplaza la longitud del elemento para comprobar el 
-	siguiente.
-	PENDIENTE DE SOLUCIÓN: 
-	*recortar función del expansor para pasar la norma
-	*Reconocer los comandos (Esto dependerá de si debemos coger comandos de fuera)
-	de ser así se haría como en pipex posteriormente, por lo que no sería 
-	necesario
-	*Demmasiado larga, el while pasa a ser otra función ft_get_line
-*/
+/* Reads thee line and separates it in elements of the list conidering
+*  exceptions*/
 
-void	ft_free_line(t_line **line)
+t_line	*ft_get_line(char *line)
 {
-	t_line *ptr;
-	while(*line)
-	{
-		ptr = *line;
-		free(ptr->content);
-		*line = ptr->next;
-		free(ptr);
-	}
-}
-
-t_line *ft_parse(char *line, t_mini *ms)
-{
-	t_line	*list_line;
-	int		len;
 	int		i;
+	int		len;
 	char	*tmp;
+	t_line	*list_line;
 
-	if (!line)
-		return (NULL);
-	list_line = NULL;
 	i = 0;
+	list_line = NULL;
 	while (line[i])
 	{
 		if ((i > 0 && line[i - 1]) || i == 0)
@@ -191,6 +138,19 @@ t_line *ft_parse(char *line, t_mini *ms)
 		else
 			break ;
 	}
+	return (list_line);
+}
+
+/* Returns the list separating the line according to shell rules, 
+*  expands the variables and assigns a type to each element*/
+
+t_line	*ft_parse(char *line, t_mini *ms)
+{
+	t_line	*list_line;
+
+	if (!line)
+		return (NULL);
+	list_line = ft_get_line(line);
 	ft_remove_last_space(list_line);
 	ft_expansor(list_line, ms);
 	ft_remove_quotes(list_line);
@@ -199,34 +159,7 @@ t_line *ft_parse(char *line, t_mini *ms)
 		ft_error(ms, 258, ft_get_type(list_line)->content);
 		ft_free_line(&list_line);
 		ms->exit_status = 258;
-		return(NULL);
+		return (NULL);
 	}
 	return (list_line);
 }
-
-/*
-int main(int argc, char **argv)
-{
-	t_line *list;
-	t_line *ptr;
-	char *str;
-
-	(void)argc;
-	(void)argv;
-	str = "Hola esto | $usdghgs tiene a<<comillas simples'con espacios pipes | y un operador >>  >y variable $test dentro' y con comillas dobles\"como estas $test $test\" ";
-	printf("%s\n\n", str);
-
-	list = ft_parse(str);
-	while (list)
-	{
-		printf("Content: _%s_\t\t : Type %d\n", list->content, list->type);
-		ptr = list->next;
-		free(list->content);
-		free(list);
-		list = ptr;
-	}
-//	system("leaks a.out");
-	return(0);
-}
-
-*/

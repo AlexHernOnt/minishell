@@ -41,57 +41,63 @@ int	ft_quotes(char *line, char c)
 	return (i);
 }
 
+/* elminia el último elemento de la lista si solo contiene espacios */
+
 void	ft_remove_last_space(t_line *line)
 {
-	t_line *ptr;
-	t_line *last;
+	t_line	*ptr;
+	t_line	*last;
 
 	ptr = line;
 	last = ft_linelast(line);
 	if (!*(last->content) || *(last->content) == ' ')
 	{
-		while(ptr->next != last)
-		{
+		while (ptr->next != last)
 			ptr = ptr->next;
-		}
 		free(ptr->next->content);
 		free(ptr->next);
 		ptr->next = NULL;
 	}
 }
+
+/* returns the new content after removing the first set of quotes*/
+
 char	*ft_new_content(char *old)
 {
-	char *new;
-	char *aux;
-	char *ret;
-	int i;
-	
+	char	*new;
+	char	*aux;
+	char	*ret;
+	int		i;
+
 	i = 0;
 	aux = old;
 	aux++;
-	while(aux[i] != old[0])
+	while (aux[i] != old[0])
 		i++;
 	aux[i] = 0;
 	new = ft_strdup(aux);
-	aux = &old[i+2];
+	aux = &old[i + 2];
 	ret = ft_strjoin(new, aux);
 	free(new);
-	return(ret);
+	return (ret);
 }
+
+/* Removes the first set of quotes in content to avoid execve errors.*/
+
 void	ft_remove_quotes(t_line *line)
 {
-	t_line *ptr;
-	char *new;
+	t_line	*ptr;
+	char	*new;
+
 	ptr = line;
-	while(ptr)
+	while (ptr)
 	{
-		if(*(ptr->content) == '\"' || *(ptr->content) == '\'')
+		if (*(ptr->content) == '\"' || *(ptr->content) == '\'')
 		{
 			new = ft_new_content(ptr->content);
 			free(ptr->content);
 			ptr->content = new;
 		}
-		ptr =ptr->next; 
+		ptr = ptr->next;
 	}
 }
-

@@ -12,35 +12,7 @@
 
 #include "../minishell.h"
 
-int	ft_is_var(char *element)
-{
-	int	i;
-
-	i = 0;
-	while (element[i])
-	{
-		if (element[i] == '\'' && ft_check_closed(&element[i], '\''))
-		{
-			i++;
-			while (element[i] != '\'')
-				i++;
-			i++;
-		}
-		if (element[i] == '$')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-/* Busca la primera variable ignorando '' si la encuentra divide la cadena
-La parte inicial, es lo que hay antes del $, luego la parte central en la que
-se expande la variable y el resto de la cadena. Después une las tres parte y la 
-retorna. 
-PENDIENTE:
-	acortar para norma
-	coger nuestro environment en vez de getenv*/
-
+/* Returns the value of the variable aux*/
 
 char	*ft_getenv(char *aux, t_mini *ms)
 {
@@ -51,29 +23,73 @@ char	*ft_getenv(char *aux, t_mini *ms)
 	while (ms->envp[i] != NULL)
 	{
 		if (ft_memcmp(aux, ms->envp[i], ft_strlen(aux)) == 0
-				&& ms->envp[i][ft_strlen(aux)] == '=')
+			&& ms->envp[i][ft_strlen(aux)] == '=')
 			return (ft_strdup(&(ms->envp[i][ft_strlen(aux) + 1])));
-			//return (ft_strdup(ms->envp[i]) + ft_strlen(aux) + 1);
 		i++;
 	}
 	return (NULL);
 }
 
+/* Expands the return value when found $?*/
+
+char	*ft_return_value(t_mini *ms, char *aux, int i)
+{
+	char	*new;
+	char	*aux2;
+
+	aux2 = ft_itoa(ms->exit_status);
+	new = ft_strjoin(aux, aux2);
+	free(aux2);
+	free(new);
+	new = ft_strjoin(new, &aux[i + 1]);
+	free(aux);
+	return (new);
+}
+
+/* Expands variables that are different from $?*/
+
+char	*ft_other_variable(t_mini *ms, char *aux, char *content, int i)
+{
+	char	*new;
+	char	*aux2;
+	int		n;
+
+	new = ft_strdup(aux);
+	while (content[i + n] && content[i + n] != ' ' && content[i + n] != '\"'
+		&& content[i + n] != '\'' && content[i + n] != '/')
+	{
+		aux[n] = content[i + n];
+		n++;
+	}
+	aux[n] = 0;
+	aux2 = ft_getenv(aux, ms);
+	free(aux);
+	if (aux2)
+	{
+		free(new);
+		new = ft_strjoin(new, aux2);
+		free(aux2);
+	}
+	free(new);
+	new = ft_strjoin(new, &content[i + n]);
+	free(content);
+	return (new);
+}
+
+/* Finds the first vaariable ignoring ''. If a variable is found it divides the
+*  string i three and expands the variable in the middle part, then joins and
+*  returns the string. If no variable is found it returns NULL.*/
+
 char	*ft_expand(char *content, t_mini *ms)
 {
 	int		i;
-	int		n;
-	char	*new;
 	char	*aux;
-	char	*aux2;
 
 	i = 0;
-	n = 0;
 	while (content[i])
 	{
 		if (content[i] == '\'' && ft_check_closed(&content[i], '\''))
 		{
-			printf("He entrado aquí\n");
 			i++;
 			while (content[i] != '\'')
 				i++;
@@ -82,42 +98,11 @@ char	*ft_expand(char *content, t_mini *ms)
 		{
 			aux = ft_strdup(content);
 			aux[i] = 0;
-			new = ft_strdup(aux);
-			i++;
-			if (content[i] == '?') //Valor de retorno comprobar por qué lo imprime dos veces
-			{
-				aux2 = ft_itoa(ms->exit_status);
-				free(new);
-				new = ft_strjoin(aux, aux2);
-				free(aux2);
-				free(new);
-				new = ft_strjoin(new, &aux[i+1]);
-				free(aux);
-				free(content);
-				return(new);
-			}
+			free(content);
+			if (content[i + 1] == '?')
+				return (ft_return_value(ms, aux, i + 1));
 			else
-			{
-				while (content[i + n] && content[i + n] !=' ' 
-				&& content[i + n] != '\"' && content[i + n] != '\'' && content[i + n] != '/')
-				{
-					aux[n] = content[i + n];
-					n++;
-				}
-				aux[n] = 0;
-				aux2 = ft_getenv(aux, ms); 
-				free(aux);
-				if (aux2)
-				{
-					free(new);
-					new = ft_strjoin(new, aux2);
-					free(aux2);
-				}
-				free(new);
-				new = ft_strjoin(new, &content[i + n]);
-				free(content);
-				return (new);
-			}
+				return (ft_other_variable(ms, aux, ft_strdup(content), i + 1));
 		}
 		i++;
 	}
@@ -136,20 +121,7 @@ void	ft_expansor(t_line *line, t_mini *ms)
 	while (ptr)
 	{
 		while (ft_is_var(ptr->content))
-		{
 			ptr->content = ft_expand(ptr->content, ms);
-		}
 		ptr = ptr->next;
 	}
 }
-
-/**int main(int argc, char **argv)
-{
-	(void)argc;
-	(void)argv;
-
-	char *str = "Content: simples'con espacios pipes | y un operador >> 
-	> y variable $1 dentro'" ;
-	printf("%d\n", ft_is_var(str));
-	return(0);
-}*/

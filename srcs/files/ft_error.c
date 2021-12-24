@@ -84,3 +84,17 @@ void	ft_free_list(t_mini *ms)
 		ptr = aux;
 	}
 }
+
+/* Frees the line in case of parsing error*/
+void	ft_free_line(t_line **line)
+{
+	t_line	*ptr;
+
+	while (*line)
+	{
+		ptr = *line;
+		free(ptr->content);
+		*line = ptr->next;
+		free(ptr);
+	}
+}
