@@ -6,21 +6,19 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 18:11:50 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/01 18:12:12 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/27 16:30:28 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	file_in(t_mini *ms)
+int	file_in(t_mini *ms, t_line *ptr)
 {
-	t_line	*ptr;
 	int		fd;
 	int		i;
 
 	i = 0;
-	ptr = ms->list;
-	while (ptr != NULL)
+	while (ptr != NULL && ptr->type != 5)
 	{
 		if (ptr->type == 0)
 			ms->n_in_max++;
@@ -42,15 +40,13 @@ int	file_in(t_mini *ms)
 	return (1);
 }
 
-int	file_out(t_mini *ms)
+int	file_out(t_mini *ms, t_line *ptr)
 {
-	t_line	*ptr;
 	int		fd;
 	int		i;
 
 	i = 0;
-	ptr = ms->list;
-	while (ptr != NULL)
+	while (ptr != NULL && ptr->type != 5)
 	{
 		if (ptr->type == 8)
 			ms->n_out_max++;

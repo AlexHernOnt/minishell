@@ -6,15 +6,27 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/22 18:38:33 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/27 18:52:30 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+void	ft_extra(t_mini *ms, char *aux)
+{
+	ms->list = ft_parse(aux, ms);
+	ft_print_list(ms);
+	if (ms->list)
+	{
+		if (ft_organizer(ms) < 0)
+			ms->exit_status = 127;
+		ft_free_list(ms);
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
-	char *aux;
+	char	*aux;
 	t_mini	ms;
 
 	atexit(ft_leaks);
@@ -23,20 +35,13 @@ int	main(int argc, char **argv, char **envp)
 	{
 		g_id = -1;
 		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT,ft_ctrl);
+		signal(SIGINT, ft_ctrl);
 		aux = readline("minishell$ ");
 		if (ft_ctrld(aux, &ms))
-			break;
+			break ;
 		if (aux[0] != '\0' && !ft_only_spaces(aux))
 		{
-			ms.list = ft_parse(aux, &ms);
-//			ft_print_list(&ms);
-			if (ms.list)
-			{
-				if(ft_organizer(&ms) < 0)
-					ms.exit_status = 127;
-				ft_free_list(&ms);
-			}
+			ft_extra(&ms, aux);
 			add_history(aux);
 		}
 		free(aux);
@@ -45,6 +50,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_free_ms_envp(&ms);
 	return (ms.exit_status);
 }
+
 /*
 **	Functions that initialize the structs
 **	_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
@@ -53,7 +59,6 @@ int	main(int argc, char **argv, char **envp)
 void	ft_init(t_mini *ms, char **envp)
 {
 	ms->envp = ft_strdup_envp(envp);
-	ms->ret = 0;
 	ms->exit = 0;
 	ms->where_was_i = 0;
 	ms->red_in = 0;
@@ -94,21 +99,7 @@ char	**ft_strdup_envp(char **envp)
 	return (new_envp);
 }
 
-void	ft_print_list(t_mini *ms)
-{
-	t_line  *ptr;
-
-	ptr = ms->list;
-	while (ptr != NULL)
-	{
-		printf("Content: _%s_\t\t : Type %d\n", ptr->content, ptr->type);
-		ptr = ptr->next;
-	}
-	printf("\n");
-}
-
-
-int		ft_only_spaces(char *aux)
+int	ft_only_spaces(char *aux)
 {
 	while (*aux != '\0')
 	{

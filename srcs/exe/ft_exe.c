@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:29:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/23 15:31:23 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/27 18:37:16 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ int	ft_exe(t_mini *ms)
 	}
 	else
 	{
-		ft_cmd_no_built(ms); // Hay que obtener el status del 
-		//comando y no de execve, no sé cómo hacer esto
+		ft_cmd_no_built(ms);
 		if (ms->exit_status == 127)
 			return (0);
 	}
@@ -57,7 +56,6 @@ int	ft_cmd_no_built(t_mini *ms)
 	{
 		signal(SIGQUIT, ft_ctrl);
 		ms->args[0] = ft_path(ms->envp, ms->args);
-
 		if (ms->args[0][0] && ms->args[0][0] != '.' &&
 			ms->args[0][0] != '/')
 		{
@@ -77,7 +75,7 @@ int	ft_cmd_no_built(t_mini *ms)
 	else if (g_id != 0)
 	{
 		waitpid(-1, &output, 0);
-		if (WIFSIGNALED(output) && WTERMSIG(output)  == 2)
+		if (WIFSIGNALED(output) && WTERMSIG(output) == 2)
 			ms->exit_status = 130;
 		else if (WIFSIGNALED(output) && WTERMSIG(output) == 3)
 		{
@@ -90,7 +88,7 @@ int	ft_cmd_no_built(t_mini *ms)
 	return (0);
 }
 
-void ft_fd_clean(t_mini *ms)
+void	ft_fd_clean(t_mini *ms)
 {
 	if (ms->red_out == 1)
 	{
@@ -108,7 +106,7 @@ void ft_fd_clean(t_mini *ms)
 		dup2(ms->o_stdin, 0);
 		ms->red_in = 0;
 	}
-	else if (ms->p_done == 1)
+	if (ms->p_done == 1)
 	{
 		dup2(ms->o_stdin, 0);
 		if (ms->p_using == 'a')
@@ -120,7 +118,7 @@ void ft_fd_clean(t_mini *ms)
 	}
 	if (ms->in_cs)
 	{
-		close(ms->pipe_cs[0]);	
+		close(ms->pipe_cs[0]);
 		free(ms->in_file);
 		ms->in_file = NULL;
 		ms->in_cs = 0;

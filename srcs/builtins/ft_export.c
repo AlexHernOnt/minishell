@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 17:21:48 by ahernand          #+#    #+#             */
-/*   Updated: 2021/11/30 18:16:13 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/27 17:09:47 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,15 @@ int	ft_doer_export(t_mini *ms, int j)
 int	ft_alredy_exists(t_mini *ms, int j)
 {
 	int		i;
-	
+
 	i = 0;
 	while (ms->envp[i] != '\0')
 	{
 		if (ft_memcmp(ms->envp[i], ms->args[j], ft_pos_equal(ms->envp[i])) == 0
-			&& ms->args[j][ft_pos_equal(ms->envp[i])] && ms->args[j][ft_pos_equal(ms->envp[i])] == '=')
+			&& ms->args[j][ft_pos_equal(ms->envp[i])]
+			&& ms->args[j][ft_pos_equal(ms->envp[i])] == '=')
 		{
-			ms->export_pos = i;	
+			ms->export_pos = i;
 			return (1);
 		}
 		i++;
@@ -94,12 +95,10 @@ int	ft_check_equal(char *str)
 	i = 0;
 	if (ft_isalpha(str[0]) == 0 && str[0] != '_')
 		return (0);
-	while (str[i] != '\0' && str[i] != '=' && (ft_isalnum(str[i]) || str[i] == '_'))
+	while (str[i] != '\0' && str[i] != '=' && (ft_isalnum(str[i])
+			|| str[i] == '_'))
 		i++;
 	if (str[i] == '=' && i != 0)
 		return (1);
 	return (0);
 }
-
-
-

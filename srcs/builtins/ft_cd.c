@@ -6,7 +6,7 @@
 /*   By: whoasked <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 17:08:14 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/22 18:30:38 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/27 16:55:39 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 int	ft_cd(t_mini *ms)
 {
-    int     i;
+	int		i;
 	int		ret;
 
 	i = 0;
 	if (ms->args[1] == NULL || ft_only_spaces(ms->args[1]))
 	{
-    	while (ms->envp[i] != NULL)
+		while (ms->envp[i] != NULL)
 		{
-        	if (ft_memcmp("HOME", ms->envp[i], 4) == 0
-                && ms->envp[i][4] == '=')
+			if (ft_memcmp("HOME", ms->envp[i], 4) == 0
+				&& ms->envp[i][4] == '=')
 			{
 				chdir(ms->envp[i] + 5);
 			}
-    	    i++;
+			i++;
 		}
 	}
 	ret = chdir(ms->args[1]);

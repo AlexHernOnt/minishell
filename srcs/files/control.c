@@ -6,12 +6,16 @@
 /*   By: amorion- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 09:25:17 by amorion-          #+#    #+#             */
-/*   Updated: 2021/11/30 15:00:28 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/27 16:48:25 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-/* If ctl-d frees aux and return 1 to exit the loop*/
+
+/*
+**	If ctl-d frees aux and return 1 to exit the loop
+*/
+
 int	ft_ctrld(char *aux, t_mini *ms)
 {
 	if (!aux)
@@ -22,9 +26,13 @@ int	ft_ctrld(char *aux, t_mini *ms)
 	}
 	return (0);
 }
-/* If g_id = -1 at the begining: replaces the line by 0 and carries on. 
-** Otherwhise g_pid is a blocked process which is terminated*/
-void ft_ctrl(int sig)
+
+/*
+**	If g_id = -1 at the begining: replaces the line by 0 and carries on. 
+** Otherwhise g_pid is a blocked process which is terminated
+*/
+
+void	ft_ctrl(int sig)
 {
 	printf("\n");
 	if (sig == 2)

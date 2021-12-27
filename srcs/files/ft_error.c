@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:30:24 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/22 16:37:57 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/27 18:52:37 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,20 @@
 
 void	ft_leaks(void)
 {
-	system("leaks minishell");// | grep bytes");
+	system("leaks minishell");
+}
+
+void	ft_print_list(t_mini *ms)
+{
+	t_line	*ptr;
+
+	ptr = ms->list;
+	while (ptr != NULL)
+	{
+		printf("Content: _%s_\t\t : Type %d\n", ptr->content, ptr->type);
+		ptr = ptr->next;
+	}
+	printf("\n");
 }
 
 int	ft_error(t_mini *ms, int code, char *arg)
@@ -61,7 +74,6 @@ void	ft_free_ms_envp(t_mini *ms)
 	i = 0;
 	while (ms->envp[i] != NULL)
 	{
-//		printf("_%s_\n", ms->envp[i]);
 		free(ms->envp[i]);
 		ms->envp[i] = NULL;
 		i++;

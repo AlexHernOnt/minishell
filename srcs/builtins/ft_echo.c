@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 15:44:56 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/22 18:07:48 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/27 17:08:34 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 // Devuelve el mismo retorno que el echo original (0 success/>0failure)
 
-int all_n_baby(char *str)
+int	all_n_baby(char *str)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (str && str[0] == '-')
@@ -41,7 +41,7 @@ int	ft_echo(t_mini *ms)
 	si = 0;
 	if (!ms->args[1])
 		return (0);
-	while (all_n_baby(ms->args[i]) == 1)		//ms->args[i][1] == 'n' && ms->args[i][2] == '\0')
+	while (all_n_baby(ms->args[i]) == 1)
 	{
 		si = 1;
 		i++;
