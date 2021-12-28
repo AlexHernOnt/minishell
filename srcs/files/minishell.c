@@ -6,16 +6,16 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/27 18:52:30 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/28 17:09:14 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_extra(t_mini *ms, char *aux)
+//	ft_print_list(ms);
+void	ft_process_line(t_mini *ms, char *aux)
 {
 	ms->list = ft_parse(aux, ms);
-	ft_print_list(ms);
 	if (ms->list)
 	{
 		if (ft_organizer(ms) < 0)
@@ -29,6 +29,8 @@ int	main(int argc, char **argv, char **envp)
 	char	*aux;
 	t_mini	ms;
 
+	if (argc < 1 || argv[0] == NULL)
+		return (1);
 	atexit(ft_leaks);
 	ft_init(&ms, envp);
 	while (ms.exit == 0)
@@ -37,11 +39,11 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, ft_ctrl);
 		aux = readline("minishell$ ");
-		if (ft_ctrld(aux, &ms))
+		if (ft_ctrld(aux))
 			break ;
 		if (aux[0] != '\0' && !ft_only_spaces(aux))
 		{
-			ft_extra(&ms, aux);
+			ft_process_line(&ms, aux);
 			add_history(aux);
 		}
 		free(aux);

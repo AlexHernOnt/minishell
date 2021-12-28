@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:35:00 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/27 18:32:23 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/28 17:06:36 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,22 +97,58 @@ int				ft_only_spaces(char *aux);
 void			ft_free_list(t_mini *ms);
 
 /*
-**				E X E
+**				ft_exe
 */
 
-int				ft_pre_args(t_mini *ms);
-int				ft_organizer(t_mini *ms);
-
 int				ft_exe(t_mini *ms);
+int				ft_exe_exit(t_mini *ms);
+void			ft_fd_clean(t_mini *ms);
+void			ft_redir_clean(t_mini *ms);
+
+/*
+**				ft_cmd_no_builtin
+*/
+
+int				ft_cmd_no_builtin(t_mini *ms);
+void			ft_parent(t_mini *ms, int *output);
+
+/*
+**				ft_organizer
+*/
+
 int				ft_organizer(t_mini *ms);
-int				ft_cmd_no_built(t_mini *ms);
+int				ft_pre_args(t_mini *ms);
+void			ft_clear_for_next_line(t_mini *ms);
+void			ft_clear_next_segment(t_mini *ms);
+void			ft_clear_for_next_line(t_mini *ms);
+
+/*
+**				ft_collect_info_line
+*/
+
+int				ft_collect_info_line(t_mini *ms, t_line **ptr, int *i);
+void			ft_num_of_infiles(t_mini *ms, t_line **ptr);
+int				ft_collect_cs(t_mini *ms);
+void			ft_num_of_outfiles(t_mini *ms, t_line **ptr);
+
+/*
+**				ft_directions
+*/
 
 int				ft_directions(t_mini *ms);
+void			ft_input_source(t_mini *ms);
+int				ft_cs(t_mini *ms);
+int				abs_memcmp(char *arr1, char *arr2);
 
-char			*ft_path(char **envp, char **a);
-void			ft_fd_clean(t_mini *ms);
+/*
+**				ft_pipes
+*/
 
 int				ft_pipes(t_mini *ms);
+int				ft_middle_pipe(t_mini *ms);
+void			ft_finish_pipe(t_mini *ms);
+
+char			*ft_path(char **envp, char **a);
 
 int				file_in(t_mini *ms, t_line *ptr);
 int				file_out(t_mini *ms, t_line *ptr);
@@ -139,6 +175,10 @@ int				ft_is_var(char *element);
 */
 
 int				ft_error(t_mini *ms, int code, char *arg);
+
+/*
+**				frees_functions
+*/
 void			ft_free_ms_envp(t_mini *ms);
 void			ft_free_ms(t_mini *ms);
 void			ft_free_line(t_line **line);
@@ -176,6 +216,6 @@ void			ft_leaks(void);
 
 void			ft_blocking(int sig);
 void			ft_ctrl(int sig);
-int				ft_ctrld(char *aux, t_mini *ms);
+int				ft_ctrld(char *aux);
 
 #endif

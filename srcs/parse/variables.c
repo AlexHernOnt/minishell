@@ -6,7 +6,7 @@
 /*   By: amorion- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 09:57:43 by amorion-          #+#    #+#             */
-/*   Updated: 2021/11/10 18:01:08 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/28 17:08:04 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 char	*ft_getenv(char *aux, t_mini *ms)
 {
-	char	*new;
 	int		i;
 
 	i = 0;
@@ -54,6 +53,7 @@ char	*ft_other_variable(t_mini *ms, char *aux, char *content, int i)
 	char	*aux2;
 	int		n;
 
+	n = 0;
 	new = ft_strdup(aux);
 	while (content[i + n] && content[i + n] != ' ' && content[i + n] != '\"'
 		&& content[i + n] != '\'' && content[i + n] != '/')

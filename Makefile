@@ -6,7 +6,7 @@
 #    By: ahernand <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 13:35:22 by ahernand          #+#    #+#              #
-#    Updated: 2021/12/01 18:14:01 by ahernand         ###   ########.fr        #
+#    Updated: 2021/12/28 17:43:49 by ahernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ all: $(NAME)
 
 CC = gcc
 
-CFLAGS =
+CFLAGS = -Wall -Wextra -Werror
 
 CFLAGS2 = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
 
@@ -31,14 +31,19 @@ SRCS =	srcs/builtins/ft_echo.c			\
 		srcs/exe/ft_redir.c				\
 		srcs/exe/ft_path.c				\
 		srcs/exe/ft_exe.c				\
+		srcs/exe/ft_cmd_no_builtin.c	\
+		srcs/exe/ft_collect_info_line.c	\
 		srcs/exe/ft_organizer.c			\
+		srcs/exe/ft_directions.c		\
+		srcs/exe/ft_pipes.c				\
 		srcs/files/ft_error.c			\
+		srcs/files/frees_functions.c	\
 		srcs/files/control.c			\
 		srcs/parse/parse.c				\
 		srcs/parse/line.c				\
 		srcs/parse/quotes.c				\
 		srcs/parse/variables.c			\
-		srcs/parse/utils.c				\
+		srcs/parse/utils.c
 
 SRCS2 = srcs/files/minishell.c
 
@@ -46,15 +51,11 @@ OBJS = $(SRCS:%.c=%.o)
 
 OBJS2 = $(SRCS2:%.c=%.o)
 
-#objs2: $(SRCS2)
-#	echo palablk
-#	$(CC) $(SRCS2) -c
-
 $(LIBFT):
 	cd srcs/libft && make 
 
 $(NAME): $(OBJS) $(OBJS2) $(LIBFT)
-	$(CC) $(CFLAGS2) $(OBJS) $(LIBFT) ./srcs/files/minishell.o -o $@
+	$(CC) $(CFLAGS2) $(OBJS) $(OBJS2) $(LIBFT) -o $@
 
 
 # - - - - - - - - - - - - - - - - - #

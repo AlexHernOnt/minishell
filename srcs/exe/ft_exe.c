@@ -6,14 +6,14 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:29:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/27 18:37:16 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/28 14:20:32 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 /*
-**		F T _ E X E 
+**		ft_exe
 */
 
 int	ft_exe(t_mini *ms)
@@ -31,15 +31,10 @@ int	ft_exe(t_mini *ms)
 	else if (ft_memcmp(ms->args[0], "unset", 5) == 0 && ms->args[0][5] == '\0')
 		ms->exit_status = ft_unset(ms);
 	else if (ft_memcmp(ms->args[0], "exit", 4) == 0 && ms->args[0][4] == '\0')
-	{
-		printf("exit\n");
-		ms->exit = 1;
-		ms->exit_status = 0;
-		return (0);
-	}
+		return (ft_exe_exit(ms));
 	else
 	{
-		ft_cmd_no_built(ms);
+		ft_cmd_no_builtin(ms);
 		if (ms->exit_status == 127)
 			return (0);
 	}
@@ -47,65 +42,17 @@ int	ft_exe(t_mini *ms)
 	return (1);
 }
 
-int	ft_cmd_no_built(t_mini *ms)
+int	ft_exe_exit(t_mini *ms)
 {
-	int		output;
-
-	g_id = fork();
-	if (g_id == 0)
-	{
-		signal(SIGQUIT, ft_ctrl);
-		ms->args[0] = ft_path(ms->envp, ms->args);
-		if (ms->args[0][0] && ms->args[0][0] != '.' &&
-			ms->args[0][0] != '/')
-		{
-			ms->exit = 1;
-			ft_error(ms, 23, ms->args[0]);
-			return (127);
-		}
-		output = execve(ms->args[0], ms->args, ms->envp);
-		if (output == -1)
-		{
-			dup2(2, 1);
-			printf("-minishell: %s: Comand not found\n", ms->args[0]);
-			dup2(ms->o_stdout, 1);
-			ms->exit = 1;
-		}
-	}
-	else if (g_id != 0)
-	{
-		waitpid(-1, &output, 0);
-		if (WIFSIGNALED(output) && WTERMSIG(output) == 2)
-			ms->exit_status = 130;
-		else if (WIFSIGNALED(output) && WTERMSIG(output) == 3)
-		{
-			ms->exit_status = 131;
-			printf("Quit: 3\n");
-		}
-		else
-			ms->exit_status = WEXITSTATUS(output);
-	}
+	printf("exit\n");
+	ms->exit = 1;
+	ms->exit_status = 0;
 	return (0);
 }
 
 void	ft_fd_clean(t_mini *ms)
 {
-	if (ms->red_out == 1)
-	{
-		close(ms->fd_file_out);
-		free(ms->out_file);
-		ms->out_file = NULL;
-		dup2(ms->o_stdout, 1);
-		ms->red_out = 0;
-	}
-	if (ms->red_in == 1)
-	{
-		close(ms->fd_file_in);
-		free(ms->in_file);
-		ms->out_file = NULL;
-		dup2(ms->o_stdin, 0);
-		ms->red_in = 0;
-	}
+	ft_redir_clean(ms);
 	if (ms->p_done == 1)
 	{
 		dup2(ms->o_stdin, 0);
@@ -122,5 +69,25 @@ void	ft_fd_clean(t_mini *ms)
 		free(ms->in_file);
 		ms->in_file = NULL;
 		ms->in_cs = 0;
+	}
+}
+
+void	ft_redir_clean(t_mini *ms)
+{
+	if (ms->red_out == 1)
+	{
+		close(ms->fd_file_out);
+		free(ms->out_file);
+		ms->out_file = NULL;
+		dup2(ms->o_stdout, 1);
+		ms->red_out = 0;
+	}
+	if (ms->red_in == 1)
+	{
+		close(ms->fd_file_in);
+		free(ms->in_file);
+		ms->out_file = NULL;
+		dup2(ms->o_stdin, 0);
+		ms->red_in = 0;
 	}
 }

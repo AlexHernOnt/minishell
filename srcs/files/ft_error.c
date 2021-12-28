@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:30:24 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/27 18:52:37 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/28 16:48:46 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,71 +42,12 @@ int	ft_error(t_mini *ms, int code, char *arg)
 	if (code == 201)
 		printf("-minishell: %s: No such file or directory\n", arg);
 	if (code == 23)
+	{
 		printf("-minishell: %s: Command not found\n", arg);
+		return (127);
+	}
 	if (code == 258)
 		printf("minishell: syntax error near unexpected token `%s\'\n", arg);
 	dup2(ms->o_stdout, 1);
 	return (-1);
-}
-
-void	ft_free_ms(t_mini *ms)
-{
-	int	i;
-
-	i = 0;
-	while (ms->args[i] != NULL)
-	{
-		if (ms->args[i])
-		{
-			free(ms->args[i]);
-			ms->args[i] = NULL;
-		}
-		i++;
-	}
-	free(ms->args);
-	ms->args = NULL;
-}
-
-void	ft_free_ms_envp(t_mini *ms)
-{
-	int	i;
-
-	i = 0;
-	while (ms->envp[i] != NULL)
-	{
-		free(ms->envp[i]);
-		ms->envp[i] = NULL;
-		i++;
-	}
-	free(ms->envp);
-	ms->envp = NULL;
-}
-
-void	ft_free_list(t_mini *ms)
-{
-	t_line		*ptr;
-	t_line		*aux;
-
-	ptr = ms->list;
-	while (ptr != NULL)
-	{
-		aux = ptr->next;
-		free(ptr->content);
-		free(ptr);
-		ptr = aux;
-	}
-}
-
-/* Frees the line in case of parsing error*/
-void	ft_free_line(t_line **line)
-{
-	t_line	*ptr;
-
-	while (*line)
-	{
-		ptr = *line;
-		free(ptr->content);
-		*line = ptr->next;
-		free(ptr);
-	}
 }

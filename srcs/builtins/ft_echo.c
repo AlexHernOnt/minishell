@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 15:44:56 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/27 17:08:34 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/28 18:08:15 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	all_n_baby(char *str)
 	int	i;
 
 	i = 1;
-	if (str && str[0] == '-')
+	if (str && str[0] == '-' && str[1] != '\0')
 	{
 		while (str[i] != '\0')
 		{
@@ -46,9 +46,9 @@ int	ft_echo(t_mini *ms)
 		si = 1;
 		i++;
 	}
-	while (ms->args[i])
+	while (ms->args[i] != NULL)
 	{
-		if (ms->args[i + 1] && ms->args[i + 1] == NULL)
+		if (ms->args[i + 1] == NULL)
 			printf("%s", ms->args[i]);
 		else
 			printf("%s ", ms->args[i]);

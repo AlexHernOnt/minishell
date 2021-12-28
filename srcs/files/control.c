@@ -6,7 +6,7 @@
 /*   By: amorion- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 09:25:17 by amorion-          #+#    #+#             */
-/*   Updated: 2021/12/27 16:48:25 by ahernand         ###   ########.fr       */
+/*   Updated: 2021/12/28 17:06:41 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	If ctl-d frees aux and return 1 to exit the loop
 */
 
-int	ft_ctrld(char *aux, t_mini *ms)
+int	ft_ctrld(char *aux)
 {
 	if (!aux)
 	{
