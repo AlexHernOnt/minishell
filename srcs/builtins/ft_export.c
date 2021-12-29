@@ -17,7 +17,7 @@ int	ft_export(t_mini *ms)
 	int		j;
 
 	j = 1;
-	while (ms->args[j])
+	while (ms->args[j] != NULL)
 	{
 		if (ft_alredy_exists(ms, j))
 			ft_delete(ms, ms->export_pos);

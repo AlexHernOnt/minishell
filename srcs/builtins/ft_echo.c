@@ -32,6 +32,12 @@ int	all_n_baby(char *str)
 	return (0);
 }
 
+int	ft_norme_echo(void)
+{
+	printf("\n");
+	return (0);
+}
+
 int	ft_echo(t_mini *ms)
 {
 	int	i;
@@ -40,7 +46,7 @@ int	ft_echo(t_mini *ms)
 	i = 1;
 	si = 0;
 	if (!ms->args[1])
-		return (0);
+		return (ft_norme_echo());
 	while (all_n_baby(ms->args[i]) == 1)
 	{
 		si = 1;

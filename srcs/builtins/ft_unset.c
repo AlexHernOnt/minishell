@@ -90,7 +90,7 @@ int	ft_doer_unset(t_mini *ms, int j)
 		cut = ft_strdup(ms->envp[i]);
 		cut[ft_pos_equal(ms->envp[i])] = '\0';
 		if (ft_memcmp(cut, ms->args[j], ft_strlen(ms->args[j])) == 0
-			&& cut[ft_strlen(ms->args[1])] == '\0')
+			&& (ft_strlen(ms->args[j]) == ft_strlen(cut)))
 		{
 			ft_delete(ms, i);
 			free(cut);
@@ -98,5 +98,5 @@ int	ft_doer_unset(t_mini *ms, int j)
 		}
 		free(cut);
 	}
-	return (0);
+	return (1);
 }
