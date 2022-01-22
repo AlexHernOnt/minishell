@@ -110,7 +110,7 @@ void			ft_redir_clean(t_mini *ms);
 */
 
 int				ft_cmd_no_builtin(t_mini *ms);
-void			ft_parent(t_mini *ms, int *output);
+void			ft_parent(t_mini *ms);
 
 /*
 **				ft_organizer
