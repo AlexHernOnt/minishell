@@ -22,15 +22,13 @@ int	ft_cd(t_mini *ms)
 	{
 		while (ms->envp[i] != NULL)
 		{
-			if (ft_memcmp("HOME", ms->envp[i], 4) == 0
-				&& ms->envp[i][4] == '=')
-			{
-				chdir(ms->envp[i] + 5);
-			}
+			if (ft_memcmp("HOME", ms->envp[i], 4) == 0 && ms->envp[i][4] == '=')
+				ret = chdir(ms->envp[i] + 5);
 			i++;
 		}
 	}
-	ret = chdir(ms->args[1]);
+	else
+		ret = chdir(ms->args[1]);
 	if (ret == -1)
 	{
 		ms->exit_status = 1;
