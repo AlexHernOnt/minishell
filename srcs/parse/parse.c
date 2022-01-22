@@ -13,11 +13,8 @@
 #include "../minishell.h"
 
 /*
-**	Se le pasa la posición en la que se está leyendo la línea y devuelve la 
-**	longitud del primer elemento a separar siguendo las reglas de parseo de la 
-**	shell. Y todavía sin exandir las variables, que son tratadas como caracteres 
-**	normales. La función ignora también comillas sin cerrar y las trata como un 
-**	caracter normal
+* It returns the length of the first element to be splitted considering quotes 
+* rules and trating variables as normal characters. It ignores open quotes
 */
 
 int	get_content_len(char *line)
@@ -50,8 +47,9 @@ t_line	*ft_more_and_less(t_line *ptr)
 {
 	if (ptr->content[0] == '<')
 	{
-		if (ptr->next)
-			ptr->next->type = 0;
+		if (!ptr->next)
+			return (ptr);
+		ptr->next->type = 0;
 		if (ptr->content[1] == '<')
 			ptr->type = 2;
 		else if (ptr->content[1] == 0)
@@ -59,8 +57,9 @@ t_line	*ft_more_and_less(t_line *ptr)
 	}
 	if (ptr->content[0] == '>')
 	{
-		if (ptr->next)
-			ptr->next->type = 8;
+		if (!ptr->next)
+			return (ptr);
+		ptr->next->type = 8;
 		if (ptr->content[1] == '>')
 			ptr->type = 7;
 		else if (ptr->content[1] == 0)
@@ -68,7 +67,7 @@ t_line	*ft_more_and_less(t_line *ptr)
 	}
 	if (*ptr->next->content == '<'
 		|| *ptr->next->content == '>' || *ptr->next->content == '|')
-		return (ptr->next);
+		return (ptr);
 	return (NULL);
 }
 
@@ -156,7 +155,10 @@ t_line	*ft_parse(char *line, t_mini *ms)
 	ft_remove_quotes(list_line);
 	if (ft_get_type(list_line))
 	{
-		ft_error(ms, 258, ft_get_type(list_line)->content);
+		if (ft_get_type(list_line)->next)
+			ft_error(ms, 258, ft_get_type(list_line)->next->content);
+		else
+			ft_error(ms, 258, "newline");
 		ft_free_line(&list_line);
 		ms->exit_status = 258;
 		return (NULL);

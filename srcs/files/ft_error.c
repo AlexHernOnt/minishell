@@ -47,7 +47,7 @@ int	ft_error(t_mini *ms, int code, char *arg)
 		return (127);
 	}
 	if (code == 258)
-		printf("minishell: syntax error near unexpected token `%s\'\n", arg);
+		printf("-minishell: syntax error near unexpected token `%s\'\n", arg);
 	dup2(ms->o_stdout, 1);
 	return (-1);
 }
