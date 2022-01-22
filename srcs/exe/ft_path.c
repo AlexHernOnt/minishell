@@ -100,6 +100,8 @@ char	*ft_path(char **envp, char **a)
 
 	i = 0;
 	i_pos = ft_path_pos(envp);
+	if (i_pos < 0)
+		return (a[0]);
 	list_paths = ft_split(envp[i_pos], ':');
 	list_paths[0] = ft_fix_first(list_paths);
 	if (ft_full_route(a[0]) == -1)
