@@ -25,15 +25,13 @@ int	ft_cmd_no_builtin(t_mini *ms)
 			ms->args[0][0] != '/')
 		{
 			ms->exit = 1;
-			return (ft_error(ms, 23, ms->args[0]));
+			exit (ft_error(ms, 23, ms->args[0]));
 		}
 		output = execve(ms->args[0], ms->args, ms->envp);
 		if (output == -1)
 		{
-			dup2(2, 1);
-			printf("-minishell: %s: Comand not found\n", ms->args[0]);
-			dup2(ms->o_stdout, 1);
 			ms->exit = 1;
+			exit (ft_error(ms, 23, ms->args[0]));
 		}
 	}
 	else if (g_id != 0)
