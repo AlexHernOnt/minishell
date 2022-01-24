@@ -22,7 +22,7 @@ int	ft_collect_info_line(t_mini *ms, t_line **ptr, int *i)
 	{
 		if ((*ptr)->type == 1)
 			ft_num_of_infiles(ms, ptr);
-		if ((*ptr)->type == 2 && ft_collect_cs(ms) != 1)
+		if ((*ptr)->type == 2 && ft_collect_cs(ms, ptr) != 1)
 			return (-1);
 		if ((*ptr)->type == 7)
 			ms->append = 1;
@@ -52,9 +52,10 @@ void	ft_num_of_infiles(t_mini *ms, t_line **ptr)
 	}
 }
 
-int	ft_collect_cs(t_mini *ms)
+int	ft_collect_cs(t_mini *ms, t_line **ptr)
 {
 	ms->in_cs = 1;
+	ms->in_file = ft_strdup((*ptr)->next->content);
 	if (pipe(ms->pipe_cs) < 0)
 		return (ft_error(ms, 150, NULL));
 	return (1);

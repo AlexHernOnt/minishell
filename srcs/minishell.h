@@ -128,7 +128,7 @@ void			ft_clear_for_next_line(t_mini *ms);
 
 int				ft_collect_info_line(t_mini *ms, t_line **ptr, int *i);
 void			ft_num_of_infiles(t_mini *ms, t_line **ptr);
-int				ft_collect_cs(t_mini *ms);
+int				ft_collect_cs(t_mini *ms, t_line **ptr);
 void			ft_num_of_outfiles(t_mini *ms, t_line **ptr);
 
 /*
