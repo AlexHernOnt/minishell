@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-//	ft_print_list(ms);
+//ft_print_list(ms);
 void	ft_process_line(t_mini *ms, char *aux)
 {
 	ms->list = ft_parse(aux, ms);

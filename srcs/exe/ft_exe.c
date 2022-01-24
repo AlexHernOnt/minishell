@@ -36,7 +36,10 @@ int	ft_exe(t_mini *ms)
 	{
 		ft_cmd_no_builtin(ms);
 		if (ms->exit_status == 127)
+		{
+			ft_fd_clean(ms);
 			return (0);
+		}
 	}
 	ft_fd_clean(ms);
 	return (1);

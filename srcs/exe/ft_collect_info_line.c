@@ -20,9 +20,9 @@ int	ft_collect_info_line(t_mini *ms, t_line **ptr, int *i)
 {
 	while (ms->pipe == 0 && *ptr != NULL)
 	{
-		if ((*ptr)->type == 0)
+		if ((*ptr)->type == 1)
 			ft_num_of_infiles(ms, ptr);
-		if ((*ptr)->type == 1 && ft_collect_cs(ms) != 1)
+		if ((*ptr)->type == 2 && ft_collect_cs(ms) != 1)
 			return (-1);
 		if ((*ptr)->type == 7)
 			ms->append = 1;
@@ -47,7 +47,8 @@ void	ft_num_of_infiles(t_mini *ms, t_line **ptr)
 	ms->n_in_cur++;
 	if (ms->n_in_cur == ms->n_in_max)
 	{
-		ms->in_file = ft_strdup((*ptr)->content);
+		ms->in_file = ft_strdup((*ptr)->next->content);
+		ms->red_in = 1;
 	}
 }
 
