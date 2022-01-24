@@ -49,7 +49,6 @@ int	ft_exe_exit(t_mini *ms)
 {
 	printf("exit\n");
 	ms->exit = 1;
-	ms->exit_status = 0;
 	return (0);
 }
 
