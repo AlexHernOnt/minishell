@@ -6,7 +6,7 @@
 #    By: ahernand <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 13:35:22 by ahernand          #+#    #+#              #
-#    Updated: 2021/12/28 17:43:49 by ahernand         ###   ########.fr        #
+#    Updated: 2022/01/24 18:45:52 by ahernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,16 +62,9 @@ $(NAME): $(OBJS) $(OBJS2) $(LIBFT)
 # - - - - C L E A N I N G - - - - - #
 # - - - - - - - - - - - - - - - - - #
 
-test:
-	make clean
-	make
-	@cd tester_cac && bash test.sh
-	make clean
-
-
 clean:
 	rm -f $(OBJS) srcs/files/minishell.o
-	rm -f minishell
+	rm -f $(NAME)
 
 fclean:
 	make clean
@@ -80,3 +73,5 @@ fclean:
 
 
 re:	clean all
+
+.PHONY: re clean fclean all

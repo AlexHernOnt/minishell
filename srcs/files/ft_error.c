@@ -12,11 +12,6 @@
 
 #include "../minishell.h"
 
-void	ft_leaks(void)
-{
-	system("leaks minishell");
-}
-
 void	ft_print_list(t_mini *ms)
 {
 	t_line	*ptr;

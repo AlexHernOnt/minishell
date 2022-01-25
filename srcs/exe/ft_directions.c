@@ -69,7 +69,6 @@ int	ft_cs(t_mini *ms)
 			return (0);
 		}
 		write(ms->pipe_cs[1], aux, ft_strlen(aux));
-		write(ms->pipe_cs[1], "\0", 1);
 		write(ms->pipe_cs[1], "\n", 1);
 		free(aux);
 	}

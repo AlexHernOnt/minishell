@@ -208,7 +208,6 @@ size_t			ft_strlen_dp(char **s);
 
 int				ft_cd(t_mini *ms);
 size_t			ft_strlen_dp(char **s);
-void			ft_leaks(void);
 
 /*
 ** 	CTRL C	& CTRL \
