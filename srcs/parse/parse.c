@@ -152,7 +152,6 @@ t_line	*ft_parse(char *line, t_mini *ms)
 	list_line = ft_get_line(line);
 	ft_remove_last_space(list_line);
 	ft_expansor(list_line, ms);
-	ft_remove_quotes(list_line);
 	if (ft_get_type(list_line))
 	{
 		if (ft_get_type(list_line)->next)
@@ -163,5 +162,6 @@ t_line	*ft_parse(char *line, t_mini *ms)
 		ms->exit_status = 258;
 		return (NULL);
 	}
+	ft_remove_quotes(list_line);
 	return (list_line);
 }
