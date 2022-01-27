@@ -92,7 +92,8 @@ void	ft_remove_quotes(t_line *line)
 	ptr = line;
 	while (ptr)
 	{
-		if (*(ptr->content) == '\"' || *(ptr->content) == '\'')
+		if ((*(ptr->content) == '\"' || *(ptr->content) == '\'')
+			&& ft_check_closed(ptr->content, *ptr->content))
 		{
 			new = ft_new_content(ptr->content);
 			free(ptr->content);
