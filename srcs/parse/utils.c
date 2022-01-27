@@ -55,3 +55,14 @@ int	ft_is_var(char *element)
 	}
 	return (0);
 }
+
+int	ft_only_spaces(char *aux)
+{
+	while (*aux != '\0')
+	{
+		if (*aux != ' ' && *aux != '\t')
+			return (0);
+		aux++;
+	}
+	return (1);
+}

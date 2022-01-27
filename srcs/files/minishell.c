@@ -18,6 +18,14 @@ void	ft_leaks(void)
 }
 
 //ft_print_list(ms);
+
+void	ft_reinit(t_mini *ms)
+{	
+	ms->red_in = 0;
+	ms->red_out = 0;
+	ms->append = 0;
+}
+
 void	ft_process_line(t_mini *ms, char *aux)
 {
 	ms->list = ft_parse(aux, ms);
@@ -27,6 +35,7 @@ void	ft_process_line(t_mini *ms, char *aux)
 			ms->exit_status = 127;
 		ft_free_list(ms);
 	}
+	ft_reinit(ms);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -104,15 +113,4 @@ char	**ft_strdup_envp(char **envp)
 	}
 	new_envp[i] = NULL;
 	return (new_envp);
-}
-
-int	ft_only_spaces(char *aux)
-{
-	while (*aux != '\0')
-	{
-		if (*aux != ' ' && *aux != '\t')
-			return (0);
-		aux++;
-	}
-	return (1);
 }
