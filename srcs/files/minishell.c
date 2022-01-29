@@ -45,7 +45,6 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc < 1 || argv[0] == NULL)
 		return (1);
-	atexit(ft_leaks);
 	ft_init(&ms, envp);
 	while (ms.exit == 0)
 	{
