@@ -40,11 +40,12 @@ void	ft_process_line(t_mini *ms, char *aux)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*aux;
-	t_mini	ms;
+	char			*aux;
+	t_mini			ms;
 
 	if (argc < 1 || argv[0] == NULL)
 		return (1);
+	ft_set_tc();
 	ft_init(&ms, envp);
 	while (ms.exit == 0)
 	{

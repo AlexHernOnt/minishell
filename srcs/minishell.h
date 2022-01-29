@@ -21,6 +21,7 @@
 # include <readline/history.h>
 # include "./libft/libft.h"
 # include <sys/wait.h>
+# include <termios.h>
 
 typedef struct s_line
 {
@@ -210,11 +211,12 @@ int				ft_cd(t_mini *ms);
 size_t			ft_strlen_dp(char **s);
 
 /*
-** 	CTRL C	& CTRL \
+** 				CTRL \
 */
 
 void			ft_blocking(int sig);
 void			ft_ctrl(int sig);
 int				ft_ctrld(char *aux);
+void			ft_set_tc(void);
 
 #endif

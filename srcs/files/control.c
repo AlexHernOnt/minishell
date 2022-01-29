@@ -49,3 +49,14 @@ void	ft_ctrl(int sig)
 	if (sig == 3 && g_id != -1)
 		kill(g_id, SIGQUIT);
 }
+
+/* Sets the termios c_lflag to not echoctrl so that ^C is not printed*/
+
+void	ft_set_tc(void)
+{
+	struct termios	attr;
+
+	tcgetattr(STDIN_FILENO, &attr);
+	attr.c_lflag = ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &attr);
+}

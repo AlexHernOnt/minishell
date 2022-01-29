@@ -49,7 +49,7 @@ void	ft_parent(t_mini *ms)
 	else if (WIFSIGNALED(output) && WTERMSIG(output) == 3)
 	{
 		ms->exit_status = 131;
-		printf("Quit: 3\n");
+		printf("^/Quit: 3\n");
 	}
 	else
 		ms->exit_status = WEXITSTATUS(output);
