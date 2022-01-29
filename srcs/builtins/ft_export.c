@@ -28,51 +28,6 @@ int	ft_export(t_mini *ms)
 	return (0);
 }
 
-int		find_equal(t_mini *ms, int j)
-{
-	int		i;
-
-	i = 0;
-	while (ms->args[j][i] != '\0' && ms->args[j][i] != '=')
-		i++;
-	if (ms->args[j][i] == '=')
-		return(i + 1);
-	return (0);
-}
-
-void ft_no_quotes(t_mini *ms, int j)
-{
-	char	*new;
-	int		i;
-	int		k;
-
-	k = 0;
-	if (ms->args[j][0] && ms->args[j][find_equal(ms, j)] == '"' &&
-		ms->args[j][ft_strlen(ms->args[j]) - 1] == '"')
-	{
-		printf("%zu\n", ft_strlen(ms->args[j]));
-
-		printf("%d\n", find_equal(ms, j));
-
-		printf("%zu\n", ft_strlen(ms->args[j]) - find_equal(ms, j) - 2 + 1);
-		new = malloc(sizeof(char) * (ft_strlen(ms->args[j]) - find_equal(ms, j) - 2 + 1));
-		i = find_equal(ms, j) + 1;
-		if (new)
-		{
-			while (ms->args[j][i] != '"')
-			{
-				new[k] = ms->args[j][i];
-				i++;
-				k++;
-			}
-			new[i] = '\0';
-			free(ms->args[j]);
-			ms->args[j] = new;
-		}
-	}
-}
-
-
 int	ft_doer_export(t_mini *ms, int j)
 {
 	int		i;
@@ -89,7 +44,8 @@ int	ft_doer_export(t_mini *ms, int j)
 		new_envp[i] = ft_strdup(ms->envp[i]);
 		i++;
 	}
-	ft_no_quotes(ms, j);
+	ft_no_quotes(ms, j, '\'');
+	ft_no_quotes(ms, j, '"');
 	new_envp[i] = ft_strdup(ms->args[j]);
 	new_envp[i + 1] = NULL;
 	ft_free_ms_envp(ms);
