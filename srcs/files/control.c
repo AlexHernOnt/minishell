@@ -34,11 +34,11 @@ int	ft_ctrld(char *aux)
 
 void	ft_ctrl(int sig)
 {
-	printf("\n");
 	if (sig == 2)
 	{
 		if (g_id == -1)
 		{
+			printf("\n");
 			rl_on_new_line();
 			rl_replace_line("", 0);
 			rl_redisplay();

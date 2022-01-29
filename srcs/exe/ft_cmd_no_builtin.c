@@ -45,7 +45,10 @@ void	ft_parent(t_mini *ms)
 
 	waitpid(-1, &output, 0);
 	if (WIFSIGNALED(output) && WTERMSIG(output) == 2)
+	{
 		ms->exit_status = 130;
+		printf("^C\n");
+	}
 	else if (WIFSIGNALED(output) && WTERMSIG(output) == 3)
 	{
 		ms->exit_status = 131;
