@@ -15,13 +15,9 @@
 /*void	ft_leaks(void)
 {
 	system("leaks minishell");
-<<<<<<< HEAD
 }*/
 //ft_print_list(ms);
 //atexit(ft_leaks);
-=======
-}
->>>>>>> 265089c677ac8bfb1e1ca521d6a5190390eadd23
 
 void	ft_reinit(t_mini *ms)
 {
