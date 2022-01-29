@@ -12,8 +12,7 @@
 
 #include "../minishell.h"
 
-/* Comprueba que las comillas estén cerradas devuelve 1 si es así y 0 en caso 
-contrario*/
+/* Returns 1 if quotes are closed and 0 otherwise. */
 
 int	ft_check_closed(char *line, char q)
 {
@@ -27,9 +26,9 @@ int	ft_check_closed(char *line, char q)
 	return (0);
 }
 
-/* Cuando entras aquí es porque has encontrado comillas simples que se cierran, 
-La función devielve la longitud del espacio entre comillas -1 (incluyendolas) ya
-que después la función get_content_len avanza otro valor*/
+/* If entered here there are simple closed quotes. The function returns the 
+*  length of the space between quotes -1 (quotes included) then get_content_len 
+*  will advance the remaining space */
 
 int	ft_quotes(char *line, char c)
 {
@@ -41,7 +40,7 @@ int	ft_quotes(char *line, char c)
 	return (i);
 }
 
-/* elminia el último elemento de la lista si solo contiene espacios */
+/* Removes the last element of the list if it has only spaces */
 
 void	ft_remove_last_space(t_line *line)
 {

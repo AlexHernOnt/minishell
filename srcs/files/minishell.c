@@ -12,10 +12,10 @@
 
 #include "../minishell.h"
 
-void	ft_leaks(void)
+/*void	ft_leaks(void)
 {
 	system("leaks minishell");
-}
+}*/
 
 //ft_print_list(ms);
 

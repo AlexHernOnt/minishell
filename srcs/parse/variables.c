@@ -109,9 +109,8 @@ char	*ft_expand(char *content, t_mini *ms)
 	return (content);
 }
 
-/* Recorre la lista, detecta si un elemento contiene variables y al 
-encontrar un elemento con varables las expande llamando iterativamente a 
-ft_expand mientras queden, retorna la nueva cadena*/
+/* Rins through the list, If an element has a variable it expands them
+* iteratively */
 
 void	ft_expansor(t_line *line, t_mini *ms)
 {
