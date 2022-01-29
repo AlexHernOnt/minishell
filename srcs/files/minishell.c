@@ -6,21 +6,21 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/28 17:09:14 by ahernand         ###   ########.fr       */
+/*   Updated: 2022/01/29 11:38:38 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/*void	ft_leaks(void)
+void	ft_leaks(void)
 {
 	system("leaks minishell");
-}*/
-
+}
 //ft_print_list(ms);
 
 void	ft_reinit(t_mini *ms)
-{	
+{
+	ms->n_in_max = 0;
 	ms->red_in = 0;
 	ms->red_out = 0;
 	ms->append = 0;
@@ -32,7 +32,10 @@ void	ft_process_line(t_mini *ms, char *aux)
 	if (ms->list)
 	{
 		if (ft_organizer(ms) < 0)
+		{
+			ft_free_ms(ms);
 			ms->exit_status = 127;
+		}
 		ft_free_list(ms);
 	}
 	ft_reinit(ms);
@@ -40,6 +43,7 @@ void	ft_process_line(t_mini *ms, char *aux)
 
 int	main(int argc, char **argv, char **envp)
 {
+	atexit(ft_leaks);
 	char	*aux;
 	t_mini	ms;
 

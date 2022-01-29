@@ -68,7 +68,8 @@ void	ft_fd_clean(t_mini *ms)
 	if (ms->in_cs)
 	{
 		close(ms->pipe_cs[0]);
-		free(ms->in_file);
+		if (ms->in_file)
+			free(ms->in_file);
 		ms->in_file = NULL;
 		ms->in_cs = 0;
 	}

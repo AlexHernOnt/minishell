@@ -54,8 +54,10 @@ void	ft_free_list(t_mini *ms)
 	while (ptr != NULL)
 	{
 		aux = ptr->next;
-		free(ptr->content);
-		free(ptr);
+		if (ptr->content)
+			free(ptr->content);
+		if (ptr)
+			free(ptr);
 		ptr = aux;
 	}
 }

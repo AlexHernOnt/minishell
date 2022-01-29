@@ -66,10 +66,24 @@ int	ft_pre_args(t_mini *ms)
 			i++;
 		ptr = ptr->next;
 	}
+	if (ft_alloc_args(ms, i) < 0)
+		return (-1);
+	return (1);
+}
+
+int	ft_alloc_args(t_mini *ms, int i)
+{
+	int	j;
+
+	j = 0;
 	ms->args = malloc(sizeof(char *) * (i + 1));
 	if (ms->args == NULL)
 		return (-1);
-	ms->args[i] = NULL;
+	while (j < i + 1)
+	{
+		ms->args[j] = NULL;
+		j++;
+	}
 	return (1);
 }
 
@@ -79,6 +93,7 @@ void	ft_clear_next_segment(t_mini *ms)
 	ms->n_out_cur = 0;
 	ms->n_in_max = 0;
 	ms->n_in_cur = 0;
+	ms->n_in_max = 0;
 }
 
 void	ft_clear_for_next_line(t_mini *ms)

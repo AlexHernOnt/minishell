@@ -71,7 +71,6 @@ fclean:
 	cd srcs/libft && make fclean
 	rm -f srcs/libft/libft.a
 
-
 re:	clean all
 
 .PHONY: re clean fclean all

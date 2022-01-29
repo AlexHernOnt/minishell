@@ -119,6 +119,7 @@ void			ft_parent(t_mini *ms);
 
 int				ft_organizer(t_mini *ms);
 int				ft_pre_args(t_mini *ms);
+int				ft_alloc_args(t_mini *ms, int i);
 void			ft_clear_for_next_line(t_mini *ms);
 void			ft_clear_next_segment(t_mini *ms);
 void			ft_clear_for_next_line(t_mini *ms);
