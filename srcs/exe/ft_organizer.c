@@ -27,7 +27,7 @@ int	ft_organizer(t_mini *ms)
 	ptr = ms->list;
 	while (ptr != NULL && !lock)
 	{
-		if (!ft_pre_args(ms) || file_in(ms, ptr) <= 0 || !file_out(ms, ptr))
+		if (file_in(ms, ptr) <= 0 || !file_out(ms, ptr) || !ft_pre_args(ms))
 			return (-1);
 		if (ft_collect_info_line(ms, &ptr, &i) < 1)
 			return (-1);

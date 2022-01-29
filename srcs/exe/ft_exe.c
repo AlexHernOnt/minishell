@@ -80,7 +80,8 @@ void	ft_redir_clean(t_mini *ms)
 	if (ms->red_out == 1)
 	{
 		close(ms->fd_file_out);
-		free(ms->out_file);
+		if (ms->out_file)
+			free(ms->out_file);
 		ms->out_file = NULL;
 		dup2(ms->o_stdout, 1);
 		ms->red_out = 0;
@@ -88,7 +89,8 @@ void	ft_redir_clean(t_mini *ms)
 	if (ms->red_in == 1)
 	{
 		close(ms->fd_file_in);
-		free(ms->in_file);
+		if (ms->in_file)
+			free(ms->in_file);
 		ms->out_file = NULL;
 		dup2(ms->o_stdin, 0);
 		ms->red_in = 0;
