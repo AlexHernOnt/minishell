@@ -15,6 +15,14 @@
 /*
 **		ft_collect_info_line
 */
+void	ft_input_vars(t_mini *ms, t_line **ptr)
+{
+	if ((*ptr)->type == 7)
+		ms->append = 1;
+	else
+		ms->append = 0;
+	ms->red_out = 1;
+}
 
 int	ft_collect_info_line(t_mini *ms, t_line **ptr, int *i)
 {
@@ -32,13 +40,7 @@ int	ft_collect_info_line(t_mini *ms, t_line **ptr, int *i)
 		if ((*ptr)->type == 5)
 			ms->pipe = 1;
 		if ((*ptr)->type == 6 || (*ptr)->type == 7)
-		{
-			if ((*ptr)->type == 7)
-				ms->append = 1;
-			else
-				ms->append = 0;
-			ms->red_out = 1;
-		}
+			ft_input_vars(ms, ptr);
 		if ((*ptr)->type == 8)
 			ft_num_of_outfiles(ms, ptr);
 		(*ptr) = (*ptr)->next;

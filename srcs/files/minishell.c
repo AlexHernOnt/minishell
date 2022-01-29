@@ -15,9 +15,10 @@
 /*void	ft_leaks(void)
 {
 	system("leaks minishell");
-}*/
-//ft_print_list(ms);
-//atexit(ft_leaks);
+}
+	ft_print_list(ms);
+	atexit(ft_leaks);
+*/
 
 void	ft_reinit(t_mini *ms)
 {
@@ -35,7 +36,6 @@ void	ft_process_line(t_mini *ms, char *aux)
 	{
 		if (ft_organizer(ms) < 0)
 		{
-			//ft_free_ms(ms);
 			ms->exit_status = 127;
 		}
 		ft_free_list(ms);
@@ -48,7 +48,6 @@ int	main(int argc, char **argv, char **envp)
 	char	*aux;
 	t_mini	ms;
 
-	//atexit(ft_leaks);
 	if (argc < 1 || argv[0] == NULL)
 		return (1);
 	ft_set_tc();
