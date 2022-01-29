@@ -24,8 +24,6 @@ int	ft_collect_info_line(t_mini *ms, t_line **ptr, int *i)
 			ft_num_of_infiles(ms, ptr);
 		if ((*ptr)->type == 2 && ft_collect_cs(ms, ptr) != 1)
 			return (-1);
-		if ((*ptr)->type == 7)
-			ms->append = 1;
 		if ((*ptr)->type == 3 || (*ptr)->type == 4)
 		{
 			ms->args[(*i)] = ft_strdup((*ptr)->content);
@@ -34,7 +32,13 @@ int	ft_collect_info_line(t_mini *ms, t_line **ptr, int *i)
 		if ((*ptr)->type == 5)
 			ms->pipe = 1;
 		if ((*ptr)->type == 6 || (*ptr)->type == 7)
+		{
+			if ((*ptr)->type == 7)
+				ms->append = 1;
+			else
+				ms->append = 0;
 			ms->red_out = 1;
+		}
 		if ((*ptr)->type == 8)
 			ft_num_of_outfiles(ms, ptr);
 		(*ptr) = (*ptr)->next;

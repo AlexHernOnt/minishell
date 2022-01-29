@@ -15,7 +15,7 @@
 void	ft_free_ms(t_mini *ms)
 {
 	int	i;
-
+	
 	i = 0;
 	while (ms->args[i] != NULL)
 	{
@@ -26,7 +26,8 @@ void	ft_free_ms(t_mini *ms)
 		}
 		i++;
 	}
-	free(ms->args);
+	if (ms->args != NULL)
+		free(ms->args);
 	ms->args = NULL;
 }
 
