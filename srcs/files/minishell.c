@@ -12,12 +12,12 @@
 
 #include "../minishell.h"
 
-/*void	ft_leaks(void)
+void	ft_leaks(void)
 {
 	system("leaks minishell");
 }
+/*
 	ft_print_list(ms);
-	atexit(ft_leaks);
 */
 
 void	ft_reinit(t_mini *ms)
@@ -31,7 +31,7 @@ void	ft_reinit(t_mini *ms)
 void	ft_process_line(t_mini *ms, char *aux)
 {
 	ms->list = ft_parse(aux, ms);
-	ft_print_list(ms);
+//	ft_print_list(ms);
 	if (ms->list)
 	{
 		if (ft_organizer(ms) < 0)
@@ -45,6 +45,7 @@ void	ft_process_line(t_mini *ms, char *aux)
 
 int	main(int argc, char **argv, char **envp)
 {
+	atexit(ft_leaks);
 	char	*aux;
 	t_mini	ms;
 
