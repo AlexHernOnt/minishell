@@ -20,7 +20,7 @@ int	ft_ctrld(char *aux)
 {
 	if (!aux)
 	{
-		printf("\n");
+		printf("exit\n");
 		free(aux);
 		return (1);
 	}
