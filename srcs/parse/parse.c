@@ -65,8 +65,7 @@ t_line	*ft_more_and_less(t_line *ptr)
 		else if (ptr->content[1] == 0)
 			ptr->type = 6;
 	}
-	if (*ptr->next->content == '<'
-		|| *ptr->next->content == '>' || *ptr->next->content == '|')
+	if (ft_is_operator(ptr))
 		return (ptr);
 	return (NULL);
 }
@@ -94,7 +93,11 @@ t_line	*ft_get_type(t_line *line)
 			if (ft_more_and_less(ptr))
 				return (ft_more_and_less(ptr));
 		if (ptr->content[0] == '|')
+		{
+			if(ft_pipe_sintax(ptr, line))
+				return(ptr);
 			ptr->type = 5;
+		}
 		if (ptr->type == -1)
 		{
 			ptr->type = 3;
@@ -154,8 +157,10 @@ t_line	*ft_parse(char *line, t_mini *ms)
 	ft_expansor(list_line, ms);
 	if (ft_get_type(list_line))
 	{
-		if (ft_get_type(list_line)->next)
-			ft_error(ms, 258, ft_get_type(list_line)->next->content);
+		if (ft_get_type(list_line)->content[0] == '|')
+			ft_error(ms, 258, "|");
+		else if (ft_get_type(list_line)->next) // Mirar esto
+			ft_error(ms, 258, ft_get_type(list_line)->next);
 		else
 			ft_error(ms, 258, "newline");
 		ft_free_line(&list_line);

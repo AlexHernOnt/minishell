@@ -66,3 +66,12 @@ int	ft_only_spaces(char *aux)
 	}
 	return (1);
 }
+int ft_pipe_sintax(t_line *ptr, t_line *line)
+{
+	if(ptr != line)
+	{
+		ptr->type = 5;
+		return(0);
+	}
+	return(1);
+}
