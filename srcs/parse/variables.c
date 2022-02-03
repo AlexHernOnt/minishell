@@ -56,7 +56,8 @@ char	*ft_other_variable(t_mini *ms, char *aux, char *content, int i)
 	n = 0;
 	new = ft_strdup(aux);
 	while (content[i + n] && content[i + n] != ' ' && content[i + n] != '\"'
-		&& content[i + n] != '\'' && content[i + n] != '/')
+		&& content[i + n] != '\'' && content[i + n] != '/'
+		&& content[i + n] != '$')
 	{
 		aux[n] = content[i + n];
 		n++;
