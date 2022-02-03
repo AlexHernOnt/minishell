@@ -16,14 +16,7 @@ void	ft_leaks(void)
 {
 	system("leaks minishell");
 }
-<<<<<<< HEAD
-/*
-	ft_print_list(ms);
-*/
-=======
-atexit(ft_leaks);
-ft_print_list(ms);*/
->>>>>>> 5ed3dfaf481f6fcde283d6c9cb162cb6061d2c38
+//	ft_print_list(ms);
 
 void	ft_reinit(t_mini *ms)
 {
@@ -36,10 +29,6 @@ void	ft_reinit(t_mini *ms)
 void	ft_process_line(t_mini *ms, char *aux)
 {
 	ms->list = ft_parse(aux, ms);
-<<<<<<< HEAD
-//	ft_print_list(ms);
-=======
->>>>>>> 5ed3dfaf481f6fcde283d6c9cb162cb6061d2c38
 	if (ms->list)
 	{
 		if (ft_organizer(ms) < 0)
@@ -109,22 +98,4 @@ void	ft_init(t_mini *ms, char **envp)
 	ms->p_b_exists = 0;
 	ms->o_stdin = dup(0);
 	ms->o_stdout = dup(1);
-}
-
-char	**ft_strdup_envp(char **envp)
-{
-	char	**new_envp;
-	int		i;
-
-	i = 0;
-	new_envp = malloc(sizeof(char *) * (ft_strlen_dp(envp) + 1));
-	if (new_envp == NULL)
-		return (NULL);
-	while (envp[i] != NULL)
-	{
-		new_envp[i] = ft_strdup(envp[i]);
-		i++;
-	}
-	new_envp[i] = NULL;
-	return (new_envp);
 }

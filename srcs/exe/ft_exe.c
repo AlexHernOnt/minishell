@@ -41,6 +41,7 @@ int	ft_exe(t_mini *ms)
 			return (0);
 		}
 	}
+	ft_env_pwd(ms);
 	ft_fd_clean(ms);
 	return (1);
 }

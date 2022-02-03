@@ -191,6 +191,7 @@ void			ft_free_line(t_line **line);
 
 int				ft_echo(t_mini *ms);
 int				ft_pwd(void);
+void			ft_env_pwd(t_mini *ms);
 int				ft_env(t_mini *ms);
 void			ft_no_quotes(t_mini *ms, int j, char type);
 int				ft_doer_unset(t_mini *ms, int j);
