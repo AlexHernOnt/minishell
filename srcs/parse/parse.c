@@ -74,8 +74,8 @@ t_line	*ft_more_and_less(t_line *ptr)
 	0 = infile/pwd
 	1 = <
 	2 = <<
-	3 = comand
-	4 = argument
+	3 = last argument
+	4 = comand/argument
 	5 = |
 	6 = >
 	7 = >>
@@ -102,11 +102,7 @@ t_line	*ft_get_type(t_line *line)
 		if (ptr->type == -1)
 		{
 			ptr->type = 3;
-			while (ptr->next && !ft_is_operator(ptr))
-			{
-				ptr->type = 4;
-				ptr = ptr->next;
-			}
+			ft_scape_args(ptr);
 		}
 		else
 			ptr = ptr->next;
