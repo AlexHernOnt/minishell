@@ -65,13 +65,12 @@ char	*ft_other_variable(t_mini *ms, char *aux, char *content, int i)
 	aux[n] = 0;
 	aux2 = ft_getenv(aux, ms);
 	free(aux);
+	free(new);
 	if (aux2)
 	{
-		free(new);
 		new = ft_strjoin(new, aux2);
 		free(aux2);
 	}
-	free(new);
 	new = ft_strjoin(new, &content[i + n]);
 	free(content);
 	return (new);
@@ -89,17 +88,12 @@ char	*ft_expand(char *content, t_mini *ms)
 
 	i = 0;
 	dc = -1;
-	printf("Content %s\n", content);
 	while (content[i])
 	{
 		if (content[i] == '\"')
 			dc = -dc;
-		if (content[i] == '\'' && ft_check_closed(&content[i], '\'' && dc < 0))
-		{
-			i++;
-			while (content[i] != '\'')
-				i++;
-		}
+		if (content[i] == '\'' && ft_check_closed(&content[i], '\'') && dc < 0)
+			i = ft_quote_scape(content, i);
 		if (content[i] == '$')
 		{
 			aux = ft_strdup(content);

@@ -44,7 +44,8 @@ SRCS =	srcs/builtins/ft_echo.c			\
 		srcs/parse/line.c				\
 		srcs/parse/quotes.c				\
 		srcs/parse/variables.c			\
-		srcs/parse/utils.c				
+		srcs/parse/utils.c				\
+		srcs/parse/scape.c				
 
 SRCS2 = srcs/files/minishell.c
 

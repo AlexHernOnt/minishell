@@ -172,6 +172,7 @@ int				ft_ispace(char *line);
 int				ft_is_operator(t_line *ptr);
 int				ft_is_var(char *element);
 int				ft_pipe_sintax(t_line *ptr, t_line *line);
+int				ft_quote_scape(char *content, int i);
 
 /*
 **				ft_error
