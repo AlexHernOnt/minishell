@@ -82,6 +82,7 @@ t_line	*ft_more_and_less(t_line *ptr)
 	8 Outfile
 */
 
+/*too long*/
 t_line	*ft_get_type(t_line *line)
 {
 	t_line	*ptr;
@@ -94,8 +95,8 @@ t_line	*ft_get_type(t_line *line)
 				return (ft_more_and_less(ptr));
 		if (ptr->content[0] == '|')
 		{
-			if(ft_pipe_sintax(ptr, line))
-				return(ptr);
+			if (ft_pipe_sintax(ptr, line))
+				return (ptr);
 			ptr->type = 5;
 		}
 		if (ptr->type == -1)
@@ -159,8 +160,8 @@ t_line	*ft_parse(char *line, t_mini *ms)
 	{
 		if (ft_get_type(list_line)->content[0] == '|')
 			ft_error(ms, 258, "|");
-		else if (ft_get_type(list_line)->next) // Mirar esto
-			ft_error(ms, 258, ft_get_type(list_line)->next);
+		else if (ft_get_type(list_line)->next)
+			ft_error(ms, 258, ft_get_type(list_line)->next->content);
 		else
 			ft_error(ms, 258, "newline");
 		ft_free_line(&list_line);

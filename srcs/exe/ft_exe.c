@@ -16,6 +16,19 @@
 **		ft_exe
 */
 
+int	ft_numeric(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && ft_isdigit(str[i]))
+		i++;
+	if (!str[i])
+		return (1);
+	return (0);
+}
+
+/* Too long*/
 int	ft_exe(t_mini *ms)
 {
 	if (ft_memcmp(ms->args[0], "echo", 4) == 0 && ms->args[0][4] == '\0')
@@ -48,8 +61,17 @@ int	ft_exe(t_mini *ms)
 
 int	ft_exe_exit(t_mini *ms)
 {
-	printf("exit\n");
-	ms->exit = 1;
+	if (!ms->args[1] || (ms->args[1] && !ms->args[2]))
+	{
+		printf("exit\n");
+		ms->exit = 1;
+		if (ms->args[1] && ft_numeric(ms->args[1]))
+			ms->exit_status = ft_atoi(ms->args[1]);
+		else if (ms->args[1])
+			ms->exit_status = ft_error(ms, 255, ms->args[1]);
+	}
+	else
+		ms->exit_status = ft_error(ms, 1, "exit");
 	return (0);
 }
 

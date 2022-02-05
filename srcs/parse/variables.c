@@ -84,12 +84,17 @@ char	*ft_other_variable(t_mini *ms, char *aux, char *content, int i)
 char	*ft_expand(char *content, t_mini *ms)
 {
 	int		i;
+	int		dc;
 	char	*aux;
 
 	i = 0;
+	dc = -1;
+	printf("Content %s\n", content);
 	while (content[i])
 	{
-		if (content[i] == '\'' && ft_check_closed(&content[i], '\''))
+		if (content[i] == '\"')
+			dc = -dc;
+		if (content[i] == '\'' && ft_check_closed(&content[i], '\'' && dc < 0))
 		{
 			i++;
 			while (content[i] != '\'')
