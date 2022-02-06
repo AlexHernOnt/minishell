@@ -27,8 +27,8 @@ t_line	*ft_scape_args(t_line *line)
 	ptr = line;
 	while (ptr->next && !ft_is_operator(ptr))
 	{
-		ptr->type = 4;
+		ptr->next->type = 4;
 		ptr = ptr->next;
 	}
-	return (ptr);
+	return (ptr->next);
 }

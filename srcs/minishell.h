@@ -22,6 +22,7 @@
 # include "./libft/libft.h"
 # include <sys/wait.h>
 # include <termios.h>
+# include <errno.h>
 
 typedef struct s_line
 {

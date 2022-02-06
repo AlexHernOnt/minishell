@@ -30,7 +30,7 @@ int	get_content_len(char *line)
 			i += ft_quotes(&line[i], '\"');
 		if (i > 0 && (line[i] == '<' || line[i] == '>' || line[i] == '|'))
 			return (i);
-		if (line[i] == '<' || line[i] == '>')
+		if (line[i] == '<' || line[i] == '>' || line[i] == '|')
 		{
 			if (line[i + 1] == line[i])
 				return (2);
@@ -45,10 +45,10 @@ int	get_content_len(char *line)
 
 t_line	*ft_more_and_less(t_line *ptr)
 {
+	if (!ptr->next || ft_is_operator(ptr->next))
+		return (ptr);
 	if (ptr->content[0] == '<')
 	{
-		if (!ptr->next)
-			return (ptr);
 		ptr->next->type = 0;
 		if (ptr->content[1] == '<')
 			ptr->type = 2;
@@ -57,16 +57,12 @@ t_line	*ft_more_and_less(t_line *ptr)
 	}
 	if (ptr->content[0] == '>')
 	{
-		if (!ptr->next)
-			return (ptr);
 		ptr->next->type = 8;
 		if (ptr->content[1] == '>')
 			ptr->type = 7;
 		else if (ptr->content[1] == 0)
 			ptr->type = 6;
 	}
-	if (ft_is_operator(ptr))
-		return (ptr);
 	return (NULL);
 }
 
