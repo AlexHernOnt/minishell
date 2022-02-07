@@ -16,7 +16,13 @@ void	ft_leaks(void)
 {
 	system("leaks minishell");
 }
+<<<<<<< HEAD
 //	ft_print_list(ms);
+=======
+		//ft_leaks();
+//ft_print_list(ms);
+
+>>>>>>> 0b820070cfbb7ec0aaffb06bda95b3b24e0132fb
 void	ft_reinit(t_mini *ms)
 {
 	ms->n_in_max = 0;
@@ -28,7 +34,11 @@ void	ft_reinit(t_mini *ms)
 void	ft_process_line(t_mini *ms, char *aux)
 {
 	ms->list = ft_parse(aux, ms);
+<<<<<<< HEAD
 	//ft_print_list(ms);
+=======
+	//ft_exe2(ms);
+>>>>>>> 0b820070cfbb7ec0aaffb06bda95b3b24e0132fb
 	if (ms->list)
 	{
 		if (ft_organizer(ms) < 0)

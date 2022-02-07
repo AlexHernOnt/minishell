@@ -38,11 +38,14 @@ int	ft_is_operator(t_line *ptr)
 int	ft_is_var(char *element)
 {
 	int	i;
+	int	dc;
 
 	i = 0;
 	while (element[i])
 	{
-		if (element[i] == '\'' && ft_check_closed(&element[i], '\''))
+		if (element[i] == '\"')
+			dc = -dc;
+		if (element[i] == '\'' && ft_check_closed(&element[i], '\'') && dc < 0)
 		{
 			i++;
 			while (element[i] != '\'')
@@ -66,12 +69,13 @@ int	ft_only_spaces(char *aux)
 	}
 	return (1);
 }
-int ft_pipe_sintax(t_line *ptr, t_line *line)
+
+int	ft_pipe_sintax(t_line *ptr, t_line *line)
 {
-	if(ptr != line)
+	if (ptr != line)
 	{
 		ptr->type = 5;
-		return(0);
+		return (0);
 	}
-	return(1);
+	return (1);
 }

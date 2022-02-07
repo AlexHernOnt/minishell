@@ -28,6 +28,11 @@ void	ft_print_list(t_mini *ms)
 int	ft_error(t_mini *ms, int code, char *arg)
 {
 	dup2(2, 1);
+	if (code == 1)
+	{
+		printf("-minishell: %s: too many arguments\n", arg);
+		return (1);
+	}
 	if (code == 101)
 		printf("-minishell: unset: `%s': not a valid identifier\n", arg);
 	if (code == 102)
@@ -40,6 +45,11 @@ int	ft_error(t_mini *ms, int code, char *arg)
 	{
 		printf("-minishell: %s: Command not found\n", arg);
 		return (127);
+	}
+	if (code == 255)
+	{
+		printf("-minishell: exit: %s: numeric argument required\n", arg);
+		return (255);
 	}
 	if (code == 258)
 		printf("-minishell: syntax error near unexpected token `%s\'\n", arg);

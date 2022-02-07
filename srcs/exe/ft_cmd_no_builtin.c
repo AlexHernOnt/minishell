@@ -27,7 +27,6 @@ int	ft_cmd_no_builtin(t_mini *ms)
 		ms->exit = 1;
 		exit (ft_error(ms, 23, ms->args[0]));
 	}
-	printf("_%d_\n");
 	output = execve(ms->args[0], ms->args, ms->envp);
 	if (output == -1)
 	{

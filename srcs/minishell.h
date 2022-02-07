@@ -22,6 +22,7 @@
 # include "./libft/libft.h"
 # include <sys/wait.h>
 # include <termios.h>
+# include <errno.h>
 
 typedef struct s_line
 {
@@ -172,6 +173,8 @@ int				ft_ispace(char *line);
 int				ft_is_operator(t_line *ptr);
 int				ft_is_var(char *element);
 int				ft_pipe_sintax(t_line *ptr, t_line *line);
+int				ft_quote_scape(char *content, int i);
+t_line			*ft_scape_args(t_line *line);
 
 /*
 **				ft_error
@@ -221,5 +224,9 @@ void			ft_blocking(int sig);
 void			ft_ctrl(int sig);
 int				ft_ctrld(char *aux);
 void			ft_set_tc(void);
+
+//			EXE2
+
+void			ft_exe2(t_mini *ms);
 
 #endif

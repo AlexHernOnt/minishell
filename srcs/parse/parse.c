@@ -30,7 +30,7 @@ int	get_content_len(char *line)
 			i += ft_quotes(&line[i], '\"');
 		if (i > 0 && (line[i] == '<' || line[i] == '>' || line[i] == '|'))
 			return (i);
-		if (line[i] == '<' || line[i] == '>')
+		if (line[i] == '<' || line[i] == '>' || line[i] == '|')
 		{
 			if (line[i + 1] == line[i])
 				return (2);
@@ -45,10 +45,10 @@ int	get_content_len(char *line)
 
 t_line	*ft_more_and_less(t_line *ptr)
 {
+	if (!ptr->next || ft_is_operator(ptr->next))
+		return (ptr);
 	if (ptr->content[0] == '<')
 	{
-		if (!ptr->next)
-			return (ptr);
 		ptr->next->type = 0;
 		if (ptr->content[1] == '<')
 			ptr->type = 2;
@@ -57,16 +57,12 @@ t_line	*ft_more_and_less(t_line *ptr)
 	}
 	if (ptr->content[0] == '>')
 	{
-		if (!ptr->next)
-			return (ptr);
 		ptr->next->type = 8;
 		if (ptr->content[1] == '>')
 			ptr->type = 7;
 		else if (ptr->content[1] == 0)
 			ptr->type = 6;
 	}
-	if (ft_is_operator(ptr))
-		return (ptr);
 	return (NULL);
 }
 
@@ -82,6 +78,7 @@ t_line	*ft_more_and_less(t_line *ptr)
 	8 Outfile
 */
 
+/*too long*/
 t_line	*ft_get_type(t_line *line)
 {
 	t_line	*ptr;
@@ -94,18 +91,14 @@ t_line	*ft_get_type(t_line *line)
 				return (ft_more_and_less(ptr));
 		if (ptr->content[0] == '|')
 		{
-			if(ft_pipe_sintax(ptr, line))
-				return(ptr);
+			if (ft_pipe_sintax(ptr, line))
+				return (ptr);
 			ptr->type = 5;
 		}
 		if (ptr->type == -1)
 		{
 			ptr->type = 3;
-			while (ptr->next && !ft_is_operator(ptr))
-			{
-				ptr->type = 4;
-				ptr = ptr->next;
-			}
+			ft_scape_args(ptr);
 		}
 		else
 			ptr = ptr->next;
@@ -159,8 +152,13 @@ t_line	*ft_parse(char *line, t_mini *ms)
 	{
 		if (ft_get_type(list_line)->content[0] == '|')
 			ft_error(ms, 258, "|");
+<<<<<<< HEAD
 		else if (ft_get_type(list_line)->next) // Mirar esto
 			ft_error(ms, 258, ft_get_type(list_line)->content);		// I CHANGED NEXT TO CONTENT SO I COULD COMPILE; SORRY FOR INTRUSION: Alex aka ahernand
+=======
+		else if (ft_get_type(list_line)->next)
+			ft_error(ms, 258, ft_get_type(list_line)->next->content);
+>>>>>>> 0b820070cfbb7ec0aaffb06bda95b3b24e0132fb
 		else
 			ft_error(ms, 258, "newline");
 		ft_free_line(&list_line);
