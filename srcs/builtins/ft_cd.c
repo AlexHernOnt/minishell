@@ -15,10 +15,51 @@
 int		ft_cd_solo(t_mini *ms, int *ret);
 void	ft_exist_doubt(t_mini *ms, int *home_exist, int *save);
 
+/*		OLD PWD AND PWD 	*/
+
+void	ft_pre_cd(t_mini *ms)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	while (ms->envp[i] != NULL)
+	{
+		if (ft_memcmp("OLDPWD", ms->envp[i], 6) == 0 && ms->envp[i][6] == '=')
+		{
+			str = getcwd(NULL, 0);
+			free(ms->envp[i]);
+			ms->envp[i] = ft_strjoin("OLDPWD=", str);	
+			free(str);
+		}
+		i++;
+	}
+}
+
+void	ft_post_cd(t_mini *ms)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	while (ms->envp[i] != NULL)
+	{
+		if (ft_memcmp("PWD", ms->envp[i], 3) == 0 && ms->envp[i][3] == '=')
+		{
+			str = getcwd(NULL, 0);
+			free(ms->envp[i]);
+			ms->envp[i] = ft_strjoin("PWD=", str);	
+			free(str);
+		}
+		i++;
+	}
+}
+
 int	ft_cd(t_mini *ms)
 {
 	int		ret;
 
+	ft_pre_cd(ms);
 	ret = ft_cd_solo(ms, &ret);
 	if (ret < 0)
 		return (1);
@@ -33,6 +74,7 @@ int	ft_cd(t_mini *ms)
 			ms->args[1]);
 		return (1);
 	}
+	ft_post_cd(ms);
 	return (0);
 }
 

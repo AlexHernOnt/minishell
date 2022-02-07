@@ -19,8 +19,6 @@ int	ft_pipes(t_mini *ms)
 		if (pipe(ms->pipe_fd_a) < 0)
 			return (ft_error(ms, 150, NULL));
 		dup2(ms->pipe_fd_a[1], 1);
-		ms->p_last = 1;
-		ms->p_first = 0;
 	}
 	else if (ms->p_last == 1 && ms->pipe == 1)
 	{
