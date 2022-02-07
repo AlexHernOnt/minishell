@@ -70,8 +70,8 @@ t_line	*ft_more_and_less(t_line *ptr)
 	0 = infile/pwd
 	1 = <
 	2 = <<
-	3 = last argument
-	4 = comand/argument
+	3 = comand
+	4 = argument
 	5 = |
 	6 = >
 	7 = >>

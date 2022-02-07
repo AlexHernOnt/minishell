@@ -61,6 +61,8 @@ int	infile(t_line *list, t_mini *ms) //  Añadir cs
 		{
 			if (ms->fd_file_in)
 				close(ms->fd_file_in);
+			if (ms->pipe_cs[0])
+				close(ms->pipe_cs[0]);
 			ms->fd_file_in = open(ptr->content, O_RDONLY);
 			if(ms->fd_file_in == -1)
 			{
@@ -68,7 +70,7 @@ int	infile(t_line *list, t_mini *ms) //  Añadir cs
 				return(1);
 			}
 		}
-		if (ptr->type == 2) //???????? cs check original
+		if (ptr->type == 2) //???????? << check original
 		{
 			ms->in_file = ptr->next->content;
 			pipe(ms->pipe_cs);
@@ -106,8 +108,31 @@ int outfile(t_line *list, t_mini *ms)
 	}
 	return (0);
 }
+char	**ft_get_args(t_line *initial)
+{
+	t_line	*ptr;
+	int		size;
+	int		i;
+	char	**args;
 
-int	fd_comand_exe(int current, t_mini *ms)
+	ptr = initial;
+	size = 0;
+	i = 0;
+	while(ptr && (ptr->type == 3 || ptr->type == 4))
+		size++;
+	args = malloc(size + 1);
+	ptr = initial;
+	while(i < size)
+	{
+		args[i] = ptr->content;
+		i++;
+	}
+	args[i] = 0;
+	return(args);
+
+}
+
+int	ft_comand_exe(int current, t_mini *ms)
 {
 	t_line *ptr;
 
@@ -127,6 +152,8 @@ int	fd_comand_exe(int current, t_mini *ms)
 	return(0);
 }
 
+
+
 void ft_exe2(t_mini *ms)
 {
 	int nc;
@@ -138,18 +165,16 @@ void ft_exe2(t_mini *ms)
 	i = 1;
 	while(i <= nc)
 	{
-		pipe_generator(inpipe, outpipe, i, nc);
+		pipe_generator(inpipe, outpipe, i, nc); // No estoy seguro de que esto funcione
 		g_id = fork();
 		if (!g_id)
 		{
-			dup2(inpipe[0], STDIN_FILENO);
-			close(inpipe[1]);
-			dup2(outpipe[1], STDOUT_FILENO);
-			close(outpipe[0]);
-			exit(ft_comand_exe(i, ms));
+			// Redirecciones
+			// Ejecutar comandos
 		}
+		i++;
 	}
 	if (g_id)
 		ft_parent(ms);
-	g_id == -1;
+	g_id = -1;
 }

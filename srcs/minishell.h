@@ -225,4 +225,8 @@ void			ft_ctrl(int sig);
 int				ft_ctrld(char *aux);
 void			ft_set_tc(void);
 
+//			EXE2
+
+void			ft_exe2(t_mini *ms);
+
 #endif
