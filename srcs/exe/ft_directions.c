@@ -19,7 +19,7 @@
 int	ft_directions(t_mini *ms)
 {
 	ft_input_source(ms);
-	//ft_pipes(ms);
+	ft_pipes(ms);
 	ms->pipe = 0;
 	if (ms->red_out == 1 && ms->out_file != NULL)
 	{

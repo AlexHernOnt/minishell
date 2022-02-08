@@ -16,37 +16,23 @@ int	ft_cmd_no_builtin(t_mini *ms)
 {
 	int		output;
 
-//	g_id = fork();
 //	if (g_id == 0)
 //	{
 //		signal(SIGQUIT, ft_ctrl);
-/*	ms->args[0] = ft_path(ms->envp, ms->args);
+	ms->args[0] = ft_path(ms->envp, ms->args);
 	if (ms->args[0][0] && ms->args[0][0] != '.' &&
 		ms->args[0][0] != '/')
 	{
-		write(1, "OK\n", 3);
 		ms->exit = 1;
 		exit (ft_error(ms, 23, ms->args[0]));
 	}
-*/	/*char **argv; 
-	argv = malloc(2);
-
-	argv[0] = "/bin/ls";
-	argv[1] = NULL;*/
-	printf("0 _ %s\n",ms->args[0]);
-	printf("1 _ %s\n",ms->args[1]);
-
 	output = execve(ms->args[0], ms->args, ms->envp);
 	if (output == -1)
 	{
 		ms->exit = 1;
 		perror(ms->args[1]);
-		perror("Here");
 		exit (ft_error(ms, 23, ms->args[0]));
 	}
-//	}
-//	else if (g_id != 0)
-//		ft_parent(ms);
 	return (0);
 }
 
@@ -55,7 +41,10 @@ void	ft_parent(t_mini *ms)
 	int	output;
 
 	while (wait(NULL) != -1)
-		printf("\nWait ended.\n");
+	{
+		close(ms->pipe_fd_a[1]);
+		printf("Wait ended.\n");
+	}
 //	waitpid(-1, &output, 0);
 	if (WIFSIGNALED(output) && WTERMSIG(output) == 2)
 	{

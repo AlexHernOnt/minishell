@@ -26,7 +26,7 @@ void	ft_input_vars(t_mini *ms, t_line **ptr)
 
 int	ft_collect_info_line(t_mini *ms, t_line **ptr, int *i)
 {
-	while (*ptr != NULL)
+	while (*ptr != NULL && (*ptr)->type != 5)
 	{
 //		if ((*ptr)->type == 1)
 //			ft_num_of_infiles(ms, ptr);
