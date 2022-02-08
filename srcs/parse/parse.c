@@ -152,13 +152,8 @@ t_line	*ft_parse(char *line, t_mini *ms)
 	{
 		if (ft_get_type(list_line)->content[0] == '|')
 			ft_error(ms, 258, "|");
-<<<<<<< HEAD
 		else if (ft_get_type(list_line)->next) // Mirar esto
 			ft_error(ms, 258, ft_get_type(list_line)->content);		// I CHANGED NEXT TO CONTENT SO I COULD COMPILE; SORRY FOR INTRUSION: Alex aka ahernand
-=======
-		else if (ft_get_type(list_line)->next)
-			ft_error(ms, 258, ft_get_type(list_line)->next->content);
->>>>>>> 0b820070cfbb7ec0aaffb06bda95b3b24e0132fb
 		else
 			ft_error(ms, 258, "newline");
 		ft_free_line(&list_line);

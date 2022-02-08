@@ -41,6 +41,7 @@ int	ft_is_var(char *element)
 	int	dc;
 
 	i = 0;
+	dc = -1; 
 	while (element[i])
 	{
 		if (element[i] == '\"')

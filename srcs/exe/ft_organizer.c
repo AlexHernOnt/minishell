@@ -39,7 +39,7 @@ void ft_start_pipe(t_mini *ms, t_line **ptr)
 void ft_next_pipe(t_mini *ms, t_line **ptr)
 {
 	int		i;
-	t_line	*save;
+	//t_line	*save;
 
 	i = 0;
  	while ((*ptr) != NULL && (*ptr)->type != 5)
@@ -48,7 +48,7 @@ void ft_next_pipe(t_mini *ms, t_line **ptr)
 	}
 	if ((*ptr) != NULL && (*ptr)->type == 5)
 		(*ptr) = (*ptr)->next;
-	save = (*ptr);
+/*	save = (*ptr);
 	while ((*ptr) != NULL && (*ptr)->type != 5)
 	{
 		(*ptr) = (*ptr)->next;
@@ -64,6 +64,7 @@ void ft_next_pipe(t_mini *ms, t_line **ptr)
 		ms->p_last = 1;
 	}
 	(*ptr) = save;
+	*/
 }
 
 int	ft_organizer(t_mini *ms)
@@ -76,7 +77,7 @@ int	ft_organizer(t_mini *ms)
 	lock = 0;
 	ptr = ms->list;
 	g_id = 101;
-	ft_start_pipe(ms, &ptr);
+	//ft_start_pipe(ms, &ptr);
 	while (ptr != NULL && !lock)
 	{
 		g_id = fork();
@@ -87,10 +88,15 @@ int	ft_organizer(t_mini *ms)
 			if (ft_collect_info_line(ms, &ptr, &i) < 1)
 				return (-1);
 			i = 0;
-			if (ft_directions(ms) <= 0)
-				lock = 1;
-			if (lock == 0 && ms->args[0] && !ft_exe(ms))
-				lock = 1;
+	//		if (ft_directions(ms) <= 0)
+//				lock = 1;
+			
+		
+			ft_exe(ms);
+
+
+		//	if (/*lock == 0 && ms->args[0] &&*/ !ft_exe(ms))
+		//		lock = 1;
 //			ft_free_ms(ms);
 			ms->exit = 1;
 			return (-1);

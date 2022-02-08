@@ -92,6 +92,7 @@ char	*ft_expand(char *content, t_mini *ms)
 	{
 		if (content[i] == '\"')
 			dc = -dc;
+		printf("dc: %d\n", dc);
 		if (content[i] == '\'' && ft_check_closed(&content[i], '\'') && dc < 0)
 			i = ft_quote_scape(content, i);
 		if (content[i] == '$')
