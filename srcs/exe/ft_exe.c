@@ -31,7 +31,7 @@ int	ft_numeric(char *str)
 /* Too long*/
 int	ft_exe(t_mini *ms)
 {
-	/*if (ft_memcmp(ms->args[0], "echo", 4) == 0 && ms->args[0][4] == '\0')
+	if (ft_memcmp(ms->args[0], "echo", 4) == 0 && ms->args[0][4] == '\0')
 		ms->exit_status = ft_echo(ms);
 	else if (ft_memcmp(ms->args[0], "cd", 2) == 0 && ms->args[0][2] == '\0')
 		ms->exit_status = ft_cd(ms);
@@ -44,17 +44,16 @@ int	ft_exe(t_mini *ms)
 	else if (ft_memcmp(ms->args[0], "unset", 5) == 0 && ms->args[0][5] == '\0')
 		ms->exit_status = ft_unset(ms);
 	else if (ft_memcmp(ms->args[0], "exit", 4) == 0 && ms->args[0][4] == '\0')
-		return (ft_exe_exit(ms));*/
-	/*else
-	{*/
-		
+		return (ft_exe_exit(ms));
+	else
+	{
 		ft_cmd_no_builtin(ms);
 		if (ms->exit_status == 127)
 		{
 			ft_fd_clean(ms);
 			return (0);
 		}
-	//}
+	}
 	ft_env_pwd(ms);
 	ft_fd_clean(ms);
 	return (1);

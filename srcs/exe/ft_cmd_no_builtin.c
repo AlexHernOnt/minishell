@@ -42,7 +42,8 @@ void	ft_parent(t_mini *ms)
 
 	while (wait(NULL) != -1)
 	{
-		close(ms->pipe_fd_a[1]);
+//		close(ms->pipe_fd_a[1]);
+//		close(ms->pipe_fd_a[0]);
 		printf("Wait ended.\n");
 	}
 //	waitpid(-1, &output, 0);

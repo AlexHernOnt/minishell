@@ -68,9 +68,11 @@ typedef struct s_mini
 
 	int				p_b_exists;
 
+	int				pipe_to_use;
 	char			p_using;
-	int				pipe_fd_a[2];
-	int				pipe_fd_b[2];
+	int				**pipes_fds;
+	int				pipe_fd_a[2];		// USlESS _ LEGACY _ CODE
+	int				pipe_fd_b[2];		// USlESS _ LEGACY _ CODE
 
 	int				exit;
 

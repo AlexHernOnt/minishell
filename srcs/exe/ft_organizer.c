@@ -16,12 +16,54 @@
 **		ft_organizer
 */
 
-void ft_start_pipe(t_mini *ms, t_line **ptr)
+void	ft_close_all_fd(t_mini *ms)
+{
+	int	i;
+
+	i = 0;
+	while (ms->pipes_fds[i] != NULL)
+	{
+		close(ms->pipes_fds[i][0]);
+		close(ms->pipes_fds[i][1]);
+		i++;
+	}
+//	close(ms->pipe_fd_a[1]);
+//	close(ms->pipe_fd_a[0]);
+}
+void	ft_pipes_opening(t_mini *ms, t_line **ptr)
+{
+	int	i;
+	int	j;
+	t_line	*original;
+
+	i = 0;
+	j = 0;
+	original = (*ptr);
+	while ((*ptr) != NULL)
+	{
+ 		if ((*ptr)->type == 5)
+		 	i++;
+		(*ptr) = (*ptr)->next;
+	}
+	(*ptr) = original;
+	ms->pipes_fds = malloc((sizeof(int*)) * (i + 1));
+	while (j < i)
+	{
+		ms->pipes_fds[j] = malloc(sizeof(int) * 2);
+		pipe(ms->pipes_fds[j]);	// ERROR PARA ESTO
+		// LIBERAR ESTO LOL
+		j++;
+	}
+	ms->pipes_fds[i] = NULL;
+}
+
+void	ft_start_pipe(t_mini *ms, t_line **ptr)
 {
 	int		i;
 	t_line	*original;
 
 	i = 0;
+	ft_pipes_opening(ms, ptr);
 	original = (*ptr);
 	while ((*ptr) != NULL && (*ptr)->type != 5)
 	{
@@ -36,7 +78,7 @@ void ft_start_pipe(t_mini *ms, t_line **ptr)
 	(*ptr) = original;
 }
 
-void ft_next_pipe(t_mini *ms, t_line **ptr)
+void	ft_next_pipe(t_mini *ms, t_line **ptr)
 {
 	int		i;
 	t_line	*save;
@@ -47,7 +89,10 @@ void ft_next_pipe(t_mini *ms, t_line **ptr)
 		(*ptr) = (*ptr)->next;
 	}
 	if ((*ptr) != NULL && (*ptr)->type == 5)
+	{
 		(*ptr) = (*ptr)->next;
+		ms->pipe_to_use++;
+	}
 	save = (*ptr);
 	while ((*ptr) != NULL && (*ptr)->type != 5)
 	{
@@ -72,17 +117,18 @@ int	ft_organizer(t_mini *ms)
 	int		i;
 
 	i = 0;
+	ms->pipe_to_use = 0;
 	ptr = ms->list;
 	g_id = 101;
 	ft_start_pipe(ms, &ptr);
-	if (pipe(ms->pipe_fd_a) < 0)
-		return (ft_error(ms, 150, NULL));
+//	if (pipe(ms->pipe_fd_a) < 0)
+//		return (ft_error(ms, 150, NULL));
 	while (ptr != NULL)
 	{
 		g_id = fork();
 		if (g_id == 0)
 		{
-		//	printf("pipe: %d\np_last: %d\n", ms->pipe, ms->p_last);
+		//	printf("pipe %d, pipe_last %d, pipe_first %d\n", ms->pipe, ms->p_last, ms->p_first);
 			if (file_in(ms, ptr) <= 0 || !file_out(ms, ptr) || !ft_pre_args(ms, &ptr))
 				return (-1);
 			if (ft_collect_info_line(ms, &ptr, &i) < 1)
@@ -90,13 +136,13 @@ int	ft_organizer(t_mini *ms)
 			i = 0;
 			if (ft_directions(ms) <= 0 || (ms->args[0] && !ft_exe(ms)))
 				return (-1);
-
 			//ft_free_ms(ms);
 			ms->exit = 1;
 			return (-1);
 		}
 		ft_next_pipe(ms, &ptr);
 	}
+	ft_close_all_fd(ms);
 	ft_parent(ms);
 	ft_clear_for_next_line(ms);
 	return (1);
