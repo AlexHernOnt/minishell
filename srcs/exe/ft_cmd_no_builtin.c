@@ -44,7 +44,7 @@ void	ft_parent(t_mini *ms)
 	{
 //		close(ms->pipe_fd_a[1]);
 //		close(ms->pipe_fd_a[0]);
-		printf("Wait ended.\n");
+//		printf("Wait ended.\n");
 	}
 //	waitpid(-1, &output, 0);
 	if (WIFSIGNALED(output) && WTERMSIG(output) == 2)

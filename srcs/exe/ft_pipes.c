@@ -18,6 +18,8 @@ int	ft_pipes(t_mini *ms)
 	{
 	//	close(ms->pipe_fd_a[0]);
 	//	dup2(ms->pipe_fd_a[1], 1);
+		//system("lsof -a -p $$");
+	
 		close(ms->pipes_fds[0][0]);
 		dup2(ms->pipes_fds[0][1], 1);
 	}
@@ -37,6 +39,18 @@ int	ft_middle_pipe(t_mini *ms)
 
 //	if (ms->p_using == 'a')
 //	{
+
+	/*int i = 0;
+	while (ms->pipes_fds[i] != NULL)
+	{
+		close(ms->pipes_fds[i][0]);
+		close(ms->pipes_fds[i][1]);
+		i++;
+	}*/
+
+
+
+
 		close(ms->pipes_fds[(ms->pipe_to_use) - 1][1]);
 		dup2(ms->pipes_fds[(ms->pipe_to_use) - 1][0], 0);
 
@@ -68,6 +82,15 @@ void	ft_finish_pipe(t_mini *ms)
 {
 //	if (ms->p_using == 'a')
 //	{
+	/*int i = 0;
+	while (ms->pipes_fds[i] != NULL)
+	{
+		close(ms->pipes_fds[i][0]);
+		close(ms->pipes_fds[i][1]);
+		i++;
+	}*/
+
+
 		close(ms->pipes_fds[(ms->pipe_to_use) - 1][1]);
 		dup2(ms->pipes_fds[(ms->pipe_to_use) - 1][0], 0);
 

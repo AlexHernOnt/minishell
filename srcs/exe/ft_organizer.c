@@ -115,20 +115,41 @@ int	ft_organizer(t_mini *ms)
 {
 	t_line	*ptr;
 	int		i;
+	int		u;
 
 	i = 0;
+	u = 0;
 	ms->pipe_to_use = 0;
 	ptr = ms->list;
 	g_id = 101;
 	ft_start_pipe(ms, &ptr);
-//	if (pipe(ms->pipe_fd_a) < 0)
-//		return (ft_error(ms, 150, NULL));
+/*	while (ms->pipes_fds[i] != NULL)
+	{
+		//printf(" %d %d\n", ms->pipes_fds[i][0], ms->pipes_fds[i][1]);
+		i++;
+	}*/
 	while (ptr != NULL)
 	{
 		g_id = fork();
 		if (g_id == 0)
 		{
-		//	printf("pipe %d, pipe_last %d, pipe_first %d\n", ms->pipe, ms->p_last, ms->p_first);
+			//printf("%d\n", ms->pipe_to_use);
+			while (ms->pipes_fds[u] != NULL)
+			{
+				if (u == ms->pipe_to_use || u == ms->pipe_to_use - 1)
+				{
+				}
+				else
+				{
+					close(ms->pipes_fds[u][0]);
+					close(ms->pipes_fds[u][1]);
+				}
+				u++;
+			}
+			
+//			system("lsof -a -p $$ | grep \"PIPE\"");
+			//write(1, "\n", 1);
+			//printf("pipe %d, pipe_last %d, pipe_first %d\n", ms->pipe, ms->p_last, ms->p_first);
 			if (file_in(ms, ptr) <= 0 || !file_out(ms, ptr) || !ft_pre_args(ms, &ptr))
 				return (-1);
 			if (ft_collect_info_line(ms, &ptr, &i) < 1)

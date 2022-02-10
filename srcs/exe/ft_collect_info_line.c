@@ -28,19 +28,19 @@ int	ft_collect_info_line(t_mini *ms, t_line **ptr, int *i)
 {
 	while (*ptr != NULL && (*ptr)->type != 5)
 	{
-//		if ((*ptr)->type == 1)
-//			ft_num_of_infiles(ms, ptr);
-//		if ((*ptr)->type == 2 && ft_collect_cs(ms, ptr) != 1)
-//			return (-1);
+		if ((*ptr)->type == 1)
+			ft_num_of_infiles(ms, ptr);
+		if ((*ptr)->type == 2 && ft_collect_cs(ms, ptr) != 1)
+			return (-1);
 		if ((*ptr)->type == 3 || (*ptr)->type == 4)
 		{
 			ms->args[(*i)] = ft_strdup((*ptr)->content);
 			*i = *i + 1;
 		}
-//		if ((*ptr)->type == 6 || (*ptr)->type == 7)
-//			ft_input_vars(ms, ptr);
-//		if ((*ptr)->type == 8)
-//			ft_num_of_outfiles(ms, ptr);
+		if ((*ptr)->type == 6 || (*ptr)->type == 7)
+			ft_input_vars(ms, ptr);
+		if ((*ptr)->type == 8)
+			ft_num_of_outfiles(ms, ptr);
 		(*ptr) = (*ptr)->next;
 	}
 	return (1);
