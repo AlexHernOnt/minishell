@@ -39,23 +39,33 @@ int	ft_cmd_no_builtin(t_mini *ms)
 void	ft_parent(t_mini *ms)
 {
 	int	output;
+	int exits;
+	int signals;
 
-	while (wait(NULL) != -1)
+	while (waitpid(-1, &output, 0) != -1)
 	{
 //		close(ms->pipe_fd_a[1]);
 //		close(ms->pipe_fd_a[0]);
 //		printf("Wait ended.\n");
 	}
-//	waitpid(-1, &output, 0);
+	exits = WEXITSTATUS(output);
+	signals = WTERMSIG(output);
+	printf("%d\n", exits);
+	printf("%d\n", signals);
+	if (exits == -2)
+	{
+		printf("^/Quit: 3\n");
+		ms->exit_status = 131;
+	}
 	if (WIFSIGNALED(output) && WTERMSIG(output) == 2)
 	{
 		ms->exit_status = 130;
-		printf("^C\n");
+		//printf("^C\n");
 	}
 	else if (WIFSIGNALED(output) && WTERMSIG(output) == 3)
 	{
 		ms->exit_status = 131;
-		printf("^/Quit: 3\n");
+		printf("^\\Quit: 3\n");
 	}
 	else
 		ms->exit_status = WEXITSTATUS(output);

@@ -91,9 +91,9 @@ t_line	*ft_get_type(t_line *line)
 				return (ft_more_and_less(ptr));
 		if (ptr->content[0] == '|')
 		{
+			ptr->type = 5;
 			if (ft_pipe_sintax(ptr, line))
 				return (ptr);
-			ptr->type = 5;
 		}
 		if (ptr->type == -1)
 		{

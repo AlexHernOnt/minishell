@@ -133,6 +133,7 @@ int	ft_organizer(t_mini *ms)
 		g_id = fork();
 		if (g_id == 0)
 		{
+			signal(SIGQUIT, ft_ctrl);
 			//printf("%d\n", ms->pipe_to_use);
 			while (ms->pipes_fds[u] != NULL)
 			{
