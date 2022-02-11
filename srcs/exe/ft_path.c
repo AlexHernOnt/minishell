@@ -113,8 +113,7 @@ char	*ft_path(char **envp, char **a)
 		free(list_paths[i]);
 		i++;
 	}
-	if (list_paths)
-		free(list_paths);
+	free(list_paths);
 	if (new == NULL)
 		return (a[0]);
 	free(a[0]);

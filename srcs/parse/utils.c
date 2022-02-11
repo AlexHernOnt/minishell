@@ -71,12 +71,12 @@ int	ft_only_spaces(char *aux)
 	return (1);
 }
 
-int	ft_pipe_sintax(t_line *ptr, t_line *line)
+int	ft_pipe_sintax(t_line *pip, t_line *line)
 {
-	if (ptr != line)
-	{
-		ptr->type = 5;
-		return (0);
-	}
-	return (1);
+	t_line *ptr;
+
+	ptr = line;
+	while(ptr->next != pip)
+		ptr = ptr->next;
+	return(ft_is_operator(ptr) || pip->content[1] || !pip->next);
 }

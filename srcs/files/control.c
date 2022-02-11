@@ -45,7 +45,10 @@ void	ft_ctrl(int sig)
 		}
 	}
 	else
+	{
+		write(2, "^C", 2);
 		kill(g_id, SIGINT);
+	}
 	if (sig == 3 && g_id != -1)
 		kill(g_id, SIGQUIT);
 }
