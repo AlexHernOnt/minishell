@@ -25,14 +25,8 @@ void	ft_print_list(t_mini *ms)
 	printf("\n");
 }
 
-int	ft_error(t_mini *ms, int code, char *arg)
+void	ft_error_extra(int code, char *arg)
 {
-	dup2(2, 1);
-	if (code == 1)
-	{
-		printf("-minishell: %s: too many arguments\n", arg);
-		return (1);
-	}
 	if (code == 101)
 		printf("-minishell: unset: `%s': not a valid identifier\n", arg);
 	if (code == 102)
@@ -41,6 +35,17 @@ int	ft_error(t_mini *ms, int code, char *arg)
 		printf("Pipe failed\n");
 	if (code == 201)
 		printf("-minishell: %s: No such file or directory\n", arg);
+}
+
+int	ft_error(t_mini *ms, int code, char *arg)
+{
+	dup2(2, 1);
+	if (code == 1)
+	{
+		printf("-minishell: %s: too many arguments\n", arg);
+		return (1);
+	}
+	ft_error_extra(code, arg);
 	if (code == 23)
 	{
 		printf("-minishell: %s: Command not found\n", arg);

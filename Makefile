@@ -18,7 +18,7 @@ all: $(NAME)
 
 CC = gcc
 
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 CFLAGS2 = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
 
@@ -36,7 +36,9 @@ SRCS =	srcs/builtins/ft_echo.c			\
 		srcs/exe/ft_collect_info_line.c	\
 		srcs/exe/ft_organizer.c			\
 		srcs/exe/ft_directions.c		\
+		srcs/exe/ft_pipe_work.c			\
 		srcs/exe/ft_pipes.c				\
+		srcs/files/builtins_hub.c		\
 		srcs/files/ft_error.c			\
 		srcs/files/frees_functions.c	\
 		srcs/files/control.c			\
@@ -45,8 +47,7 @@ SRCS =	srcs/builtins/ft_echo.c			\
 		srcs/parse/quotes.c				\
 		srcs/parse/variables.c			\
 		srcs/parse/utils.c				\
-		srcs/parse/scape.c				\
-		srcs/exe2/exe2.c
+		srcs/parse/scape.c
 
 SRCS2 = srcs/files/minishell.c
 

@@ -60,8 +60,9 @@ void	ft_env_pwd(t_mini *ms)
 	int		i;
 
 	i = 0;
+	str = NULL;
 	str = getcwd(NULL, 0);
-	while (ms->envp[i] != NULL)
+	while (ms->envp[i] != NULL && str)
 	{
 		if (ft_memcmp("PWD", ms->envp[i], 4) == 0 && ms->envp[i][3] == '=')
 		{
@@ -70,5 +71,6 @@ void	ft_env_pwd(t_mini *ms)
 		}
 		i++;
 	}
-	free(str);
+	if (str)
+		free(str);
 }

@@ -12,9 +12,6 @@
 
 #include "../minishell.h"
 
-int		ft_cd_solo(t_mini *ms, int *ret);
-void	ft_exist_doubt(t_mini *ms, int *home_exist, int *save);
-
 /*		OLD PWD AND PWD 	*/
 
 void	ft_pre_cd(t_mini *ms)
@@ -28,9 +25,12 @@ void	ft_pre_cd(t_mini *ms)
 		if (ft_memcmp("OLDPWD", ms->envp[i], 6) == 0 && ms->envp[i][6] == '=')
 		{
 			str = getcwd(NULL, 0);
-			free(ms->envp[i]);
-			ms->envp[i] = ft_strjoin("OLDPWD=", str);	
-			free(str);
+			if (str)
+			{
+				free(ms->envp[i]);
+				ms->envp[i] = ft_strjoin("OLDPWD=", str);
+				free(str);
+			}
 		}
 		i++;
 	}
@@ -47,9 +47,12 @@ void	ft_post_cd(t_mini *ms)
 		if (ft_memcmp("PWD", ms->envp[i], 3) == 0 && ms->envp[i][3] == '=')
 		{
 			str = getcwd(NULL, 0);
-			free(ms->envp[i]);
-			ms->envp[i] = ft_strjoin("PWD=", str);	
-			free(str);
+			if (str)
+			{
+				free(ms->envp[i]);
+				ms->envp[i] = ft_strjoin("PWD=", str);
+				free(str);
+			}
 		}
 		i++;
 	}
@@ -64,12 +67,16 @@ int	ft_cd(t_mini *ms)
 	if (ret < 0)
 		return (1);
 	else if (!ret)
+	{
+		ft_post_cd(ms);
 		return (0);
+	}
 	else
 		ret = chdir(ms->args[1]);
 	if (ret == -1)
 	{
 		ms->exit_status = 1;
+		dup2(ms->o_stdout, 1);
 		printf("-minishell: cd: %s: No such file or directory\n",
 			ms->args[1]);
 		return (1);

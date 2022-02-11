@@ -16,6 +16,8 @@ void	ft_leaks(void)
 {
 	system("leaks minishell");
 }
+//	ft_print_list(ms);
+
 void	ft_reinit(t_mini *ms)
 {
 	ms->n_in_max = 0;
@@ -26,11 +28,23 @@ void	ft_reinit(t_mini *ms)
 
 void	ft_process_line(t_mini *ms, char *aux)
 {
+	int		i;
+	int		lock;
+
+	i = 0;
+	lock = 0;
 	ms->list = ft_parse(aux, ms);
-//	ft_print_list(ms);
 	if (ms->list)
 	{
-		if (ft_organizer(ms) < 0)
+		if (ft_single_cmd(ms) == 0)
+		{
+			if (builtins_hub(ms, i, lock) < 0)
+			{
+				if (ft_organizer(ms) < 0)
+					ms->exit_status = 127;
+			}
+		}
+		else if (ft_organizer(ms) < 0)
 		{
 			ms->exit_status = 127;
 		}
@@ -41,7 +55,7 @@ void	ft_process_line(t_mini *ms, char *aux)
 
 int	main(int argc, char **argv, char **envp)
 {
-//	atexit(ft_leaks);
+	atexit(ft_leaks);
 	char	*aux;
 	t_mini	ms;
 
@@ -85,7 +99,9 @@ void	ft_init(t_mini *ms, char **envp)
 	ms->in_cs = 0;
 	ms->in_file = NULL;
 	ms->out_file = NULL;
-	ms->p_using = 'a';
+	ms->pipe_to_use = 0;
+	ms->args = NULL;
+	ms->pipes_fds = NULL;
 	ms->pipe = 0;
 	ms->n_out_max = 0;
 	ms->n_out_cur = 0;
@@ -94,7 +110,6 @@ void	ft_init(t_mini *ms, char **envp)
 	ms->p_first = 1;
 	ms->p_last = 0;
 	ms->p_done = 0;
-	ms->p_b_exists = 0;
 	ms->o_stdin = dup(0);
 	ms->o_stdout = dup(1);
 }

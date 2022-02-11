@@ -76,3 +76,18 @@ void	ft_free_line(t_line **line)
 		free(ptr);
 	}
 }
+
+void	ft_free_fds(t_mini *ms)
+{
+	int	i;
+
+	i = 0;
+	while (ms->pipes_fds && ms->pipes_fds[i] != NULL)
+	{
+		free(ms->pipes_fds[i]);
+		i++;
+	}
+	if (ms->pipes_fds)
+		free(ms->pipes_fds);
+	ms->pipes_fds = NULL;
+}

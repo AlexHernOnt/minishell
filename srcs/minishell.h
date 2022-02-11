@@ -66,13 +66,8 @@ typedef struct s_mini
 	int				p_last;
 	int				p_done;
 
-	int				p_b_exists;
-
 	int				pipe_to_use;
-	char			p_using;
 	int				**pipes_fds;
-	int				pipe_fd_a[2];		// USlESS _ LEGACY _ CODE
-	int				pipe_fd_b[2];		// USlESS _ LEGACY _ CODE
 
 	int				exit;
 
@@ -99,6 +94,14 @@ void			ft_init(t_mini *ms, char **envp);
 void			ft_print_list(t_mini *ms);
 int				ft_only_spaces(char *aux);
 void			ft_free_list(t_mini *ms);
+
+/*
+**				builting_hub
+*/
+
+int				ft_single_cmd(t_mini *ms);
+int				ft_exe_2(t_mini *ms);
+int				builtins_hub(t_mini *ms, int i, int lock);
 
 /*
 **				ft_exe
@@ -159,6 +162,15 @@ int				file_in(t_mini *ms, t_line *ptr);
 int				file_out(t_mini *ms, t_line *ptr);
 
 /*
+**				ft_pipe_work
+*/
+
+void			ft_close_all_fd(t_mini *ms);
+void			ft_start_pipe(t_mini *ms, t_line **ptr);
+void			ft_pipes_opening(t_mini *ms, t_line **ptr);
+void			ft_next_pipe(t_mini *ms, t_line **ptr);
+
+/*
 **				LINE PARSING
 */
 
@@ -187,9 +199,11 @@ int				ft_error(t_mini *ms, int code, char *arg);
 /*
 **				frees_functions
 */
+
 void			ft_free_ms_envp(t_mini *ms);
 void			ft_free_ms(t_mini *ms);
 void			ft_free_line(t_line **line);
+void			ft_free_fds(t_mini *ms);
 
 /*
 **				B U I L T   I N S
@@ -215,6 +229,8 @@ int				ft_check_equal(char *str);
 int				ft_alredy_exists(t_mini *ms, int j);
 size_t			ft_strlen_dp(char **s);
 
+int				ft_cd_solo(t_mini *ms, int *ret);
+void			ft_exist_doubt(t_mini *ms, int *home_exist, int *save);
 int				ft_cd(t_mini *ms);
 size_t			ft_strlen_dp(char **s);
 

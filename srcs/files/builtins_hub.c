@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exe.c                                           :+:      :+:    :+:   */
+/*   builtins_hub.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/16 13:29:09 by ahernand          #+#    #+#             */
-/*   Updated: 2021/12/28 14:20:32 by ahernand         ###   ########.fr       */
+/*   Created: 2022/02/11 15:28:43 by ahernand          #+#    #+#             */
+/*   Updated: 2022/02/11 15:28:44 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/*
-**		ft_exe
-*/
-
-int	ft_numeric(char *str)
+int	ft_single_cmd(t_mini *ms)
 {
-	int	i;
+	t_line	*lst;
 
-	i = 0;
-	while (str[i] && ft_isdigit(str[i]))
-		i++;
-	if (!str[i])
+	lst = ms->list;
+	while (lst != NULL && lst->type != 5)
+	{
+		lst = lst->next;
+	}
+	if (lst != NULL && lst->type == 5)
 		return (1);
 	return (0);
 }
 
-/* Too long*/
-int	ft_exe(t_mini *ms)
+int	ft_exe_2(t_mini *ms)
 {
 	if (ft_memcmp(ms->args[0], "echo", 4) == 0 && ms->args[0][4] == '\0')
 		ms->exit_status = ft_echo(ms);
@@ -47,70 +44,39 @@ int	ft_exe(t_mini *ms)
 		return (ft_exe_exit(ms));
 	else
 	{
-		ft_cmd_no_builtin(ms);
-		if (ms->exit_status == 127)
-		{
-			ft_fd_clean(ms);
-			return (0);
-		}
+		ft_env_pwd(ms);
+		ft_fd_clean(ms);
+		return (-1);
 	}
+	ft_env_pwd(ms);
 	ft_fd_clean(ms);
 	return (1);
 }
 
-int	ft_exe_exit(t_mini *ms)
+int	builtins_hub(t_mini *ms, int i, int lock)
 {
-	if (!ms->args[1] || (ms->args[1] && !ms->args[2]))
-	{
-		printf("exit\n");
-		ms->exit = 1;
-		if (ms->args[1] && ft_numeric(ms->args[1]))
-			ms->exit_status = ft_atoi(ms->args[1]);
-		else if (ms->args[1])
-			ms->exit_status = ft_error(ms, 255, ms->args[1]);
-	}
-	else
-		ms->exit_status = ft_error(ms, 1, "exit");
-	return (0);
-}
+	t_line	*ptr;
 
-void	ft_fd_clean(t_mini *ms)
-{
-	ft_redir_clean(ms);
-	if (ms->p_done == 1)
+	ptr = ms->list;
+	while (ptr != NULL && !lock)
 	{
-		dup2(ms->o_stdin, 0);
-		ms->p_first = 1;
-		ms->p_done = 0;
+		if (file_in(ms, ptr) <= 0 || !file_out(ms, ptr)
+			|| !ft_pre_args(ms, &ms->list))
+			return (-1);
+		if (ft_collect_info_line(ms, &ptr, &i) < 1)
+			return (-1);
+		i = 0;
+		if (ft_directions(ms) <= 0)
+			lock = 1;
+		if (lock == 0 && ms->args[0] && ft_exe_2(ms) < 0)
+		{
+			lock = 1;
+			ft_free_ms(ms);
+			ft_clear_for_next_line(ms);
+			return (-1);
+		}
+		ft_free_ms(ms);
 	}
-	if (ms->in_cs)
-	{
-		close(ms->pipe_cs[0]);
-		if (ms->in_file)
-			free(ms->in_file);
-		ms->in_file = NULL;
-		ms->in_cs = 0;
-	}
-}
-
-void	ft_redir_clean(t_mini *ms)
-{
-	if (ms->red_out == 1)
-	{
-		close(ms->fd_file_out);
-		if (ms->out_file)
-			free(ms->out_file);
-		ms->out_file = NULL;
-		dup2(ms->o_stdout, 1);
-		ms->red_out = 0;
-	}
-	if (ms->red_in == 1)
-	{
-		close(ms->fd_file_in);
-		if (ms->in_file)
-			free(ms->in_file);
-		ms->out_file = NULL;
-		dup2(ms->o_stdin, 0);
-		ms->red_in = 0;
-	}
+	ft_clear_for_next_line(ms);
+	return (1);
 }

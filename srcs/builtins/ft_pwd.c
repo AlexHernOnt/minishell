@@ -17,7 +17,10 @@ int	ft_pwd(void)
 	char	*str;
 
 	str = getcwd(NULL, 0);
-	printf("%s\n", str);
-	free(str);
+	if (str)
+	{
+		printf("%s\n", str);
+		free(str);
+	}	
 	return (0);
 }
