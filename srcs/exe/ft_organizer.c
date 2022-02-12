@@ -58,10 +58,11 @@ int	ft_organizer(t_mini *ms)
 		{
 			signal(SIGQUIT, ft_ctrl);
 			if (ft_in_fork(ms, &ptr, &i) < 0)
-				return(-1);
+				return (-1);
 			i = 0;
 			ft_free_ms(ms);
 			ft_free_fds(ms);
+			ft_free_ms_envp(ms);
 			ms->exit = 1;
 			return (-1);
 		}

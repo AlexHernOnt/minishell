@@ -76,11 +76,11 @@ typedef struct s_mini
 	int				exit_status;
 }					t_mini;
 
-typedef	struct s_tcattr
+typedef struct s_tcattr
 {
-	struct termios original;
-	struct termios ctrl_c;
-} t_tcattr;
+	struct termios	original;
+	struct termios	ctrl_c;
+}					t_tcattr;
 
 int		g_id;
 
@@ -249,8 +249,9 @@ void			ft_ctrl(int sig);
 int				ft_ctrld(char *aux);
 
 /*
-*				TERMINAL
+**				TERMINAL
 */
-void			ft_set_tc(t_tcattr attr, int);
+
 struct termios	ft_tc_config(t_tcattr terminal);
+void			ft_set_tc(t_tcattr attr, int);
 #endif

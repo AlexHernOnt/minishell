@@ -28,6 +28,7 @@ int	ft_cmd_no_builtin(t_mini *ms)
 	{
 		ft_free_ms(ms);
 		ft_free_fds(ms);
+		ft_free_ms_envp(ms);
 		ms->exit = 1;
 		exit(ft_error(ms, 23, ms->args[0]));
 	}
