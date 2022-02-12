@@ -20,15 +20,11 @@ void	ft_free_ms(t_mini *ms)
 	while (ms->args && ms->args[i] != NULL)
 	{
 		if (ms->args[i])
-		{
 			free(ms->args[i]);
-			ms->args[i] = NULL;
-		}
 		i++;
 	}
 	if (ms->args != NULL)
 		free(ms->args);
-	ms->args = NULL;
 }
 
 void	ft_free_ms_envp(t_mini *ms)

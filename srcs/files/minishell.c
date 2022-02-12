@@ -16,7 +16,6 @@ void	ft_leaks(void)
 {
 	system("leaks minishell");
 }
-//	atexit(ft_leaks);
 //	ft_print_list(ms);
 
 void	ft_reinit(t_mini *ms)
@@ -47,7 +46,7 @@ void	ft_process_line(t_mini *ms, char *aux)
 		}
 		else if (ft_organizer(ms) < 0)
 		{
-			ms->exit_status = 127;
+			//ms->exit_status = 127;
 		}
 		ft_free_list(ms);
 	}
@@ -56,19 +55,24 @@ void	ft_process_line(t_mini *ms, char *aux)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*aux;
-	t_mini	ms;
+//	atexit(ft_leaks);
+	char		*aux;
+	t_mini		ms;
+	t_tcattr	terminal;
 
 	if (argc < 1 || argv[0] == NULL)
 		return (1);
-	ft_set_tc();
+	tcgetattr(STDIN_FILENO, &terminal.original);
+	terminal.ctrl_c = ft_tc_config(terminal);
 	ft_init(&ms, envp);
 	while (ms.exit == 0)
 	{
 		g_id = -1;
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, ft_ctrl);
+		ft_set_tc(terminal, 0);
 		aux = readline("minishell$ ");
+		ft_set_tc(terminal, 1);
 		if (ft_ctrld(aux))
 			break ;
 		if (aux[0] != '\0' && !ft_only_spaces(aux))

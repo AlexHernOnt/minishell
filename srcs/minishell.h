@@ -76,6 +76,12 @@ typedef struct s_mini
 	int				exit_status;
 }					t_mini;
 
+typedef	struct s_tcattr
+{
+	struct termios original;
+	struct termios ctrl_c;
+} t_tcattr;
+
 int		g_id;
 
 /*
@@ -241,10 +247,10 @@ size_t			ft_strlen_dp(char **s);
 void			ft_blocking(int sig);
 void			ft_ctrl(int sig);
 int				ft_ctrld(char *aux);
-void			ft_set_tc(void);
 
-//			EXE2
-
-void			ft_exe2(t_mini *ms);
-
+/*
+*				TERMINAL
+*/
+void			ft_set_tc(t_tcattr attr, int);
+struct termios	ft_tc_config(t_tcattr terminal);
 #endif

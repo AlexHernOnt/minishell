@@ -56,8 +56,9 @@ int	ft_organizer(t_mini *ms)
 		g_id = fork();
 		if (g_id == 0)
 		{
+			signal(SIGQUIT, ft_ctrl);
 			if (ft_in_fork(ms, &ptr, &i) < 0)
-				return (-1);
+				return(-1);
 			i = 0;
 			ft_free_ms(ms);
 			ft_free_fds(ms);

@@ -21,14 +21,15 @@ int	ft_cmd_no_builtin(t_mini *ms)
 		ms->args[0][0] != '/')
 	{
 		ms->exit = 1;
-		exit (ft_error(ms, 23, ms->args[0]));
+		exit(ft_error(ms, 23, ms->args[0]));
 	}
 	output = execve(ms->args[0], ms->args, ms->envp);
 	if (output == -1)
 	{
+		ft_free_ms(ms);
+		ft_free_fds(ms);
 		ms->exit = 1;
-		perror(ms->args[1]);
-		exit (ft_error(ms, 23, ms->args[0]));
+		exit(ft_error(ms, 23, ms->args[0]));
 	}
 	return (0);
 }
@@ -36,33 +37,22 @@ int	ft_cmd_no_builtin(t_mini *ms)
 void	ft_parent(t_mini *ms)
 {
 	int	output;
-	int	exits;
-	int	signals;
-
-	while (waitpid(-1, &output, 0) != -1)
+	int pid;
+	pid = 0;
+	while (pid != -1)
 	{
+		pid = waitpid(-1, &output, 0);
+		if (pid == g_id)
+		{
+			if (WIFSIGNALED(output) && WTERMSIG(output) == 2)
+				ms->exit_status = 130;
+			else if (WIFSIGNALED(output) && WTERMSIG(output) == 3)
+			{
+				printf("Quit: 3\n");
+				ms->exit_status = 131;
+			}
+			else
+				ms->exit_status = WEXITSTATUS(output);
+		}
 	}
-	/*
-	exits = WEXITSTATUS(output);
-	signals = WTERMSIG(output);
-	printf("%d\n", exits);
-	printf("%d\n", signals);
-	if (exits == -2)
-	{
-		printf("^/Quit: 3\n");
-		ms->exit_status = 131;
-	}
-*/
-	if (WIFSIGNALED(output) && WTERMSIG(output) == 2)
-	{
-		ms->exit_status = 130;
-		//printf("^C\n");
-	}
-	else if (WIFSIGNALED(output) && WTERMSIG(output) == 3)
-	{
-		ms->exit_status = 131;
-		printf("^\\Quit: 3\n");
-	}
-	else
-		ms->exit_status = WEXITSTATUS(output);
 }

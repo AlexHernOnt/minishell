@@ -43,23 +43,33 @@ void	ft_ctrl(int sig)
 			rl_replace_line("", 0);
 			rl_redisplay();
 		}
+		else
+		{
+			printf("\n");
+			kill(g_id, SIGINT);
+		}
 	}
-	else
+	if (sig == 3)
 	{
-		write(2, "^C", 2);
-		kill(g_id, SIGINT);
-	}
-	if (sig == 3 && g_id != -1)
+		write(2, "^\\", 2);
 		kill(g_id, SIGQUIT);
+	}
 }
 
 /* Sets the termios c_lflag to not echoctrl so that ^C is not printed*/
 
-void	ft_set_tc(void)
+void	ft_set_tc(t_tcattr terminal, int reset)
 {
-	struct termios	attr;
+	if (reset)
+		tcsetattr(STDIN_FILENO, TCSANOW, &terminal.original);
+	else
+		tcsetattr(STDIN_FILENO, TCSANOW, &terminal.ctrl_c);
+}
 
-	tcgetattr(STDIN_FILENO, &attr);
-	attr.c_lflag = ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &attr);
+struct termios	ft_tc_config(t_tcattr terminal)
+{
+	struct termios new;
+	new = terminal.original;
+	new.c_lflag = ~ECHOCTL;
+	return(new);
 }
