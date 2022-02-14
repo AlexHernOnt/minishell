@@ -108,6 +108,7 @@ void			ft_free_list(t_mini *ms);
 int				ft_single_cmd(t_mini *ms);
 int				ft_exe_2(t_mini *ms);
 int				builtins_hub(t_mini *ms, int i, int lock);
+int				ft_built_in(t_mini *ms);
 
 /*
 **				ft_exe

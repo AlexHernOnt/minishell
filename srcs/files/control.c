@@ -6,7 +6,7 @@
 /*   By: amorion- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 09:25:17 by amorion-          #+#    #+#             */
-/*   Updated: 2021/12/28 17:06:41 by ahernand         ###   ########.fr       */
+/*   Updated: 2022/02/14 13:27:51 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	ft_ctrld(char *aux)
 	{
 		printf("exit\n");
 		free(aux);
+
 		return (1);
 	}
 	return (0);

@@ -62,7 +62,6 @@ int	ft_organizer(t_mini *ms)
 			i = 0;
 			ft_free_ms(ms);
 			ft_free_fds(ms);
-			ft_free_ms_envp(ms);
 			ms->exit = 1;
 			return (-1);
 		}

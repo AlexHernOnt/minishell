@@ -6,7 +6,7 @@
 /*   By: ahernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:57:51 by ahernand          #+#    #+#             */
-/*   Updated: 2022/01/29 11:38:38 by ahernand         ###   ########.fr       */
+/*   Updated: 2022/02/14 13:38:16 by ahernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,27 @@ void	ft_process_line(t_mini *ms, char *aux)
 	i = 0;
 	lock = 0;
 	ms->list = ft_parse(aux, ms);
-	ft_print_list(ms);
-	ft_leaks();
+//	ft_print_list(ms);
+//	ft_leaks();
 	if (ms->list)
 	{
-		if (ft_single_cmd(ms) == 0)
+		if (ft_single_cmd(ms) == 0 && ft_built_in(ms))
 		{
 			if (builtins_hub(ms, i, lock) < 0)
-			{
-				if (ft_organizer(ms) < 0)
-					ms->exit_status = 127;
-			}
+				ms->exit_status = 127;
 		}
 		else if (ft_organizer(ms) < 0)
 		{
 		}
 		ft_free_list(ms);
-		ft_leaks();
+//		ft_leaks();
 	}
 	ft_reinit(ms);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	atexit(ft_leaks);
+//	atexit(ft_leaks);
 	char		*aux;
 	t_mini		ms;
 	t_tcattr	terminal;

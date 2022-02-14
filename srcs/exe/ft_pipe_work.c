@@ -17,6 +17,7 @@ void	ft_close_all_fd(t_mini *ms)
 	int	i;
 
 	i = 0;
+	ms->in_cs = 0;
 	while (ms->pipes_fds[i] != NULL)
 	{
 		close(ms->pipes_fds[i][0]);
