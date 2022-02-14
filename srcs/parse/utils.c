@@ -41,7 +41,7 @@ int	ft_is_var(char *element)
 	int	dc;
 
 	i = 0;
-	dc = -1; 
+	dc = -1;
 	while (element[i])
 	{
 		if (element[i] == '\"')
@@ -73,10 +73,10 @@ int	ft_only_spaces(char *aux)
 
 int	ft_pipe_sintax(t_line *pip, t_line *line)
 {
-	t_line *ptr;
+	t_line	*ptr;
 
 	ptr = line;
-	while(ptr->next != pip)
+	while (ptr->next != pip)
 		ptr = ptr->next;
-	return(ft_is_operator(ptr) || pip->content[1] || !pip->next);
+	return (ft_is_operator(ptr) || pip->content[1] || !pip->next);
 }

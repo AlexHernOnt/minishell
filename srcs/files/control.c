@@ -66,10 +66,22 @@ void	ft_set_tc(t_tcattr terminal, int reset)
 		tcsetattr(STDIN_FILENO, TCSANOW, &terminal.ctrl_c);
 }
 
-struct termios	ft_tc_config(t_tcattr terminal)
+/*Sets terminal configuration */
+
+t_tcattr	ft_tc_config(void)
 {
-	struct termios new;
-	new = terminal.original;
-	new.c_lflag = ~ECHOCTL;
-	return(new);
+	t_tcattr	tc;
+
+	tcgetattr(STDIN_FILENO, &tc.original);
+	tc.ctrl_c = tc.original;
+	tc.ctrl_c.c_lflag = ~ECHOCTL;
+	return (tc);
+}
+
+/* To set the signals and terminal in interaactive mode*/
+void	ft_signals(t_tcattr terminal)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, ft_ctrl);
+	ft_set_tc(terminal, 0);
 }

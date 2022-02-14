@@ -60,9 +60,9 @@ int	ft_exe(t_mini *ms)
 
 int	ft_exe_exit(t_mini *ms)
 {
-	if (!ms->args[1] || (ms->args[1] && !ms->args[2]))
+	printf("exit\n");
+	if (!ms->args[1] || !ft_numeric(ms->args[1]) || (ms->args[1] && !ms->args[2]))
 	{
-		printf("exit\n");
 		ms->exit = 1;
 		if (ms->args[1] && ft_numeric(ms->args[1]))
 			ms->exit_status = ft_atoi(ms->args[1]);

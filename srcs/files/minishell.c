@@ -16,7 +16,6 @@ void	ft_leaks(void)
 {
 	system("leaks minishell");
 }
-//	atexit(ft_leaks);
 //	ft_print_list(ms);
 
 void	ft_reinit(t_mini *ms)
@@ -35,6 +34,8 @@ void	ft_process_line(t_mini *ms, char *aux)
 	i = 0;
 	lock = 0;
 	ms->list = ft_parse(aux, ms);
+	ft_print_list(ms);
+	ft_leaks();
 	if (ms->list)
 	{
 		if (ft_single_cmd(ms) == 0)
@@ -49,27 +50,25 @@ void	ft_process_line(t_mini *ms, char *aux)
 		{
 		}
 		ft_free_list(ms);
+		ft_leaks();
 	}
 	ft_reinit(ms);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
+	atexit(ft_leaks);
 	char		*aux;
 	t_mini		ms;
 	t_tcattr	terminal;
 
-	if (argc < 1 || argv[0] == NULL)
-		return (1);
-	tcgetattr(STDIN_FILENO, &terminal.original);
-	terminal.ctrl_c = ft_tc_config(terminal);
+	argc = *argv[0];
+	terminal = ft_tc_config();
 	ft_init(&ms, envp);
 	while (ms.exit == 0)
 	{
 		g_id = -1;
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, ft_ctrl);
-		ft_set_tc(terminal, 0);
+		ft_signals(terminal);
 		aux = readline("minishell$ ");
 		ft_set_tc(terminal, 1);
 		if (ft_ctrld(aux))
@@ -80,6 +79,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(aux);
 		}
 		free(aux);
+		//ft_leaks();
 	}
 	rl_clear_history();
 	ft_free_ms_envp(&ms);

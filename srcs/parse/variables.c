@@ -120,7 +120,9 @@ void	ft_expansor(t_line *line, t_mini *ms)
 	while (ptr)
 	{
 		while (ft_is_var(ptr->content))
+		{
 			ptr->content = ft_expand(ptr->content, ms);
+		}
 		ptr = ptr->next;
 	}
 }

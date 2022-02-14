@@ -38,7 +38,8 @@ int	ft_cmd_no_builtin(t_mini *ms)
 void	ft_parent(t_mini *ms)
 {
 	int	output;
-	int pid;
+	int	pid;
+
 	pid = 0;
 	while (pid != -1)
 	{
