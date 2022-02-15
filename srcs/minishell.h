@@ -257,6 +257,6 @@ int				ft_ctrld(char *aux);
 */
 
 t_tcattr		ft_tc_config(void);
-void			ft_set_tc(t_tcattr attr, int);
+void			ft_set_tc(t_tcattr attr, int reset);
 void			ft_signals(t_tcattr terminal);
 #endif

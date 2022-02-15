@@ -84,6 +84,17 @@ int	ft_exe_2(t_mini *ms)
 	return (1);
 }
 
+void	ft_clear_here(t_mini *ms)
+{
+	ms->where_was_i = 0;
+	dup2(ms->o_stdin, 0);
+	dup2(ms->o_stdout, 1);
+	ms->n_out_max = 0;
+	ms->n_out_cur = 0;
+	ms->n_in_cur = 0;
+	ms->n_in_max = 0;
+}
+
 int	builtins_hub(t_mini *ms, int i, int lock)
 {
 	t_line	*ptr;
@@ -108,6 +119,6 @@ int	builtins_hub(t_mini *ms, int i, int lock)
 		}
 		ft_free_ms(ms);
 	}
-	ft_clear_for_next_line(ms);
+	ft_clear_here(ms);
 	return (1);
 }

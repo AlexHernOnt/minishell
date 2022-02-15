@@ -17,6 +17,7 @@ void	ft_leaks(void)
 	system("leaks minishell");
 }
 //	ft_print_list(ms);
+//	atexit(ft_leaks);
 
 void	ft_reinit(t_mini *ms)
 {
@@ -55,7 +56,6 @@ int	main(int argc, char **argv, char **envp)
 	t_mini		ms;
 	t_tcattr	terminal;
 
-	atexit(ft_leaks);
 	argc = *argv[0];
 	terminal = ft_tc_config();
 	ft_init(&ms, envp);

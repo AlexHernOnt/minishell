@@ -17,14 +17,12 @@ void	ft_free_ms(t_mini *ms)
 	int	i;
 
 	i = 0;
-	while (ms->args && ms->args[i] != NULL)
+	while (ms->args[i] != NULL)
 	{
-		if (ms->args[i])
-			free(ms->args[i]);
+		free(ms->args[i]);
 		i++;
 	}
-	if (ms->args != NULL)
-		free(ms->args);
+	free(ms->args);
 }
 
 void	ft_free_ms_envp(t_mini *ms)
@@ -35,11 +33,9 @@ void	ft_free_ms_envp(t_mini *ms)
 	while (ms->envp[i] != NULL)
 	{
 		free(ms->envp[i]);
-		ms->envp[i] = NULL;
 		i++;
 	}
 	free(ms->envp);
-	ms->envp = NULL;
 }
 
 void	ft_free_list(t_mini *ms)
@@ -78,12 +74,10 @@ void	ft_free_fds(t_mini *ms)
 	int	i;
 
 	i = 0;
-	while (ms->pipes_fds && ms->pipes_fds[i] != NULL)
+	while (ms->pipes_fds[i] != NULL)
 	{
 		free(ms->pipes_fds[i]);
 		i++;
 	}
-	if (ms->pipes_fds)
-		free(ms->pipes_fds);
-	ms->pipes_fds = NULL;
+	free(ms->pipes_fds);
 }
