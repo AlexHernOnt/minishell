@@ -47,7 +47,8 @@ SRCS =	srcs/builtins/ft_echo.c			\
 		srcs/parse/quotes.c				\
 		srcs/parse/variables.c			\
 		srcs/parse/utils.c				\
-		srcs/parse/scape.c
+		srcs/parse/scape.c				\
+		srcs/parse/free_parse.c			\
 
 SRCS2 = srcs/files/minishell.c
 
@@ -68,10 +69,10 @@ $(NAME): $(OBJS) $(OBJS2) $(LIBFT)
 
 clean:
 	rm -f $(OBJS) srcs/files/minishell.o
-	rm -f $(NAME)
 
 fclean:
 	make clean
+	rm -f $(NAME)
 	cd srcs/libft && make fclean
 	rm -f srcs/libft/libft.a
 

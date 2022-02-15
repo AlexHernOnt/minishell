@@ -65,14 +65,13 @@ char	*ft_other_variable(t_mini *ms, char *aux, char *content, int i)
 	aux[n] = 0;
 	aux2 = ft_getenv(aux, ms);
 	free(aux);
-	free(new);
 	if (aux2)
-	{
-		new = ft_strjoin(new, aux2);
-		free(aux2);
-	}
-	new = ft_strjoin(new, &content[i + n]);
-	free(content);
+		aux = ft_strjoin(new, aux2);
+	else
+		aux = ft_strdup(new);
+	free(new);
+	new = ft_strjoin(aux, &content[i + n]);
+	ft_free_var(aux2, aux, content);
 	return (new);
 }
 

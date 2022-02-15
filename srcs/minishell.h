@@ -125,6 +125,7 @@ void			ft_redir_clean(t_mini *ms);
 
 int				ft_cmd_no_builtin(t_mini *ms);
 void			ft_parent(t_mini *ms);
+int				ft_child(t_mini *ms, t_line *ptr, int i);
 
 /*
 **				ft_organizer
@@ -136,6 +137,7 @@ int				ft_alloc_args(t_mini *ms, int i);
 void			ft_clear_for_next_line(t_mini *ms);
 void			ft_clear_next_segment(t_mini *ms);
 void			ft_clear_for_next_line(t_mini *ms);
+int				ft_in_fork(t_mini *ms, t_line **ptr, int *i);
 
 /*
 **				ft_collect_info_line
@@ -211,6 +213,7 @@ void			ft_free_ms_envp(t_mini *ms);
 void			ft_free_ms(t_mini *ms);
 void			ft_free_line(t_line **line);
 void			ft_free_fds(t_mini *ms);
+void			ft_free_var(char *aux2, char *aux, char *content);
 
 /*
 **				B U I L T   I N S

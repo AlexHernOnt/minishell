@@ -34,8 +34,6 @@ void	ft_process_line(t_mini *ms, char *aux)
 	i = 0;
 	lock = 0;
 	ms->list = ft_parse(aux, ms);
-//	ft_print_list(ms);
-//	ft_leaks();
 	if (ms->list)
 	{
 		if (ft_single_cmd(ms) == 0 && ft_built_in(ms))
@@ -47,18 +45,17 @@ void	ft_process_line(t_mini *ms, char *aux)
 		{
 		}
 		ft_free_list(ms);
-//		ft_leaks();
 	}
 	ft_reinit(ms);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-//	atexit(ft_leaks);
 	char		*aux;
 	t_mini		ms;
 	t_tcattr	terminal;
 
+	atexit(ft_leaks);
 	argc = *argv[0];
 	terminal = ft_tc_config();
 	ft_init(&ms, envp);
@@ -76,7 +73,6 @@ int	main(int argc, char **argv, char **envp)
 			add_history(aux);
 		}
 		free(aux);
-		//ft_leaks();
 	}
 	rl_clear_history();
 	ft_free_ms_envp(&ms);

@@ -58,3 +58,14 @@ void	ft_parent(t_mini *ms)
 		}
 	}
 }
+
+int	ft_child(t_mini *ms, t_line *ptr, int i)
+{
+	if (ft_in_fork(ms, &ptr, &i) < 0)
+		return (-1);
+	i = 0;
+	ft_free_ms(ms);
+	ft_free_fds(ms);
+	ms->exit = 1;
+	return (-1);
+}

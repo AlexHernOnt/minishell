@@ -23,14 +23,14 @@ int	ft_built_in(t_mini *ms)
 	}
 	if (lst != NULL && lst->type == 3)
 	{
-		if ((ft_memcmp(lst->content, "echo", 4) == 0 && lst->content[4] == '\0')
-			|| (ft_memcmp(lst->content, "cd", 2) == 0 && lst->content[2] == '\0')
-			|| (ft_memcmp(lst->content, "pwd", 3) == 0 && lst->content[3] == '\0')
-			|| (ft_memcmp(lst->content, "env", 3) == 0 && lst->content[3] == '\0')
-			|| (ft_memcmp(lst->content, "export", 6) == 0 && lst->content[6] == '\0')
-			|| (ft_memcmp(lst->content, "unset", 5) == 0 && lst->content[5] == '\0')
-			|| (ft_memcmp(lst->content, "exit", 4) == 0 && lst->content[4] == '\0'))
-			return(1);
+		if ((!ft_memcmp(lst->content, "echo", 4) && !lst->content[4])
+			|| (!ft_memcmp(lst->content, "cd", 2) && !lst->content[2])
+			|| (!ft_memcmp(lst->content, "pwd", 3) && !lst->content[3])
+			|| (!ft_memcmp(lst->content, "env", 3) && !lst->content[3])
+			|| (!ft_memcmp(lst->content, "export", 6) && !lst->content[6])
+			|| (!ft_memcmp(lst->content, "unset", 5) && !lst->content[5])
+			|| (!ft_memcmp(lst->content, "exit", 4) && !lst->content[4]))
+			return (1);
 		else
 			return (0);
 	}

@@ -57,13 +57,7 @@ int	ft_organizer(t_mini *ms)
 		if (g_id == 0)
 		{
 			signal(SIGQUIT, ft_ctrl);
-			if (ft_in_fork(ms, &ptr, &i) < 0)
-				return (-1);
-			i = 0;
-			ft_free_ms(ms);
-			ft_free_fds(ms);
-			ms->exit = 1;
-			return (-1);
+			return (ft_child (ms, ptr, i));
 		}
 		ft_next_pipe(ms, &ptr);
 	}
@@ -72,6 +66,14 @@ int	ft_organizer(t_mini *ms)
 	ft_clear_for_next_line(ms);
 	return (1);
 }
+
+			/*if (ft_in_fork(ms, &ptr, &i) < 0)
+				return (-1);
+			i = 0;
+			ft_free_ms(ms);
+			ft_free_fds(ms);
+			ms->exit = 1;
+			return (-1);*/
 
 int	ft_pre_args(t_mini *ms, t_line **ptr)
 {

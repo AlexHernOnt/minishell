@@ -22,7 +22,6 @@ int	ft_ctrld(char *aux)
 	{
 		printf("exit\n");
 		free(aux);
-
 		return (1);
 	}
 	return (0);
