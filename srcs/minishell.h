@@ -70,6 +70,7 @@ typedef struct s_mini
 	int				**pipes_fds;
 
 	int				exit;
+	int				single;
 
 	int				where_was_i;
 	t_line			*list;

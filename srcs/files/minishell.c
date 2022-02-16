@@ -39,6 +39,7 @@ void	ft_process_line(t_mini *ms, char *aux)
 	{
 		if (ft_single_cmd(ms) == 0 && ft_built_in(ms))
 		{
+			ms->single = 1;
 			if (builtins_hub(ms, i, lock) < 0)
 				ms->exit_status = 127;
 		}
@@ -88,6 +89,7 @@ void	ft_init(t_mini *ms, char **envp)
 {
 	ms->envp = ft_strdup_envp(envp);
 	ms->exit = 0;
+	ms->single = 0;
 	ms->where_was_i = 0;
 	ms->red_in = 0;
 	ms->red_out = 0;
