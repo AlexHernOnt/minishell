@@ -48,7 +48,10 @@ int	ft_error(t_mini *ms, int code, char *arg)
 	ft_error_extra(code, arg);
 	if (code == 23)
 	{
-		printf("-minishell: %s: Command not found\n", arg);
+		if (arg[0] != '/' && arg[0] != '.')
+			printf("-minishell: %s: Command not found\n", arg);
+		else
+			printf("-minishell: %s: No such file or directory\n", arg);
 		return (127);
 	}
 	if (code == 255)

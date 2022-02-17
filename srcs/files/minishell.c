@@ -16,8 +16,8 @@ void	ft_leaks(void)
 {
 	system("leaks minishell");
 }
-//	ft_print_list(ms);
 //	atexit(ft_leaks);
+//	ft_print_list(ms);
 
 void	ft_reinit(t_mini *ms)
 {

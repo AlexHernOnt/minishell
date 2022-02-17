@@ -109,13 +109,12 @@ char	*ft_path(char **envp, char **a)
 	else
 		new = ft_strdup(a[0]);
 	while (list_paths[i] != NULL)
-	{
-		free(list_paths[i]);
-		i++;
-	}
+		free(list_paths[i++]);
 	free(list_paths);
-	if (new == NULL)
-		return (a[0]);
-	free(a[0]);
-	return (new);
+	if (new)
+	{
+		free(a[0]);
+		return (new);
+	}
+	return (a[0]);
 }
