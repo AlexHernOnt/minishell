@@ -16,11 +16,12 @@ void	ft_leaks(void)
 {
 	system("leaks minishell");
 }
-//	atexit(ft_leaks);
 //	ft_print_list(ms);
+//	atexit(ft_leaks);
 
 void	ft_reinit(t_mini *ms)
 {
+	ms->single = 0;
 	ms->n_in_max = 0;
 	ms->red_in = 0;
 	ms->red_out = 0;

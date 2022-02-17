@@ -37,7 +37,7 @@ int	ft_directions(t_mini *ms)
 	{
 		ms->fd_file_in = open(ms->in_file, O_RDWR, 0777);
 		if (ms->fd_file_in < 0)
-			return(ft_error(ms, 201, ms->infie));
+			return(ft_error(ms, 201, ms->in_file));
 			dup2(ms->fd_file_in, 0);
 	}
 	return (1);

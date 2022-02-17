@@ -43,6 +43,21 @@ int	ft_in_fork(t_mini *ms, t_line **ptr, int *i)
 	return (1);
 }
 
+int	ft_child(t_mini *ms, t_line *ptr, int i)
+{
+	if (ft_in_fork(ms, &ptr, &i) < 0)
+	{
+		close(ms->pipes_fds[ms->pipe_to_use - 1][0]);
+		close(ms->pipes_fds[ms->pipe_to_use][1]);
+		return (-1);
+	}
+	i = 0;
+	ft_free_ms(ms);
+	ft_free_fds(ms);
+	ms->exit = 1;
+	return (-1);
+}
+
 int	ft_organizer(t_mini *ms)
 {
 	t_line	*ptr;
@@ -108,20 +123,4 @@ int	ft_alloc_args(t_mini *ms, int i)
 		j++;
 	}
 	return (1);
-}
-
-void	ft_clear_for_next_line(t_mini *ms)
-{
-	ft_free_fds(ms);
-	ms->pipe_to_use = 0;
-	ms->p_first = 1;
-	ms->where_was_i = 0;
-	dup2(ms->o_stdin, 0);
-	dup2(ms->o_stdout, 1);
-	ms->pipe = 0;
-	ms->p_last = 0;
-	ms->n_out_max = 0;
-	ms->n_out_cur = 0;
-	ms->n_in_cur = 0;
-	ms->n_in_max = 0;
 }
