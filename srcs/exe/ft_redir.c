@@ -31,7 +31,7 @@ int	file_in(t_mini *ms, t_line *ptr)
 		{
 			fd = open(ptr->content, O_RDWR, 0777);
 			if (fd == -1)
-				return (ft_error(ms, 201, ptr->content));
+				exit(ft_error(ms, 201, ptr->content) || 1);
 			close(fd);
 			i++;
 		}

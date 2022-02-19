@@ -27,10 +27,6 @@ int	ft_cmd_no_builtin(t_mini *ms)
 	if (output == -1)
 	{
 		output = ft_error(ms, 23, ms->args[0]);
-		ft_free_ms(ms);
-		ft_free_fds(ms);
-		ft_free_ms_envp(ms);
-		ms->exit = 1;
 		exit(output);
 	}
 	return (0);

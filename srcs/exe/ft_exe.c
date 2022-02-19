@@ -77,7 +77,7 @@ int	ft_exe_exit(t_mini *ms)
 	}
 	else
 		ms->exit_status = ft_error(ms, 1, "exit");
-	return (0);
+	exit(ms->exit_status);
 }
 
 void	ft_fd_clean(t_mini *ms)

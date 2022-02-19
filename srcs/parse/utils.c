@@ -27,8 +27,8 @@ int	ft_ispace(char *line)
 /* Returns 1 if an operator is found*/
 int	ft_is_operator(t_line *ptr)
 {
-	if (ptr->content[0] == '<' || ptr->content[0] == '>'
-		|| ptr->content[0] == '|')
+	if (ptr && (ptr->content[0] == '<' || ptr->content[0] == '>'
+			|| ptr->content[0] == '|'))
 		return (1);
 	return (0);
 }
@@ -76,7 +76,9 @@ int	ft_pipe_sintax(t_line *pip, t_line *line)
 	t_line	*ptr;
 
 	ptr = line;
-	while (ptr->next != pip)
+	while (ptr && ptr->next != pip)
+	{
 		ptr = ptr->next;
+	}
 	return (ft_is_operator(ptr) || pip->content[1] || !pip->next);
 }
